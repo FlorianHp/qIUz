@@ -1,0 +1,129 @@
+div.search {
+  display: grid;
+  position: relative;
+  margin-bottom: 4rem;
+  isolation: isolate;
+  z-index: 10
+}
+
+div.search>form {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+  z-index: 1
+}
+
+div.search>form:before {
+  content: "";
+  display: inline-block;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  border: solid currentColor 2px;
+  border-color: currentColor transparent currentColor transparent;
+  animation: rotate calc(var(--duration-animation) * 2) linear infinite;
+  pointer-events: none;
+  position: absolute;
+  top: calc(1rem - 2px);
+  left: calc(1rem - 2px);
+  transition: opacity var(--duration-transition), visibility 0s var(--duration-transition);
+  z-index: 1;
+  visibility: hidden;
+}
+
+div.search>form.--loading:before {
+  opacity: 1;
+  transition: opacity var(--duration-transition), visibility 0s 0s;
+  visibility: visible;
+}
+
+div.search>form input {
+  background: var(--block-area-color);
+  -webkit-backdrop-filter: blur(5px);
+  backdrop-filter: blur(5px);
+  padding: 2rem 4rem;
+  width: 100%;
+  color: currentColor;
+}
+
+div.search > form button[type="reset"] {
+  background: none;
+  height: 4rem;
+  line-height: 4rem;
+  width: 4rem;
+  cursor: pointer;
+  text-align: center;
+  padding: 0;
+  border: none;
+  opacity: 1;
+  transition: opacity 0.5s;
+}
+
+div.search > form input:placeholder-shown + * + span .xmark-solid {
+  opacity: 0
+}
+
+div.search>form i.icon.magnifying-glass-solid {
+  position: absolute;
+  text-align: center;
+  height: 4rem;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  aspect-ratio: 1;
+  display: flex;
+  place-content: center;
+  place-items: center
+}
+
+div.search>form>span {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  height: 4rem;
+  top: 0;
+  display: flex
+}
+
+div.search>form>span i,
+div.search>form>span span {
+  cursor: pointer;
+  aspect-ratio: 1;
+  line-height: 4rem;
+  text-align: center
+}
+
+div.search>form>span i.icon.sliders-solid,
+div.search>form>span span.icon.sliders-solid {
+  transition: transform var(--duration-transition);
+  transform: translate(-2rem)
+}
+
+div.search>form>span i.icon.sliders-solid[data-count="0"],
+div.search>form>span span.icon.sliders-solid[data-count="0"] {
+  transform: translate(0)
+}
+
+div.search>form>span i.magnifying-glass-solid,
+div.search>form>span span.magnifying-glass-solid {
+  left: 0;
+  right: unset;
+  pointer-events: none
+}
+
+div.search>form>span>span {
+  aspect-ratio: unset;
+  width: 0;
+  overflow: visible;
+  white-space: nowrap;
+  transform: translate(-3rem);
+  transition: opacity var(--duration-transition)
+}
+
+div.search>form>span>span[data-count="0"] {
+  opacity: 0
+}
+
+div.search>form>span>span:after {
+  content: attr(data-count)
+}

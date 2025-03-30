@@ -1,0 +1,14 @@
+div.faq {
+  display : grid;
+  gap     : 1rem;  
+
+  .search {
+    max-width : var(--_max-width); 
+  }
+
+  
+}
+
+div.faq.--loading .faq--category {
+  opacity: 0;
+}

@@ -1,0 +1,117 @@
+details.faq--question {
+  position: relative;
+  transition: height var(--duration-transition), outline var(--duration-transition);
+  will-change: height, border;
+  background: var(--block-area-color);
+  border-radius: var(--border-min-radius);
+  line-height: 1.4;
+}
+
+details.faq--question summary {
+  list-style: none;
+  padding: 1.5rem;
+  cursor: pointer;
+}
+
+details.faq--question > div {
+  padding: 1.5rem;
+  margin: 0;
+}
+
+details.faq--question summary::marker {
+  display: none;
+}
+
+details.faq--question h3 {
+  font-size: 1.25rem;
+  font-weight: 400;
+  padding-right: 4rem;
+  margin: 0;
+}
+
+details.faq--question h3 i.icon {
+  position: absolute;
+  right: 0;
+  top: 0;
+  padding: 1.5rem;
+  margin: auto;
+  display: flex;
+  align-items: center;
+  transform: rotate(90deg);
+  transition: transform var(--duration-transition), color var(--duration-transition);
+  will-change: color, transform
+}
+
+details.faq--question[open] h3 i.icon {
+  transform: rotate(0)
+}
+
+details.faq--question > div {
+  max-width: 1000px;
+  font-weight: 500;
+}
+
+details.faq--question>div>*:first-child {
+  margin-top: 0
+}
+
+details.faq--question>div>*:last-child {
+  margin-bottom: 0
+}
+
+details.faq--question>div p {
+  margin: 2em 0 1em
+}
+
+details.faq--question>div ol,
+details.faq--question>div ul {
+  margin: 1rem;
+  padding-left: 1rem
+}
+
+details.faq--question>div table {
+  margin: 2rem 0
+}
+
+details.faq--question>div table tr th,
+details.faq--question>div table tr td {
+  text-align: left;
+  padding: .25rem .5rem
+}
+
+details.faq--question>div table tr th:first-child,
+details.faq--question>div table tr td:first-child {
+  padding-left: 0
+}
+
+details.faq--question>div table tr th:last-child,
+details.faq--question>div table tr td:last-child {
+  padding-right: 0
+}
+
+details.faq--question>div img,
+details.faq--question>div iframe {
+  max-height: 500px;
+  display: block;
+  margin: 2rem 0;
+  border-radius: var(--border-min-radius);
+  max-width: 100%;
+  transition: opacity 0.5s;
+}
+
+details.faq--question>div img[hidden] {
+  display: block;
+  opacity: 0;
+}
+
+details.faq--question>div img:last-child,
+details.faq--question>div iframe:last-child {
+  margin-bottom: 0
+}
+
+details.faq--question>div iframe {
+  border: none;
+  outline: none;
+  width: 100%;
+  aspect-ratio: 16/9
+}

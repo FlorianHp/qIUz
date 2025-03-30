@@ -1,0 +1,48 @@
+div.search-filter {
+  position: absolute;
+  top: 4rem;
+  left: 0;
+  right: 0;
+  background: rgba(var(--block-background-r), var(--block-background-g), var(--block-background-b), 1);
+  padding: 4rem;
+  min-height: 10rem;
+  box-shadow: var(--block-shadow);
+  border-radius: var(--border-min-radius);
+  z-index: 2;
+  display: grid;
+  gap: 1rem;
+  transform: translateY(-1rem);
+  opacity: 0;
+  visibility: hidden;
+  transition: transform var(--duration-transition), opacity var(--duration-transition), visibility 0s var(--duration-transition)
+}
+
+@media (max-width: 600px) and (orientation: portrait) {
+  div.search-filter {
+    padding: 1.5rem
+  }
+}
+
+div.search-filter.--shown {
+  transform: translateY(0);
+  opacity: 1;
+  visibility: visible;
+  transition: transform var(--duration-transition), opacity var(--duration-transition), visibility 0s 0s
+}
+
+div.search-filter h3 {
+  margin: 0;
+  font-weight: 400
+}
+
+div.search-filter div {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  margin-bottom: 2rem;
+  gap: .5rem
+}
+
+div.search-filter div:last-child {
+  margin: 0
+}

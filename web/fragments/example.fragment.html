@@ -1,0 +1,63 @@
+
+
+
+<label>Page: {{ @path }}</label><br>
+<label>Query: {{ @query.test }}</label><br> <!-- /example?test=1337 -->
+
+
+<style>
+  select {
+
+  }
+
+  select option {
+    background: green;
+  }
+</style>
+
+<form>
+  <select size="9">
+    <option>A</option>
+    <option>B</option>
+  </select>
+</form>
+<!--
+<br>
+<label>12 x 2 * 2 in der Pipe</label>
+<pre>{{ 12 | pipe | pipe }}</pre>
+<br>
+
+<label>Prop eines Objekts</label>
+<pre>{{ prop.text }}</pre>
+<br>
+
+<label>List: ALLE Geschlechter</label>
+<bq:for each="list">
+  <pre>{{ @i }} {{ @v }}</pre>
+</bq:for>
+<br>
+
+<label>Show: Random mal da, mal nicht</label>
+<bq:show when="bool">
+  <pre>Bin da!</pre>
+</bq:show>
+
+<label>List: obj.list</label>
+<bq:for each="obj.list">
+  <pre>{{ @i }} {{ @v }}</pre>
+  <bq:show when="@v > 1">
+    <pre>Bin da!</pre>
+  </bq:show>
+</bq:for>
+<br>
+
+<label>Show: obj.bool</label>
+<bq:show when="!obj.bool">
+  <pre>Bin da!</pre>
+</bq:show>
+
+<label>Show: 12 x 2 in der Pipe > 20</label>
+<bq:show when="12 | pipe > 20">
+  <pre>Bin da!</pre>
+</bq:show>
+-->

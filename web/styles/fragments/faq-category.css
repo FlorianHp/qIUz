@@ -1,0 +1,44 @@
+div.faq--category {
+  display: grid;
+  gap: 1rem;
+  width: 100%;
+  max-width: var(--_max-width);
+  margin-bottom: 4rem;
+  transition: opacity 0.5s;
+}
+
+div.faq--category > h2 {
+  font-size: 1.5rem;
+  margin: -1rem -4rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  display: flex;
+  gap: 1rem;
+  padding: 1.5rem 5.5rem 1.5rem 4rem;
+  position: sticky;
+  position: -webkit-sticky;
+  top: calc(var(--header-size) - 1px);
+  z-index: 1;
+  background: var(--page-background);
+  color: var(--color-primary);
+  line-height: 1;
+  color: #fff
+}
+
+@media (max-width: 600px) and (orientation: portrait) {
+  div.faq--category h2 {
+    padding: 1.5rem;
+    width: 100vw;
+    margin: 0 -1.5rem
+  }
+}
+
+div.faq--category h2 span {
+  flex: 1
+}
+
+div.faq--category h2 i {
+  border-radius: 50%;
+  font-style: normal;
+  text-align: right
+}

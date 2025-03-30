@@ -1,0 +1,42 @@
+section.head-section {
+  z-index: 1;
+  isolation: isolate
+}
+
+section.head-section:before {
+  content: "";
+  z-index: -1;
+  display: block;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  opacity: .75;
+  background: linear-gradient(135deg, rgba(0, 0, 0, .8) 0%, rgba(0, 0, 0, .65) 75%, var(--color-primary) 100%)
+}
+
+section.head-section a,
+section.head-section p,
+section.head-section h1,
+section.head-section h2,
+section.head-section input,
+section.head-section i {
+  color: #fff
+}
+
+section.head-section .search .search--categories>.search--category {
+  border-color: #000;
+  background: rgba(0, 0, 0, .75);
+  color: #fff
+}
+
+section.head-section .search .search--categories>.search--category input[type=checkbox]:checked + label {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+  color: #fff;
+}
+
+section.head-section .search input {
+  background: rgba(0, 0, 0, .75)
+}

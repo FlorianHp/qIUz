@@ -1,0 +1,105 @@
+
+
+a.help--section {
+  display: block;
+  overflow: hidden;
+  border-radius: var(--border-min-radius);
+  position: relative;
+  padding: 2rem;
+  color: #fff;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  width: 100%;
+  justify-content: center;
+  background: rgba(0, 0, 0, .5);
+  -webkit-backdrop-filter: blur(5px);
+  backdrop-filter: blur(5px);
+  box-shadow: var(--block-shadow);
+  gap: 1rem
+}
+
+a.help--section h2 {
+  flex: 1;
+  font-weight: 500
+}
+
+a.help--section h2,
+a.help--section i {
+  font-size: 1.5rem;
+  margin: 0;
+  line-height: 1
+}
+
+section.head-section {
+  z-index: 1;
+  isolation: isolate
+}
+
+section.head-section:before {
+  content: "";
+  z-index: -1;
+  display: block;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  opacity: .75;
+  background: linear-gradient(135deg, rgba(0, 0, 0, .8) 0%, rgba(0, 0, 0, .65) 75%, var(--color-primary) 100%)
+}
+
+
+div.help section.head-section>div.help--sections {
+  display: grid;
+  gap: 2rem;
+  justify-content: flex-start;
+  max-width: var(--_max-width);
+  grid-template-columns: 1fr 1fr 1fr;
+  margin: 1rem 0
+}
+
+@media (max-width: 600px) and (orientation: portrait) {
+  div.help section.head-section>div.help--sections {
+    grid-template-columns: 1fr
+  }
+}
+
+div.help section#warranty {
+  gap: 0;
+  isolation: isolate
+}
+
+div.help section#warranty:before {
+  content: "";
+  z-index: -1;
+  display: block;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  opacity: .4;
+  background: linear-gradient(135deg, rgba(0, 0, 0, .8) 0%, rgba(0, 0, 0, .65) 75%, var(--color-primary) 100%)
+}
+
+div.help section#warranty>div {
+  padding: 4rem;
+  background: rgba(255, 255, 255, .85);
+  border-radius: var(--border-radius);
+  box-shadow: var(--block-shadow);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  max-width: var(--_max-width);
+  background: rgba(33, 33, 33, .85);
+  color: #fff
+}
+
+@media (max-width: 600px) and (orientation: portrait) {
+  div.help section#warranty>div {
+    margin: -4rem -1.5rem;
+    padding: 3rem 1.5rem;
+    border-radius: 0
+  }
+}

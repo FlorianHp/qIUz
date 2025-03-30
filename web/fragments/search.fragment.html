@@ -1,0 +1,35 @@
+<div class="search">
+              
+  <form data-replace="{{ data-replace }}" data-select="{{ data-select }}" data-remove="{{ data-remove }}" data-append="{{ data-append }}">
+    <input value="{{ @query.q }}" data-trigger="input" data-delay="500" name="q" type="search" placeholder="{{ 'text_faq_def_search_field' | t }}">
+    
+    <i class="icon magnifying-glass-solid"></i>
+
+    <span>
+      <button name="q" type="reset" class="icon xmark-solid"></button>
+
+        <!--
+      <Show when={ props.advancedFilter }>
+        <i data-count={ filter().filter(e => typeof e != 'string').length } onClick={ () => showFilter(!showFilter()) } class="icon sliders-solid" />
+        <span data-count={ filter().filter(e => typeof e != 'string').length } onClick={ () => showFilter(!showFilter()) }>+ </span>
+      </Show>
+-->
+    </span>
+
+    <div class="search--categories">
+      
+      <bq:show when="categories">
+        <bq:for each="categories" as="category">
+          <input checked="{{ category.0.group | in:@query.cat }}" id="cat.{{ category.0.group }}" name="cat.{{ category.0.group }}" data-trigger="change" type="checkbox">
+          <label for="cat.{{ category.0.group }}" class="search--category">
+            <span>{{ category.0.category }}</span>
+            <strong data-sync="cat.{{ category.0.group }}">{{ category | length }}</strong>
+          </label>
+        </bq:for>
+      </bq:show>
+  
+    </div>
+    <bq:children></bq:children>
+  </form>
+
+</div>

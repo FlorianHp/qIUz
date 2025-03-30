@@ -1,0 +1,14 @@
+{
+  "name": "qiuz/webapp",
+  "description": "Lernplattform im Quizformat für Klausurvorbereitung",
+  "type": "project",
+  "require": {
+    "loilo/fuse": "^7.1"
+  },
+  "autoload": {
+    "psr-4": {}
+  },
+  "scripts": {
+    "start": "php -S localhost:8000 -t public"
+  }
+}

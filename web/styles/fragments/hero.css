@@ -1,0 +1,106 @@
+div.hero {
+  height: calc(100vh - 5rem);
+  height: calc(100svh - 5rem);
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  color: #fff
+}
+
+div.hero:before {
+  content: "";
+  background: linear-gradient(180deg, rgba(0, 0, 0, .75) 0%, rgba(0, 0, 0, 0) 90%, rgba(0, 0, 0, 0) 100%);
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  display: block;
+  height: 250px;
+  z-index: -1
+}
+
+div.hero:after {
+  display: block;
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  top: 0;
+  width: 50%;
+  z-index: -1;
+  background: linear-gradient(90deg, black 0%, rgba(0, 0, 0, 0) 100%)
+}
+
+div.hero>div {
+  display: grid;
+  align-items: center;
+  align-content: center;
+  height: 100%;
+  padding: 1rem 1rem 1rem var(--page-padding);
+  justify-content: center;
+  width: 50%;
+  gap: 1em;
+  background: linear-gradient(90deg, rgba(0, 0, 0, .5) 0%, rgba(0, 0, 0, 0) 90%, rgba(0, 0, 0, 0) 100%)
+}
+
+div.hero>div div.hero--headline-1 {
+  line-height: var(--p-line-height);
+  margin: 0;
+  font-size: 2.5rem
+}
+
+div.hero>div div.hero--headline-2 {
+  font-weight: 400;
+  max-width: 370px;
+  font-size: 1.25rem;
+  line-height: var(--p-line-height)
+}
+
+div.hero>div div.call-to-action {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1em;
+  margin-top: 1em;
+  justify-content: flex-start
+}
+
+div.hero img {
+  position: absolute;
+  object-fit: cover;
+  object-position: center top;
+  left: 0;
+  bottom: 0;
+  top: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -2
+}
+
+@media (max-width: 600px) and (orientation: portrait) {
+
+  div.hero {
+    height: calc(100vh - 5rem);
+    height: calc(100svh - 5rem);
+
+    &::before {
+      display: none;
+    }
+
+    &::after {
+      width: 100%;
+      background: linear-gradient(90deg, rgba(0, 0, 0, .5) 0%, rgba(0, 0, 0, 0) 90%, rgba(0, 0, 0, 0) 100%);
+    }
+  }
+
+  div.hero > div {
+    width: unset;
+    justify-content: flex-start;
+    align-content: end;
+    padding: 6rem 2rem;
+  }
+
+  div.hero>div h1 {
+    max-width: 250px
+  }
+}

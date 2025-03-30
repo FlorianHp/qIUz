@@ -1,0 +1,35 @@
+@media (prefers-color-scheme: dark) {
+  
+  img[src*="/logo"] {
+    content: url('/img/logo/logo.svg');
+  }
+
+  img[src*="/logo-full"] {
+    content: url('/img/logo/logo-full-white.svg');
+  }
+
+}
+
+:root[data-theme="dark"] {
+
+  img[src*="/logo"] {
+    content: url('/img/logo/logo.svg');
+  }
+  
+  img[src*="/logo-full"] {
+    content: url('/img/logo/logo-full-white.svg');
+  }
+
+}
+
+:root[data-theme="light"] {
+
+  img[src*="/logo"] {
+    content: unset;
+  }
+  
+  img[src*="/logo-full"] {
+    content: unset;
+  }
+  
+}

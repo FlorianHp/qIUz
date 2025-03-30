@@ -1,0 +1,19 @@
+.legal {
+    display: block;
+    justify-content: center; 
+    align-items: center; 
+    min-height: 100vh; 
+    margin: 0;
+    text-align: left; 
+}
+h1 {
+    margin-left: 2rem;
+}
+
+@media (max-width: 768px) and (orientation: portrait) {
+    .legal {
+        width: 100%; 
+    }
+}
+
+

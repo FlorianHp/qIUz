@@ -1,0 +1,11 @@
+<section class="head-section">
+  <h1>{{ h1 | t }}</h1>
+  <p>{{ p | t }}</p>
+
+  <bq:children></bq:children>
+  
+  <picture>
+    <source type="image/webp" srcset="{{ image }}?type=webp&width=256 256w, {{ image }}type=webp&width=512 512w, {{ image }}?type=webp&width=1024 1024w, {{ image }}?type=webp&width=2048 2048w" sizes="100vw">
+    <img decoding="async" src="{{ image }}">
+  </picture>
+</section>

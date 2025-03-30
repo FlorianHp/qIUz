@@ -1,0 +1,67 @@
+header.page-header {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  position: sticky;
+  position: -webkit-sticky;
+  top: 0;
+  left: 0;
+  right: 0;
+  padding: 1rem var(--page-padding);
+  overflow: clip visible;
+  z-index: 20;
+  transition: background var(--duration-transition);
+  background: rgba(var(--block-background-r), var(--block-background-g), var(--block-background-b), 1);
+  align-items: center;
+  overscroll-behavior: contain;
+  touch-action: none;
+  gap: 1rem;
+  height: var(--header-size);
+  border-bottom: solid 1px rgba(0, 0, 0, .1)
+}
+
+header.page-header img {
+  height: 6rem;
+}
+
+header.page-header div.page-header--menu-button {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  align-items: center;
+  padding: 0 1.5rem;
+  display: none
+}
+
+@media (max-width: 600px) and (orientation: portrait) {
+  header.page-header div.page-header--menu-button {
+    display: flex
+  }
+}
+
+header.page-header div.page-header--menu-button i.bars-solid {
+  font-size: 1.75rem
+}
+
+header.page-header div.page-header--menu-button a {
+  display: block;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0
+}
+
+@media (max-width: 600px) and (orientation: portrait) {
+  header.page-header nav.page-nav {
+    transform: translate(100%)
+  }
+
+  header.page-header:target nav.page-nav {
+    transform: translate(0)
+  }
+}
+
+header.page-header:target div.page-header--menu-button a:nth-child(2) {
+  display: none
+}

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="{{ language }}">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <title>{{ title }} :: qIUz</title>
+    
+    <link rel="icon" href="/web/img/logo/logo.svg" sizes="48x48" as="fetch">
+    <link rel="icon" type="image/svg+xml" href="/web/img/logo/logo.svg" sizes="any" as="image" >
+    
+    <link rel="preload" href="/styles/fonts/icons.css" as="style" type="text/css">
+    <link rel="preload" href="/styles/fonts/quicksand.css" as="style" type="text/css">
+
+    <link rel="preload" href="/fonts/quicksand-v30-latin-300.woff2" crossorigin="anonymous" as="font" type="font/woff2">
+    <link rel="preload" href="/fonts/quicksand-v30-latin-400.woff2" crossorigin="anonymous" as="font" type="font/woff2">
+    <link rel="preload" href="/fonts/quicksand-v30-latin-700.woff2" crossorigin="anonymous" as="font" type="font/woff2">
+
+    <link type="text/css" rel="stylesheet" href="/styles/main.css">
+    <script type="module" src="/scripts/main.js" async></script>
+  </head>
+  <body>
+    <bq:fragment :name="header"></bq:fragment>
+    <main>
+      <bq:fragment :name="{{ site }}"></bq:fragment>
+    </main>
+    <bq:fragment :name="footer"></bq:fragment>
+  </body>
+</html>

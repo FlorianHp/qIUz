@@ -1,0 +1,91 @@
+span.tooltip {
+  --_background: rgba(0, 0, 0, .75);
+  --_blur: blur(10px);
+  --_arrow-size: .75rem;
+  --_padding: .5rem;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0
+}
+
+span.tooltip>span {
+  position: absolute;
+  bottom: 100%;
+  left: 0;
+  right: 0;
+  width: 0px;
+  margin: auto;
+  overflow: visible
+}
+
+span.tooltip>span>label {
+  position: absolute;
+  bottom: 100%;
+  left: 0;
+  right: 0;
+  text-align: left;
+  max-width: min(60vw, 250px);
+  margin: auto;
+  visibility: hidden;
+  opacity: 0;
+  font-size: 1rem;
+  font-style: normal;
+  font-weight: 400;
+  color: #fff;
+  font-family: var(--font-family);
+  transition: opacity var(--duration-transition), visibility 0s var(--duration-transition), left 0s var(--duration-transition), top 0s var(--duration-transition);
+  background: var(--_background);
+  padding: var(--_padding);
+  transform: translate(-50%, -.5rem);
+  pointer-events: none;
+  border-radius: var(--border-min-radius);
+  width: max-content;
+  z-index: 1000;
+  line-height: normal;
+  -webkit-backdrop-filter: var(--_blur);
+  backdrop-filter: var(--_blur)
+}
+
+span.tooltip>span>label:before {
+  content: "";
+  -webkit-backdrop-filter: var(--_blur);
+  backdrop-filter: var(--_blur);
+  display: block;
+  width: var(--_arrow-size);
+  height: var(--_arrow-size);
+  transform: translate(-50%, calc(50% - 1px));
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  background: var(--_background);
+  clip-path: polygon(0% 50%, 100% 50%, 50% 100%)
+}
+
+span.tooltip>span>label.--bottom-left {
+  transform: translate(calc(-1 * (var(--_padding) + var(--_arrow-size) / 2)), -.5rem)
+}
+
+span.tooltip>span>label.--bottom-left:before {
+  left: calc(var(--_padding) + var(--_arrow-size) / 2)
+}
+
+@media (hover: none) {
+  span.tooltip:active>span>label {
+    visibility: visible;
+    opacity: 1;
+    transition: opacity var(--duration-transition) var(--duration-transition), visibility 0s 0s, left 0s var(--duration-transition), top 0s var(--duration-transition)
+  }
+}
+
+span.tooltip>span>label.--shown,
+span.tooltip:hover>span>label {
+  visibility: visible;
+  opacity: 1;
+  transition: opacity var(--duration-transition) var(--duration-transition), visibility 0s 0s, left 0s var(--duration-transition), top 0s var(--duration-transition)
+}
+
+:where(*:has(span.tooltip)) {
+  position: relative
+}

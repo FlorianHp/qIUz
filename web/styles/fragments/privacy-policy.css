@@ -1,0 +1,12 @@
+.privacy-policy {
+    display: block;
+    justify-content: center; 
+    align-items: center; 
+    min-height: 100vh; 
+    margin: 0;
+    text-align: left; 
+}
+h1 {
+    margin-left: 2rem;
+}
+

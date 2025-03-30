@@ -1,0 +1,96 @@
+footer.page-footer {
+  --_color: var(--font-color);
+  padding: 2rem var(--page-padding);
+  overflow: hidden;
+  display: grid;
+  grid-auto-flow: column;
+  background: var(--block-background);
+  grid-template-columns: 1fr auto;
+  gap: 4rem;
+  z-index: 1;
+  --_color: white
+}
+
+footer.page-footer>div:first-child a {
+  margin: 0
+}
+
+footer.page-footer>div:first-child a img {
+  height: 6rem;
+}
+
+@media (max-width: 600px) and (orientation: portrait) {
+  footer.page-footer>div.page-footer--languages {
+    display: none
+  }
+}
+
+footer.page-footer>div.page-footer--social {
+  display: grid;
+  align-items: center;
+  padding-left: 2rem;
+  border-left: solid var(--_color) 1px;
+  justify-content: center;
+  gap: 2rem
+}
+
+footer.page-footer>div.page-footer--social i {
+  padding: .5em;
+  background: var(--block-area-color);
+  border-radius: var(--border-radius);
+  font-size: 1.25rem;
+  width: calc(var(--border-radius) * 2);
+  height: calc(var(--border-radius) * 2);
+  display: block;
+  display: flex;
+  place-content: center;
+  place-items: center
+}
+
+footer.page-footer>div h4 {
+  margin: 2em 0 1em;
+  font-weight: 500;
+  text-transform: uppercase;
+  isolation: isolate;
+  position: relative
+}
+
+footer.page-footer>div h4:first-child {
+  margin-top: 0
+}
+
+footer.page-footer>div a {
+  text-decoration: none;
+  display: block;
+  transition: opacity var(--duration-transition);
+  line-height: var(--p-line-height)
+}
+
+footer.page-footer+footer {
+  text-align: center;
+  background: var(--page-background);
+  z-index: 1;
+  position: relative;
+  font-weight: 500
+}
+
+@media (max-width: 600px) and (orientation: portrait) {
+  footer.page-footer {
+    grid-auto-flow: row;
+    grid-template-columns: auto;
+    gap: 2rem
+  }
+
+  footer.page-footer>div.page-footer--social {
+    grid-auto-flow: column;
+    border-left: none;
+    padding-left: 0;
+    padding-top: 2rem;
+    border-top: solid var(--_color) 1px
+  }
+
+  footer.page-footer+footer {
+    padding: 1rem;
+    line-height: var(--p-line-height)
+  }
+}
