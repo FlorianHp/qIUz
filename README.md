@@ -18,7 +18,7 @@ Upload to respository through **Pull requests** <br>
 ## Create .env-file
 paste env-variables into .env-file
 
-ENVIRONMENT=dev
+ENVIRONMENT=dev<br>
 DB_TYPE=sqlite<br>
 DB_NAME=database.sqlite<br>
 WEB_CACHE=private, no-cache, no-store<br>
