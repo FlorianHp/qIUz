@@ -14,3 +14,11 @@ php -S loacalhost:8000 _(whatever port you like)_<br>
 ## Project
 Tasks to find in **Issues** _(Feel free to add feedback)_<br>
 Upload to respository through **Pull requests** <br>
+
+## Create .env-file
+paste env-variables into .env-file
+
+ENVIRONMENT=dev
+DB_TYPE=sqlite
+DB_NAME=database.sqlite
+WEB_CACHE=private, no-cache, no-store
