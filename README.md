@@ -7,10 +7,10 @@ Plugins
 * PHP Profiler _(Xdebug)_
 
 ## Run local
-Run local site with debugger
-_or_
-php -S loacalhost:8000 _(whatever port you like)_
+Run local site with debugger <br>
+_or_<br>
+php -S loacalhost:8000 _(whatever port you like)_<br>
 
 ## Project
-Tasks to find in **Issues** _(Feel free to add feedback)_
-Upload to respository through **Pull requests** 
+Tasks to find in **Issues** _(Feel free to add feedback)_<br>
+Upload to respository through **Pull requests** <br>
