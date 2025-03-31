@@ -29,7 +29,7 @@ WEB_CACHE=private, no-cache, no-store
 > [!NOTE] 
 > Wenn Fehlermeldungen dauerhaft erscheinen, solltest du im Terminal mit
 > ```php --ini```  deine config Dateien ausgeben lassen und dort in der php.ini
-> ganz unten die Zeile:
+> ganz unten diese Zeile hinzufügen:
 ```
 display_startup_errors = Off
 error_reporting = E_ALL & ~E_DEPRECATED & ~E_WARNING & ~E_NOTICE & ~E_DEPRECATED
