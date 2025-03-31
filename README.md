@@ -17,8 +17,20 @@ Upload to respository through **Pull requests** <br>
 
 ## Create .env-file
 paste env-variables into .env-file
-
-ENVIRONMENT=dev<br>
+```
+ENVIRONMENT=dev
 DB_TYPE=sqlite<br>
-DB_NAME=database.sqlite<br>
-WEB_CACHE=private, no-cache, no-store<br>
+DB_NAME=database.sqlite
+WEB_CACHE=private, no-cache, no-store
+```
+> [!TIP]
+> Ich empfehle ein UNIX basiertes System, aber es funktioniert auch auf Windows
+
+> [!NOTE] 
+> Wenn Fehlermeldungen dauerhaft erscheinen, solltest du im Terminal mit
+> ```php --ini```  deine config Dateien ausgeben lassen und dort in der php.ini
+> ganz unten die Zeile:
+```
+display_startup_errors = Off
+error_reporting = E_ALL & ~E_DEPRECATED & ~E_WARNING & ~E_NOTICE & ~E_DEPRECATED
+```
