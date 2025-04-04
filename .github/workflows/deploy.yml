@@ -6,6 +6,10 @@ on:
       - main
 
 jobs:
+
+    
+  env:
+    FTP_USER: ${{ secrets.FTP_USER }}
   Deploy:
     runs-on: ubuntu-latest
 
@@ -17,6 +21,10 @@ jobs:
 
     - name: Install dependencies
       run: sudo apt update && sudo apt-get install git-ftp -y
+
+    
+    - name: 🧪 Debug FTP_USER (NICHT im echten Deploy verwenden)
+      run: echo "FTP_USER=$FTP_USER"
 
     - name: Deploy via Git-FTP
       env:
