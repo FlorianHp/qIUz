@@ -21,6 +21,6 @@ jobs:
     - name: Deploy via Git-FTP
       env:
         URL: ${{ secrets.FTP_SERVER }}
-        USER: ${{ secrets.FTP_USER }}
-        PASSWORD: ${{ secrets.FTP_PASSWORD }}
+        FTP_USER: ${{ secrets.FTP_USER }}
+        FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
       run: git ftp push -v --auto-init --insecure -u $USER -p $PASSWORD $URL
