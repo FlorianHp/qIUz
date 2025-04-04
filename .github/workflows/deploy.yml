@@ -23,4 +23,4 @@ jobs:
         URL: ${{ secrets.FTP_SERVER }}
         FTP_USER: ${{ secrets.FTP_USER }}
         FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
-      run: git ftp push -v --auto-init --insecure -u $USER -p $PASSWORD $URL
+      run: git ftp push -v --auto-init --insecure -u $FTP_USER -p $FTP_PASSWORD $URL
