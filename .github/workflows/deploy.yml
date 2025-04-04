@@ -6,29 +6,25 @@ on:
       - main
 
 jobs:
-
-    
-  env:
-    FTP_USER: ${{ secrets.FTP_USER }}
   Deploy:
     runs-on: ubuntu-latest
 
+    env: 
+      FTP_USER: ${{ secrets.FTP_USER }}
+      FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
+      URL: ${{ secrets.FTP_SERVER }}
+
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v3
-      with:
-        fetch-depth: 6
+      - name: Checkout code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 6
 
-    - name: Install dependencies
-      run: sudo apt update && sudo apt-get install git-ftp -y
+      - name: Install dependencies
+        run: sudo apt update && sudo apt-get install git-ftp -y
 
-    
-    - name: 🧪 Debug FTP_USER (NICHT im echten Deploy verwenden)
-      run: echo "FTP_USER=$FTP_USER"
+      - name: 🧪 Debug FTP_USER (NICHT im echten Deploy verwenden)
+        run: echo "FTP_USER=$FTP_USER"
 
-    - name: Deploy via Git-FTP
-      env:
-        URL: ${{ secrets.FTP_SERVER }}
-        FTP_USER: ${{ secrets.FTP_USER }}
-        FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
-      run: git ftp push -v --auto-init --insecure -u $FTP_USER -p $FTP_PASSWORD $URL
+      - name: Deploy via Git-FTP
+        run: git ftp push -v --auto-init --insecure -u "$FTP_USER" -p "$FTP_PASSWORD" "$URL"
