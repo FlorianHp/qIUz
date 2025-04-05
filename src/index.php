@@ -24,7 +24,7 @@ router(function ( $context ) {
       }
     ],
     routes: [
-
+    
       route(
         path: '/example', 
         fetch: function ($context) {
