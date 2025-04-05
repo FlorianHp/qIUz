@@ -27,4 +27,4 @@ jobs:
         run: echo "FTP_USER=$FTP_USER"
 
       - name: Deploy via Git-FTP
-        run: git ftp push -v --auto-init --insecure -u "$FTP_USER" -p "$FTP_PASSWORD" "$URL"
+        run: git ftp push -v --auto-init --insecure --remote-root /myquiz -u "$FTP_USER" -p "$FTP_PASSWORD" "$URL"
