@@ -10,7 +10,7 @@
         "-dxdebug.start_with_request=yes",
         "-S",
         "localhost:8080",
-        "src/main.php"
+        "src/index.php"
       ],
       "program": "",
       "cwd": "${workspaceRoot}",
