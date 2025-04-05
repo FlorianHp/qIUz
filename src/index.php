@@ -4,7 +4,7 @@ if (str_contains(getcwd(), 'src')) {
   chdir('../');
 }
 
-include_once 'vendor/bq/php/index.php';
+include_once 'vendor/bq/php/main.php';
 
 router(function ( $context ) {
   
