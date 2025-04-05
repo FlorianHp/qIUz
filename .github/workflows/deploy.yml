@@ -23,8 +23,5 @@ jobs:
       - name: Install dependencies
         run: sudo apt update && sudo apt-get install git-ftp -y
 
-      - name: 🧪 Debug FTP_USER (NICHT im echten Deploy verwenden)
-        run: echo "FTP_USER=$FTP_USER"
-
       - name: Deploy via Git-FTP
-        run: git ftp push -v --auto-init --insecure --remote-root /myquiz -u "$FTP_USER" -p "$FTP_PASSWORD" "$URL"
+        run: git ftp push -v --auto-init --insecure -u "$FTP_USER" -p "$FTP_PASSWORD" "$URL"
