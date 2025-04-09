@@ -34,3 +34,7 @@ WEB_CACHE=private, no-cache, no-store
 display_startup_errors = Off
 error_reporting = E_ALL & ~E_DEPRECATED & ~E_WARNING & ~E_NOTICE & ~E_DEPRECATED
 ```
+
+## Attribution
+
+Dieses Projekt basiert auf dem [bq.php] Template von Kevin Bulteel. Die Vorlage diente als Grundlage für die Entwicklung dieses Projekts.
