@@ -1,5 +1,12 @@
 <?php
 
+/**
+ * Template: bq.php
+ * Original Author: Kevin Bulteel
+ *
+ * This template is used as foundation for the qIUz-Web-App
+ */
+
 include_once 'vendor/autoload.php';
 
 include_once __DIR__ . '/src/env.php';
