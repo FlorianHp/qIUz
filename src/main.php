@@ -5,6 +5,7 @@ if (str_contains(getcwd(), 'src')) {
 }
 
 include_once 'vendor/bq/php/index.php';
+include_once 'src/services/quiz.service.php';
 
 router(function ( $context ) {
   
@@ -53,6 +54,8 @@ router(function ( $context ) {
         fetch: function ($context) {
 
           $context->bind('title', fn($a) => 'Game');
+          $context->bind('site',  fn()   => 'game');
+          $context->bind('quiz',  fn($amount, $settings) => getQuiz($amount ?? 3, $settings));
 
           render('page', $context);
         }

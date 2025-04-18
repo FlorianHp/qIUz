@@ -1,0 +1,17 @@
+<section>
+
+    <bq:for each="quiz" as="round">
+      <div>
+
+        <pre>{{ round.question }}</pre>
+        <ul>
+          <bq:for each="round.answers" as="answer">
+            <li>{{ answer.text }}</li>
+          </bq:for>
+        </ul>
+        <pre>{{ round.description }}</pre>
+      
+      </div>
+    </bq:for>
+    
+</section>
