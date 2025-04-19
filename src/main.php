@@ -6,6 +6,7 @@ if (str_contains(getcwd(), 'src')) {
 
 include_once 'vendor/bq/php/index.php';
 include_once 'src/services/quiz.service.php';
+include_once 'src/services/leaderboard.service.php';
 
 router(function ( $context ) {
   
@@ -64,7 +65,10 @@ router(function ( $context ) {
         path: '/leaderboard', 
         fetch: function ($context) {
 
-          $context->bind('title', fn($a) => 'Leaderboard');
+          $context->bind('title',       fn($a) => 'Leaderboard');
+          $context->bind('site',        fn($a) => 'leaderboard');
+          $context->bind('leaderboard', fn($a) => getLeaderboard($a = 5));
+          $context->bind('add',         fn($a) => $a + 1);
 
           render('page', $context);
         }
