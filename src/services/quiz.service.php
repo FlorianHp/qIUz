@@ -13,6 +13,8 @@ function getQuiz($amount = 3, $settings = null) {
       (:module IS NULL OR modul_name = :module)
     AND 
       (:lection IS NULL OR lektion = :lection)
+    ORDER BY
+      RANDOM()
     LIMIT :amount
   ";
 
@@ -24,6 +26,7 @@ function getQuiz($amount = 3, $settings = null) {
 
   foreach ($rows as &$row) {
     $row['answers'] = json_decode($row['answers'], true);
+    shuffle($row['answers']);
   }
 
   return $rows;
