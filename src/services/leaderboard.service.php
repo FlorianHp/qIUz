@@ -1,10 +1,24 @@
-<?php
+<?php 
+function getLeaderboard($amount = 5) {
 
-//sql query for sorted leaderboard
+  $sql = "
+    SELECT 
+      * 
+    FROM 
+      score 
+    ORDER BY
+      wins DESC,
+      score DESC
+    LIMIT :amount
+  ";
 
-/* $$rows = query("
-  SELECT * FROM score
-  ORDER BY score DESC
-");
+  $rows = query($sql, [
+    'amount'  => (int) $amount
+  ]);
 
-return $rows; */
+  foreach ($rows as &$row) {
+    $row['review'] = json_decode($row['review'], true);
+  }
+
+  return $rows;
+}

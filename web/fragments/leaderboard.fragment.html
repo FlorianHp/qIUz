@@ -1,0 +1,28 @@
+<section>
+
+  <table>
+    <thead>
+      <tr>
+        <th>- Platz -</th>
+        <th>- Spieler -</th>
+        <th>- Gewonnen -</th>
+        <th>- Score -</th>
+      </tr>
+    </thead>
+    <tbody>
+
+      <bq:for each="leaderboard" as="player">
+        <tr>
+          <th>{{ @i | add }}</th>
+          <th>{{ player.user_name }}</th>
+          <th>{{ player.wins}}</th>
+          <th>{{ player.score }}</th>
+        </tr>
+      </bq:for>
+      
+    </tbody>
+  </table>
+
+  
+  
+</section>
