@@ -1,17 +1,33 @@
 <?php 
+function getQuiz($amount = 3, $settings = null) {
 
-//sql query with set limit and randomizer 
+  $module  = !empty($settings->module) ? $settings->module : null;
+  $lection = !empty($settings->lection) ? $settings->lection : null;
 
-/* $rows = query("
-  SELECT * FROM content WHERE modul_name = :modul_name AND rating >= :rating
-", [
-  'modul_name' => 'Physik',
-  'rating' => 4
-]);
+  $sql = "
+    SELECT 
+      * 
+    FROM 
+      content 
+    WHERE 
+      (:module IS NULL OR modul_name = :module)
+    AND 
+      (:lection IS NULL OR lektion = :lection)
+    ORDER BY
+      RANDOM()
+    LIMIT :amount
+  ";
 
-foreach ($rows as &$row) {
+  $rows = query($sql, [
+    'module'  => $module,
+    'lection' => $lection,
+    'amount'  => (int) $amount
+  ]);
 
-} 
-  
-return $rows;
-*/
+  foreach ($rows as &$row) {
+    $row['answers'] = json_decode($row['answers'], true);
+    shuffle($row['answers']);
+  }
+
+  return $rows;
+}
