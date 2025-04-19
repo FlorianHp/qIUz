@@ -24,4 +24,4 @@ jobs:
         run: sudo apt update && sudo apt-get install git-ftp -y
 
       - name: Deploy via Git-FTP
-        run: git ftp push -v --auto-init --insecure -u "$FTP_USER" -p "$FTP_PASSWORD" "$URL"
+        run: git ftp push -v --insecure -u "$FTP_USER" -p "$FTP_PASSWORD" "$URL"
