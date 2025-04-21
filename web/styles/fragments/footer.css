@@ -16,7 +16,7 @@ footer.page-footer>div:first-child a {
 }
 
 footer.page-footer>div:first-child a img {
-  height: 6rem;
+  height: 4rem;
 }
 
 @media (max-width: 600px) and (orientation: portrait) {
