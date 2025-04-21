@@ -61,6 +61,17 @@ router(function ( $context ) {
           render('page', $context);
         }
       ),
+
+      route(
+        path: '/upload', 
+        fetch: function ($context) {
+
+          $context->bind('title', fn($a) => 'Game');
+          $context->bind('site',  fn()   => 'game');
+
+          render('page', $context);
+        }
+      ),
       route(
         path: '/leaderboard', 
         fetch: function ($context) {
