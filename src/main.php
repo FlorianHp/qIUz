@@ -61,13 +61,12 @@ router(function ( $context ) {
           render('page', $context);
         }
       ),
-
       route(
         path: '/upload', 
         fetch: function ($context) {
 
-          $context->bind('title', fn($a) => 'Game');
-          $context->bind('site',  fn()   => 'game');
+          $context->bind('title', fn($a) => 'Upload');
+          $context->bind('site',  fn()   => 'upload');
 
           render('page', $context);
         }
