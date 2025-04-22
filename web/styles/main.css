@@ -28,6 +28,7 @@
   --border-radius: 1rem;
   --border-width: 0;
   --border-color: transparent;
+<<<<<<< HEAD
   --block-background: rgba(var(--block-background-r), var(--block-background-g), var(--block-background-b), var(--block-background-a));
   --block-background-r: 255;
   --block-background-g: 255;
@@ -48,12 +49,20 @@
   --page-background-r: 250;
   --page-background-g: 250;
   --page-background-b: 250;
+=======
+  --block-background: rgba(45, 49, 66, 1);
+  --block-area-color: rgba(79, 93, 116, 1);
+  --block-shadow: 0px 0px 1rem 0px rgba(0, 0, 0, .075);
+  --page-background: rgba(191, 192, 192, 1);
+
+>>>>>>> dbb3d3d100cca93c23610098b0979d507bb55c37
   --page-max-width: 2200px;
   --page-space: 4rem;
   --page-padding: max(var(--page-space), (100vw - 2200px) / 2);
   --p-line-height: 1.75;
   --p-margin: 1em;
   --font-family: Quicksand;
+<<<<<<< HEAD
   --font-color: rgb(var(--font-color-r), var(--font-color-g), var(--font-color-b));
   --font-color-r: 51;
   --font-color-g: 51;
@@ -114,6 +123,27 @@
   --color-8-r: 0;
   --color-8-g: 0;
   --color-8-b: 255
+=======
+  --font-color: rgb(51, 51, 51);
+
+  --font-color-alternate: rgb(255, 255, 255);
+
+  --color-primary: rgba(239, 131, 84, 1);
+  --color-secondary: rgba(45, 49, 66, 1);
+
+  --color-error: rgb(255, 0, 0);
+  --color-warning: rgb(255, 140, 0);
+  --color-success: rgb(155, 157, 11);
+
+  --color-1: rgb(0, 0, 255);
+  --color-2: rgb(0, 0, 255);
+  --color-3: rgb(0, 0, 255);
+  --color-4: rgb(0, 0, 255);
+  --color-5: rgb(0, 0, 255);
+  --color-6: rgb(0, 0, 255);
+  --color-7: rgb(0, 0, 255);
+  --color-8: rgb(0, 0, 255);
+>>>>>>> dbb3d3d100cca93c23610098b0979d507bb55c37
 }
 
 section video {
@@ -184,7 +214,7 @@ section video {
   animation-duration: var(--duration-animation);
   transition-duration: var(--duration-transition);
   transition-property: none;
-  background: linear-gradient(90deg, var(--page-background) 40%, rgba(0, 0, 0, 0.25) 70%, var(--page-background) 100%) no-repeat center/cover, var(--page-background) url('/img/background-wood.webp') no-repeat center/cover;
+  background: linear-gradient(90deg, var(--page-background) 40%, rgba(0, 0, 0, 0.25) 70%, var(--page-background) 100%) no-repeat center/cover, var(--page-background) url('/img/hero/background.webp') no-repeat center/cover;
   background-attachment: fixed, fixed;
   background: var(--page-background);
 }

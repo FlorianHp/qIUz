@@ -3,13 +3,13 @@
 include_once 'context.php';
 
 function route(
-  string   $method      = 'GET', 
-  string   $path        = '', 
-  string   $contentType = '*/*', 
-  string   $accept      = '*/*', 
-  callable $fetch       = null, 
-  array    $routes      = null,
-  array    $middlewares = []
+  string    $method      = '*', 
+  string    $path        = '', 
+  string    $contentType = '*/*', 
+  string    $accept      = '*/*', 
+  ?callable $fetch       = null, 
+  ?array    $routes      = null,
+  array     $middlewares = []
 ) {
   $pattern = preg_replace('/:([^\/]+)/i', '(?<$1>[^/]+)', $path);
   $pattern = str_replace('/', '\/', $pattern);
@@ -61,15 +61,20 @@ function router(callable $prepare, array $routes) {
   usort($routes, fn($a, $b) => $a['order'] - $b['order']);
 
   return function(
-    string $path    = null,
-    string $method  = null,
-    array  $headers = null,
-    array  $query   = null,
-    string $host    = null
+    ?string $path    = null,
+    ?string $method  = null,
+    ?array  $headers = null,
+    ?array  $query   = null,
+    ?string $host    = null
   ) use (&$routes, $context) {
     $context->path   = $path   ?? explode('?', urldecode($_SERVER['REQUEST_URI']))[0];
     $context->method = $method ?? $_SERVER['REQUEST_METHOD'];
     $context->host   = $host   ?? $_SERVER['HTTP_HOST'];
+
+    if (str_contains($context->path, '/.')) {
+      http_response_code(403);
+      exit;
+    }
 
     $query ??= $_GET;
 
@@ -91,17 +96,17 @@ function router(callable $prepare, array $routes) {
 
     function findRoute(&$routes, &$context, &$found) {
       foreach ($routes as $route) {
-        $pattern = $route['pattern'];
-        $params  = [];
+        $pattern  = $route['pattern'];
+        $params   = [];
+        $isParent = is_array($route['routes']);
 
-        if (empty($pattern) || preg_match('/^' . $pattern . '$/', $context->path, $params)) {
-          $isParent = is_array($route['routes']);
+        if (empty($pattern) || preg_match('/^' . $pattern . ($isParent ? '' : '$') . '/', $context->path, $params)) {
   
           if (!$isParent) {
             $found |= 1;
           }
   
-          if ($route['method'] != $context->method) {
+          if ($route['method'] != '*' && $route['method'] != $context->method) {
             continue;
           }
   
@@ -109,7 +114,7 @@ function router(callable $prepare, array $routes) {
             $found |= 2;
           }
   
-          if (!mimeTypesMatch($context->headers['accept'] ?? '*/*', $route['contentType'])) {
+          if (!mimeTypesMatch($context->header('accept') ?? '*/*', $route['contentType'])) {
             continue;
           }
   
@@ -117,7 +122,7 @@ function router(callable $prepare, array $routes) {
             $found |= 4;
           }
   
-          if (!mimeTypesMatch($route['accept'], $context->headers['content-type'] ?? '*/*')) {
+          if (!mimeTypesMatch($route['accept'], $context->header('content-type') ?? '*/*')) {
             continue;
           }
           

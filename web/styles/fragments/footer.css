@@ -8,7 +8,7 @@ footer.page-footer {
   grid-template-columns: 1fr auto;
   gap: 4rem;
   z-index: 1;
-  --_color: white
+  --_color: white;
 }
 
 footer.page-footer>div:first-child a {
@@ -16,7 +16,7 @@ footer.page-footer>div:first-child a {
 }
 
 footer.page-footer>div:first-child a img {
-  height: 6rem;
+  height: 4rem;
 }
 
 @media (max-width: 600px) and (orientation: portrait) {

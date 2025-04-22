@@ -1,0 +1,19 @@
+<bq:fragment :name="head-section" h1="Upload" p="Inhalte verbessern" image="hero"></bq:fragment>
+
+<section>
+  <bq:show when="success">
+    <pre>{{ success }}</pre>
+  </bq:show>
+
+  <form id="upload" action="/upload" method="POST">
+    <input type="text"   name="module"      placeholder="Modul ..."         required>
+    <input type="number" name="lection"     placeholder="Lektion ..."       required>
+    <input type="text"   name="question"    placeholder="Frage ..."         required autocomplete="off">
+    <input type="text"   name="correct"     placeholder="Korrekte Antwort"  required autocomplete="off">
+    <input type="text"   name="incorrect_1" placeholder="Falsche Antwort 1" required autocomplete="off">
+    <input type="text"   name="incorrect_2" placeholder="Falsche Antwort 2" required autocomplete="off">
+    <input type="text"   name="incorrect_3" placeholder="Falsche Antwort 3" required autocomplete="off">
+    <input type="text"   name="description" placeholder="Erklärung ..."     required autocomplete="off">
+    <button type="submit">Senden</button>
+  </form>
+</section>

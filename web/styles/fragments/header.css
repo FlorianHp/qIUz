@@ -10,7 +10,7 @@ header.page-header {
   overflow: clip visible;
   z-index: 20;
   transition: background var(--duration-transition);
-  background: rgba(var(--block-background-r), var(--block-background-g), var(--block-background-b), 1);
+  background: var(--block-background);
   align-items: center;
   overscroll-behavior: contain;
   touch-action: none;
@@ -20,7 +20,7 @@ header.page-header {
 }
 
 header.page-header img {
-  height: 6rem;
+  height: 4rem;
 }
 
 header.page-header div.page-header--menu-button {
