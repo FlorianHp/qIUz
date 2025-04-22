@@ -8,7 +8,7 @@ footer.page-footer {
   grid-template-columns: 1fr auto;
   gap: 4rem;
   z-index: 1;
-  --_color: white
+  --_color: white;
 }
 
 footer.page-footer>div:first-child a {
