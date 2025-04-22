@@ -7,6 +7,7 @@ if (str_contains(getcwd(), 'src')) {
 include_once 'vendor/bq/php/index.php';
 include_once 'src/services/quiz.service.php';
 include_once 'src/services/leaderboard.service.php';
+include_once 'src/services/upload.service.php';
 
 router(function ( $context ) {
   
@@ -65,8 +66,12 @@ router(function ( $context ) {
         path: '/upload', 
         fetch: function ($context) {
 
-          $context->bind('title', fn($a) => 'Upload');
-          $context->bind('site',  fn()   => 'upload');
+          $context->bind('title',   fn($a) => 'Upload');
+          $context->bind('site',    fn()   => 'upload');
+          $context->bind('success', fn() => (
+            isset($_GET['success']) && $_GET['success'] == 1) ?
+             "<script>alert('Frage erfolgreich gespeichert!');</script>" : ''
+          );
 
           render('page', $context);
         }
@@ -79,16 +84,7 @@ router(function ( $context ) {
           $context->bind('site',        fn($a) => 'leaderboard');
           $context->bind('leaderboard', fn($a) => getLeaderboard($a = 5));
           $context->bind('add',         fn($a) => $a + 1);
-
-          render('page', $context);
-        }
-      ),
-      route(
-        path: '/upload', 
-        fetch: function ($context) {
-
-          $context->bind('title', fn($a) => 'Upload');
-
+          
           render('page', $context);
         }
       ),
@@ -102,5 +98,17 @@ router(function ( $context ) {
         }
       )
     ]
-  )
+  ),
+  route(
+    method: 'POST', 
+
+    routes: [
+
+      route(
+        path: '/upload',
+        fetch: 'handleUpload'
+      )
+    ] 
+  )  
+
 ])();
