@@ -52,7 +52,8 @@ footer.page-footer>div h4 {
   font-weight: 500;
   text-transform: uppercase;
   isolation: isolate;
-  position: relative
+  position: relative;
+  color: var(--color-secondary) /* Color for footer-list*/
 }
 
 footer.page-footer>div h4:first-child {
@@ -63,7 +64,8 @@ footer.page-footer>div a {
   text-decoration: none;
   display: block;
   transition: opacity var(--duration-transition);
-  line-height: var(--p-line-height)
+  line-height: var(--p-line-height);
+  color: var(--color-secondary) /* Color for footer-list*/
 }
 
 footer.page-footer+footer {

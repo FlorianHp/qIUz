@@ -34,9 +34,9 @@
   --block-background-b: 255;
   --block-background-a: 1;
   --block-area-color: rgba(var(--block-area-color-r), var(--block-area-color-g), var(--block-area-color-b), var(--block-area-color-a));
-  --block-area-color-r: 0;
-  --block-area-color-g: 0;
-  --block-area-color-b: 0;
+  --block-area-color-r: 45; /*color1 dunkel*/
+  --block-area-color-g: 49; /*color1 dunkel*/
+  --block-area-color-b: 66; /*color1 dunkel*/
   --block-area-color-a: .05;
   --block-shadow: var(--block-shadow-x) var(--block-shadow-y) var(--block-shadow-blur) var(--block-shadow-spread) var(--block-shadow-color);
   --block-shadow-x: 0px;
@@ -63,13 +63,13 @@
   --font-color-alternate-g: 255;
   --font-color-alternate-b: 255;
   --color-primary: rgb(var(--color-primary-r), var(--color-primary-g), var(--color-primary-b));
-  --color-primary-r: 157;
-  --color-primary-g: 86;
-  --color-primary-b: 11;
+  --color-primary-r: 0; /*font color: black*/
+  --color-primary-g: 0; /*font color: black*/
+  --color-primary-b: 0; /*font color: black*/
   --color-secondary: rgb(var(--color-secondary-r), var(--color-secondary-g), var(--color-secondary-b));
-  --color-secondary-r: 155;
-  --color-secondary-g: 157;
-  --color-secondary-b: 11;
+  --color-secondary-r: 255; /*font color: white*/
+  --color-secondary-g: 255; /*font color: white*/
+  --color-secondary-b: 255; /*font color: white*/
   --color-error: rgb(var(--color-error-r), var(--color-error-g), var(--color-error-b));
   --color-error-r: 255;
   --color-error-g: 0;
@@ -315,18 +315,18 @@ section video {
 }
 
 :where(:root) {
-  --block-background-r: 25;
-  --block-background-g: 25;
-  --block-background-b: 25;
-  --block-area-color-a: .28;
-  --page-background-r: 35;
-  --page-background-g: 35;
-  --page-background-b: 35
+  --block-background-r: 79;   /*color5: blue*/
+  --block-background-g: 93;   /*color5: blue*/
+  --block-background-b: 117;  /*color5: blue*/
+  --block-area-color-a: 1;    /*color5: blue*/
+  --page-background-r: 191;   /*color2: grey*/
+  --page-background-g: 192;   /*color2: grey*/
+  --page-background-b: 192;   /*color2: grey*/
 }
 
 :where(:root) :where(body),
 :where(:root) a {
-  color: #fff
+  color: var(--color-primary) /*boy headline*/
 }
 
 @media screen and (max-width: 1200px) {
@@ -413,7 +413,6 @@ body section h1,
 body section h2 {
   color: var(--color-primary);
   line-height: 1.25;
-  color: #fff
 }
 
 body section p {
