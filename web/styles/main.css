@@ -28,108 +28,23 @@
   --border-radius: 1rem;
   --border-width: 0;
   --border-color: transparent;
-<<<<<<< HEAD
-  --block-background: rgba(var(--block-background-r), var(--block-background-g), var(--block-background-b), var(--block-background-a));
-  --block-background-r: 255;
-  --block-background-g: 255;
-  --block-background-b: 255;
-  --block-background-a: 1;
-  --block-area-color: rgba(var(--block-area-color-r), var(--block-area-color-g), var(--block-area-color-b), var(--block-area-color-a));
-  --block-area-color-r: 45; /*color1 dunkel*/
-  --block-area-color-g: 49; /*color1 dunkel*/
-  --block-area-color-b: 66; /*color1 dunkel*/
-  --block-area-color-a: .05;
-  --block-shadow: var(--block-shadow-x) var(--block-shadow-y) var(--block-shadow-blur) var(--block-shadow-spread) var(--block-shadow-color);
-  --block-shadow-x: 0px;
-  --block-shadow-y: 0px;
-  --block-shadow-blur: 1rem;
-  --block-shadow-spread: 0px;
-  --block-shadow-color: rgba(0, 0, 0, .075);
-  --page-background: rgb(var(--page-background-r), var(--page-background-g), var(--page-background-b));
-  --page-background-r: 250;
-  --page-background-g: 250;
-  --page-background-b: 250;
-=======
   --block-background: rgba(45, 49, 66, 1);
   --block-area-color: rgba(79, 93, 116, 1);
   --block-shadow: 0px 0px 1rem 0px rgba(0, 0, 0, .075);
   --page-background: rgba(191, 192, 192, 1);
 
->>>>>>> dbb3d3d100cca93c23610098b0979d507bb55c37
   --page-max-width: 2200px;
   --page-space: 4rem;
   --page-padding: max(var(--page-space), (100vw - 2200px) / 2);
   --p-line-height: 1.75;
   --p-margin: 1em;
   --font-family: Quicksand;
-<<<<<<< HEAD
-  --font-color: rgb(var(--font-color-r), var(--font-color-g), var(--font-color-b));
-  --font-color-r: 51;
-  --font-color-g: 51;
-  --font-color-b: 51;
-  --font-color-alternate: rgb(var(--font-color-alternate-r), var(--font-color-alternate-g), var(--font-color-alternate-b));
-  --font-color-alternate-r: 255;
-  --font-color-alternate-g: 255;
-  --font-color-alternate-b: 255;
-  --color-primary: rgb(var(--color-primary-r), var(--color-primary-g), var(--color-primary-b));
-  --color-primary-r: 0; /*font color: black*/
-  --color-primary-g: 0; /*font color: black*/
-  --color-primary-b: 0; /*font color: black*/
-  --color-secondary: rgb(var(--color-secondary-r), var(--color-secondary-g), var(--color-secondary-b));
-  --color-secondary-r: 255; /*font color: white*/
-  --color-secondary-g: 255; /*font color: white*/
-  --color-secondary-b: 255; /*font color: white*/
-  --color-error: rgb(var(--color-error-r), var(--color-error-g), var(--color-error-b));
-  --color-error-r: 255;
-  --color-error-g: 0;
-  --color-error-b: 0;
-  --color-warning: rgb(var(--color-warning-r), var(--color-warning-g), var(--color-warning-b));
-  --color-warning-r: 255;
-  --color-warning-g: 140;
-  --color-warning-b: 0;
-  --color-success: rgb(var(--color-success-r), var(--color-success-g), var(--color-success-b));
-  --color-success-r: 155;
-  --color-success-g: 157;
-  --color-success-b: 11;
-  --color-1: rgb(var(--color-1-r), var(--color-1-g), var(--color-1-b));
-  --color-1-r: 0;
-  --color-1-g: 0;
-  --color-1-b: 255;
-  --color-2: rgb(var(--color-2-r), var(--color-2-g), var(--color-2-b));
-  --color-2-r: 0;
-  --color-2-g: 0;
-  --color-2-b: 255;
-  --color-3: rgb(var(--color-3-r), var(--color-3-g), var(--color-3-b));
-  --color-3-r: 0;
-  --color-3-g: 0;
-  --color-3-b: 255;
-  --color-4: rgb(var(--color-4-r), var(--color-4-g), var(--color-4-b));
-  --color-4-r: 0;
-  --color-4-g: 0;
-  --color-4-b: 255;
-  --color-5: rgb(var(--color-5-r), var(--color-5-g), var(--color-5-b));
-  --color-5-r: 0;
-  --color-5-g: 0;
-  --color-5-b: 255;
-  --color-6: rgb(var(--color-6-r), var(--color-6-g), var(--color-6-b));
-  --color-6-r: 0;
-  --color-6-g: 0;
-  --color-6-b: 255;
-  --color-7: rgb(var(--color-7-r), var(--color-7-g), var(--color-7-b));
-  --color-7-r: 0;
-  --color-7-g: 0;
-  --color-7-b: 255;
-  --color-8: rgb(var(--color-8-r), var(--color-8-g), var(--color-8-b));
-  --color-8-r: 0;
-  --color-8-g: 0;
-  --color-8-b: 255
-=======
   --font-color: rgb(51, 51, 51);
 
   --font-color-alternate: rgb(255, 255, 255);
 
-  --color-primary: rgba(239, 131, 84, 1);
-  --color-secondary: rgba(45, 49, 66, 1);
+  --color-primary: rgba(0, 0, 0, 1);
+  --color-secondary: rgba(255, 255, 255, 1);
 
   --color-error: rgb(255, 0, 0);
   --color-warning: rgb(255, 140, 0);
@@ -143,7 +58,6 @@
   --color-6: rgb(0, 0, 255);
   --color-7: rgb(0, 0, 255);
   --color-8: rgb(0, 0, 255);
->>>>>>> dbb3d3d100cca93c23610098b0979d507bb55c37
 }
 
 section video {
@@ -413,7 +327,8 @@ body>main {
 
 body input {
   border-radius: var(--border-min-radius);
-  background: var(--block-area-color)
+  background: var(--block-area-color);
+  color: var(--color-secondary)
 }
 
 body section {
