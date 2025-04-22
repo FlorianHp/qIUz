@@ -1,0 +1,8 @@
+DirectorySlash Off
+
+<IfModule mod_rewrite.c>
+  RewriteEngine on
+
+  RewriteCond %{REQUEST_URI} !^/src/main\.php$ [NC]
+  RewriteRule (.*) /src/main.php [L,QSA]
+</IfModule>
