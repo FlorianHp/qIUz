@@ -18,7 +18,8 @@ nav.page-nav ul li a {
   white-space: nowrap;
   justify-content: center;
   transition: background var(--duration-transition);
-  border-radius: var(--border-radius)
+  border-radius: var(--border-radius);
+  color: var(--color-secondary) /* Color for Nav-list*/
 }
 
 nav.page-nav ul li a:hover {
