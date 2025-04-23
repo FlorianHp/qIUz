@@ -11,15 +11,20 @@
 
   <div>
     <h4>Rechtliches</h4>
-    <a href="/web/fragments/legal.fragment.html">Haftungsausschluss</a>
-    <a href="/web/fragments/privacy-policy.fragment.html">Datenschutz</a>
+    <a href="#" data-url="/web/fragments/privacy-policy.fragment.html" class="open-dialog">Datenschutz</a>
+    <a href="#" data-url="/web/fragments/legal.fragment.html" class="open-dialog">Haftungsausschluss</a>
   </div>
 
   <div>
     <h4>Allgemein</h4>
-    <a href="/web/fragments/contact.fragment.html">Kontakt</a>
-    <a href="/sitemap">Sitemap</a>
+    <a href="#" data-url="/web/fragments/contact.fragment.html" class="open-dialog">Kontakt</a>
+    <a href="#" data-url="/web/fragments/sitemap.html" class="open-dialog">Sitemap</a>
   </div>
+
+  <dialog id="info-dialog">
+    <div id="dialog-content">Wird geladen...</div>
+    <button id="close-dialog">Schließen</button>
+  </dialog>
   
 </footer>
-<footer></footer>
+

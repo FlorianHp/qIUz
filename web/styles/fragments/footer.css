@@ -94,3 +94,16 @@ footer.page-footer+footer {
     line-height: var(--p-line-height)
   }
 }
+
+dialog {
+  padding: 2rem;
+  max-width: 600px;
+  border: none;
+  border-radius: 8px;
+  background: white;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+}
+
+dialog::backdrop {
+  background: rgba(0,0,0,0.5);
+}
