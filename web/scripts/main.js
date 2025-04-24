@@ -1,4 +1,4 @@
-console.log("✅ main.js wurde geladen");
+/* console.log("✅ main.js wurde geladen");
 console.log(document.getElementById("info-dialog"));
 
 
@@ -29,6 +29,6 @@ document.addEventListener("DOMContentLoaded", () => {
     closeBtn.addEventListener("click", () => {
       dialog.close();
     });
-  });
+  }); */
   
   

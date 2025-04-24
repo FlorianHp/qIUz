@@ -8,6 +8,7 @@ include_once 'vendor/bq/php/index.php';
 include_once 'src/services/quiz.service.php';
 include_once 'src/services/leaderboard.service.php';
 include_once 'src/services/upload.service.php';
+include_once 'src/services/auth.service.php';
 
 router(function ( $context ) {
   
@@ -17,17 +18,51 @@ router(function ( $context ) {
     method: 'GET', 
     middlewares: [
       function ($context) {
+        $context->bind('rand', fn() => rand(0,1000));
+
+        
+        $skipPaths = ['/login', '/bq.js'];
+
+        if (!in_array($_SERVER['REQUEST_URI'], $skipPaths)) { 
+          $jwt     = $context->cookie('token') ?? null;
+          $payload = $jwt ? decodeJWT($jwt) : null;
+      
+          if (!$payload) {
+            header('Location: /login');
+            exit;
+          }
+        }
         
         $context->bind('menus', fn($p)  => [
-          ['href' => '/game',         'text' => 'Game'],
-          ['href' => '/upload',       'text' => 'Upload'],
-          ['href' => '/leaderboard',  'text' => 'Leaderboard'],
-          ['href' => '/help',         'text' => 'Hilfe']
+          ['href' => '/game',        'text' => 'Game'],
+          ['href' => '/upload',      'text' => 'Upload'],
+          ['href' => '/leaderboard', 'text' => 'Leaderboard'],
+          ['href' => '/help',        'text' => 'Hilfe']
         ]);
       }
     ],
     routes: [
-    
+
+      route(path: '/bq.js', fetch: function() {
+        header('content-type: application/javascript');
+        
+        readfile('vendor/bq/js/bq.js');
+        exit;
+      }),
+      route(
+        path: '/login', 
+        fetch: function ($context) {
+
+          $context->bind('title', fn($a) => 'Login');
+          $context->bind('site',  fn()   => 'login');
+          if (!$context->query('failed')) {
+            $context->bind('failed', fn() => true);
+          } 
+            
+          
+          render('page', $context);
+        }
+      ),
       route(
         path: '/example', 
         fetch: function ($context) {
@@ -101,6 +136,17 @@ router(function ( $context ) {
 
           render('page', $context);
         }
+      ),
+      route(
+        path: '/contact', 
+        fetch: function ($context) {
+
+          $context->bind('title', fn($a) => 'Kontakt');
+          $context->bind('site',  fn($a) => 'contact');
+          $context->bind('hero',  fn()   => '/img/hero/contact.webp');
+
+          render('page', $context);
+        }
       )
     ]
   ),
@@ -112,6 +158,14 @@ router(function ( $context ) {
       route(
         path: '/upload',
         fetch: 'handleUpload'
+      ),
+      route(
+        path: '/login',
+        fetch: function ($context) {
+          
+          handleLogin($context);
+
+        }
       )
     ] 
   )  

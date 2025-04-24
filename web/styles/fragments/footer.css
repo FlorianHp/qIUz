@@ -9,6 +9,7 @@ footer.page-footer {
   gap: 4rem;
   z-index: 1;
   --_color: white;
+  margin-top: auto;
 }
 
 footer.page-footer>div:first-child a {
