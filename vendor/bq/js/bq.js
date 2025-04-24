@@ -146,6 +146,7 @@ hook('form', (e) => {
         replace = e.dataset.replace;
 
   e.addEventListener('submit', async (ev) => {
+    if (e.hasAttribute('data-native')) return;
     const submitter   = ev.submitter,
           url         = new URL(e.dataset.url ?? submitter.getAttribute('formaction') ?? e.action ?? location.pathname, location.href),
           method      = (submitter.getAttribute('formmethod') ?? e.getAttribute('method') ?? 'GET').toUpperCase(),
@@ -227,7 +228,7 @@ hook('form', (e) => {
     const response = await fetch(url, { 
       method: method,
       signal: pending[url.pathname].signal,
-      body: method == 'POST' && contentType == 'application/json' ? JSON.stringify(data) : url.searchParams.toString(),
+      body: method == 'GET' ? null : method == 'POST' && contentType == 'application/json' ? JSON.stringify(data) : url.searchParams.toString(),
       headers: {
         'content-type': contentType,
         'accept': 'text/html'

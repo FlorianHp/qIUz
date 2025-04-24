@@ -28,6 +28,7 @@ class ComposerStaticInite2ae497bfbab1c25c81d9fdb33cef840
         'F' => 
         array (
             'Fuse\\' => 5,
+            'Firebase\\JWT\\' => 13,
         ),
     );
 
@@ -35,6 +36,10 @@ class ComposerStaticInite2ae497bfbab1c25c81d9fdb33cef840
         'Fuse\\' => 
         array (
             0 => __DIR__ . '/..' . '/loilo/fuse/src',
+        ),
+        'Firebase\\JWT\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/firebase/php-jwt/src',
         ),
     );
 

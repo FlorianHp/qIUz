@@ -3,7 +3,8 @@
   "description": "Lernplattform im Quizformat für Klausurvorbereitung",
   "type": "project",
   "require": {
-    "loilo/fuse": "^7.1"
+    "loilo/fuse": "^7.1",
+    "firebase/php-jwt": "^6.11"
   },
   "autoload": {
     "psr-4": {}
