@@ -55,6 +55,20 @@ class Context {
     return isset($this->cookies[$key]) ? $this->cookies[$key] : null;
   }
 
+  public function setCookie(string $key, string $value) {
+  
+    setcookie($key, $value, [
+      'expires'  => time() + 2 * 60 * 60,
+      'path'     => '/',
+      'httponly' => true,
+      'secure'   => isset($_SERVER['HTTPS']),
+      'samesite' => 'Strict'
+    ]);
+  
+    $this->cookies[strtolower($key)] = $value;
+  }
+
+
   public function bind(string $key, callable $fetch) {
     $this->bindings[$key] ??= [];
     $this->bindings[$key][] = $fetch;
