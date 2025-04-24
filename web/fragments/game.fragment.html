@@ -1,17 +1,118 @@
 <section>
+  <bq:for each="quiz" as="round">
+    <div>
+      <pre>{{ round.question }}</pre>
+      <ul>
+        <bq:for each="round.answers" as="answer">
+          <li>{{ answer.text }}</li>
+        </bq:for>
+      </ul>
+      <pre>{{ round.description }}</pre>
+    </div>
+  </bq:for>
+</section>
 
-    <bq:for each="quiz" as="round">
-      <div>
-
-        <pre>{{ round.question }}</pre>
-        <ul>
-          <bq:for each="round.answers" as="answer">
-            <li>{{ answer.text }}</li>
-          </bq:for>
-        </ul>
-        <pre>{{ round.description }}</pre>
-      
+<!-- FELIX -->
+<section>
+  <div class="container">
+    <nav class="navbar navbar-default">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="#">Quiz</a>
+        </div>
       </div>
-    </bq:for>
-    
+    </nav>
+
+    <!--  Game Start Page   -->
+    <div id="start_screen" class="jumbotron quiz_start">
+      <h1>Herzlich Willkommen!</h1>
+      Das Quiz startet sofort...
+      <button id="start_btn" class="btn btn-primary btn-lg start" role="button">
+        Jetzt starten
+      </button>
+    </div>
+
+    <!--  Game End Page    -->
+    <div id="over" class="jumbotron quiz_end" hidden>
+      <h1>Quiz Vorbei!</h1>
+      <p>
+        Dein Punktestand ist: <span id="endpoints">0</span> von
+        <span id="possiblepoints">0</span>
+      </p>
+      <button class="restart btn btn-primary btn-lg" role="button">
+        Nochmal starten
+      </button>
+    </div>
+
+    <!--  Fragen/Antworten   -->
+    <div id="question" class="jumbotron" hidden>
+      <h2>Frage <span id="qno">1</span></h2>
+      <p id="question_text">Frage?</p>
+
+      <!--  Layout für Antworten    -->
+      <div class="row">
+        <div class="col-md-6">
+          <button
+            id="answer_a_btn"
+            class="answer btn btn-default btn-lg btn-block"
+            role="button"
+          >
+            A: <span id="answer_a">Antwort1</span>
+          </button>
+        </div>
+        <div class="col-md-6">
+          <button
+            id="answer_c_btn"
+            class="answer btn btn-default btn-lg btn-block"
+            role="button"
+          >
+            C: <span id="answer_c">Antwort3</span>
+          </button>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <button
+            id="answer_b_btn"
+            class="answer btn btn-default btn-lg btn-block"
+            role="button"
+          >
+            B: <span id="answer_b">Antwort3</span>
+          </button>
+        </div>
+        <div class="col-md-6">
+          <button
+            id="answer_d_btn"
+            class="answer btn btn-default btn-lg btn-block"
+            role="button"
+          >
+            D: <span id="answer_d">Antwort4</span>
+          </button>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-10"></div>
+        <div class="col-md-2">
+          <button
+            id="answer_commit_btn"
+            class="btn btn-primary btn-lg btn-block"
+            role="button"
+          >
+            <span id="commit_text">Antworten</span>
+          </button>
+          <button
+            id="continue_btn"
+            class="btn btn-primary btn-lg btn-block"
+            role="button"
+          >
+            <span id="commit_text">Weiter</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script src="/web/scripts/game.fragment.js"></script>
+  <script src="/web/scripts/main.js"></script>
 </section>
