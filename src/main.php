@@ -20,7 +20,6 @@ router(function ( $context ) {
       function ($context) {
         $context->bind('rand', fn() => rand(0,1000));
 
-        
         $skipPaths = ['/login', '/bq.js'];
 
         if (!in_array($_SERVER['REQUEST_URI'], $skipPaths)) { 
@@ -37,7 +36,8 @@ router(function ( $context ) {
           ['href' => '/game',        'text' => 'Game'],
           ['href' => '/upload',      'text' => 'Upload'],
           ['href' => '/leaderboard', 'text' => 'Leaderboard'],
-          ['href' => '/help',        'text' => 'Hilfe']
+          ['href' => '/help',        'text' => 'Hilfe'],
+          ['href' => '/logout',      'text' => 'Ausloggen']
         ]);
       }
     ],
@@ -62,6 +62,10 @@ router(function ( $context ) {
           
           render('page', $context);
         }
+      ),
+      route(
+        path: '/logout', 
+        fetch: 'handleLogout'
       ),
       route(
         path: '/example', 

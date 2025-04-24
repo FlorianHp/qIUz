@@ -55,10 +55,10 @@ class Context {
     return isset($this->cookies[$key]) ? $this->cookies[$key] : null;
   }
 
-  public function setCookie(string $key, string $value) {
-  
+  public function setCookie(string $key, string $value, int $expire) {
+
     setcookie($key, $value, [
-      'expires'  => time() + 2 * 60 * 60,
+      'expires'  => $expire,
       'path'     => '/',
       'httponly' => true,
       'secure'   => isset($_SERVER['HTTPS']),

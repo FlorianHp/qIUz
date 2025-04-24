@@ -49,17 +49,30 @@ function handleLogin($context) {
 
     $jwt = createJWT($payload);
 
-    $context->setCookie('token', $jwt);
+    date_default_timezone_set('Europe/Berlin');
 
-    $_POST = [];
+    file_put_contents('login.log', "Login: " . $username . " - success - " . date('Y-m-d H:i:s') . "\n", FILE_APPEND);
+
+    $context->setCookie('token', $jwt, $expire);
 
     header('Location: /');
     exit;
 
   } else {
+    file_put_contents('login.log', "Login: " . $username . " - failed - " . date('Y-m-d H:i:s') . "\n", FILE_APPEND);
 
     header("Location: /login?failed=0");
     http_response_code(303);
     exit;
   }
+}
+
+function handleLogout($context) {
+
+  $expire = time() -3600;
+
+  $context->setCookie('token', '', $expire);
+
+  header("Location: /login");
+  exit;
 }
