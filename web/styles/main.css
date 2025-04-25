@@ -20,6 +20,7 @@
 @import url('fragments/search.css');
 @import url('fragments/tooltip.css');
 @import url('fragments/message.css');
+@import url('fragments/review.css');
 
 
 :where(:root) {

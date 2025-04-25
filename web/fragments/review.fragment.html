@@ -1,0 +1,22 @@
+<bq:fragment :name="head-section" h1="Review" p="Wiederholen und Bewerten" image="hero"></bq:fragment>
+
+<section id="review">
+
+  <!-- <bq:for each="review" as="q"> -->
+    <div class="{{ q.correct }}">
+      <span>{{ q.modul_name }}</span>
+      <span>{{ q.lektion }}</span>
+      <span>{{ q.question }}</span>
+      <div>
+        <a href="/upvote:{{ q.id }}">
+          <i class="icon thumbs-up-solid" ></i>
+        </a>
+        <a href="/downvote:{{ q.id }}">
+          <i class="icon thumbs-down-solid" ></i>
+        </a>
+      </div>
+
+    </div>
+  <!-- </bq:for> -->
+
+</section>

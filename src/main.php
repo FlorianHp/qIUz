@@ -30,8 +30,9 @@ router(function ( $context ) {
         
         $context->bind('menus', fn($p)  => [
           ['href' => '/game',        'text' => 'Game'],
-          ['href' => '/upload',      'text' => 'Upload'],
+          ['href' => '/review',      'text' => 'Review'],
           ['href' => '/leaderboard', 'text' => 'Leaderboard'],
+          ['href' => '/upload',      'text' => 'Upload'],
           ['href' => '/help',        'text' => 'Hilfe'],
           ['href' => '/logout',      'text' => 'Ausloggen']
         ]);
@@ -92,6 +93,17 @@ router(function ( $context ) {
           $context->bind('site',  fn()   => 'game');
           $context->bind('hero',  fn()   => 'score');
           $context->bind('quiz',  fn($amount, $settings) => getQuiz($amount ?? 3, $settings));
+
+          render('page', $context);
+        }
+      ),
+      route(
+        path: '/review', 
+        fetch: function ($context) {
+
+          $context->bind('title', fn($a) => 'Review');
+          $context->bind('site',  fn()   => 'review');
+          $context->bind('hero',  fn()   => 'review');
 
           render('page', $context);
         }
