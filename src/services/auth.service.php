@@ -90,7 +90,6 @@ function handleAuth($jwt) {
   $user = query("SELECT * FROM users WHERE token = :token LIMIT 1", ['token' => $jwt])[0] ?? null;
 
   if (!$user || $user['token_expires'] < time()) {
-    echo "Token ist abgelaufen oder ungültig";
     header('Location: /login');
     exit;
   }
