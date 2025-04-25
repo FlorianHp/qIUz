@@ -23,13 +23,9 @@ router(function ( $context ) {
         $skipPaths = ['/login', '/bq.js'];
 
         if (!in_array($_SERVER['REQUEST_URI'], $skipPaths)) { 
-          $jwt     = $context->cookie('token') ?? null;
-          $payload = $jwt ? decodeJWT($jwt) : null;
-      
-          if (!$payload) {
-            header('Location: /login');
-            exit;
-          }
+          $jwt = $context->cookie('token') ?? null;
+
+          handleAuth($jwt);
         }
         
         $context->bind('menus', fn($p)  => [
@@ -53,12 +49,9 @@ router(function ( $context ) {
         path: '/login', 
         fetch: function ($context) {
 
-          $context->bind('title', fn($a) => 'Login');
-          $context->bind('site',  fn()   => 'login');
-          if (!$context->query('failed')) {
-            $context->bind('failed', fn() => true);
-          } 
-            
+          $context->bind('title',  fn($a) => 'Login');
+          $context->bind('site',   fn()   => 'login');
+          
           
           render('page', $context);
         }
@@ -168,7 +161,6 @@ router(function ( $context ) {
         fetch: function ($context) {
           
           handleLogin($context);
-
         }
       )
     ] 

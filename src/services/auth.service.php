@@ -53,16 +53,45 @@ function handleLogin($context) {
 
     file_put_contents('login.log', "Login: " . $username . " - success - " . date('Y-m-d H:i:s') . "\n", FILE_APPEND);
 
+    try {
+      query("
+        UPDATE
+          users 
+        SET 
+          token = :token, 
+          token_expires = :exp 
+        WHERE 
+          id = :id", [
+        'token' => $jwt,
+        'exp'   => $expire,
+        'id'    => $user['id']
+      ]);
+    } catch (err) {
+      http_response_code(500);
+      exit;
+    }
+
     $context->setCookie('token', $jwt, $expire);
 
     header('Location: /');
+    http_response_code(303);
     exit;
 
   } else {
     file_put_contents('login.log', "Login: " . $username . " - failed - " . date('Y-m-d H:i:s') . "\n", FILE_APPEND);
 
     header("Location: /login?failed=0");
-    http_response_code(303);
+    exit;
+  }
+}
+
+function handleAuth($jwt) {
+
+  $user = query("SELECT * FROM users WHERE token = :token LIMIT 1", ['token' => $jwt])[0] ?? null;
+
+  if (!$user || $user['token_expires'] < time()) {
+    echo "Token ist abgelaufen oder ungültig";
+    header('Location: /login');
     exit;
   }
 }
