@@ -29,7 +29,7 @@ function handleLogin($context) {
    * @todo 
    */
   try {
-    $user = query('
+    $rows = query('
       SELECT
         *
       FROM 
@@ -39,13 +39,15 @@ function handleLogin($context) {
       LIMIT 
         1', 
       ['username' => $username]
-    )[0];
+    );
   } catch (err) {
     file_put_contents('login.log', "Login: " . $username . " - failed - " . date('Y-m-d H:i:s') . "[unknown user]\n", FILE_APPEND);
 
     header("Location: /login?failed=0");
     exit;
   }
+
+  $user = $rows[0] ?? null;
 
 
   if ($user && password_verify($password, $user['password_hash'])) {
