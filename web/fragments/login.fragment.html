@@ -1,6 +1,9 @@
 <section>
 
   <!-- <bq:fragment :name="message"></bq:fragment> -->
+   <bq:show when="failed"> 
+    <span>Login fehlgeschlagen ❌</span>
+   </bq:show>
 
   <form id="login" action="/login" method="POST" data-native>
     <input type="text" name="user"      placeholder="Name ..."     required autocomplete="off">
