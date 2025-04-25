@@ -22,7 +22,7 @@ router(function ( $context ) {
 
         $skipPaths = ['/login', '/bq.js'];
 
-        if (!in_array($_SERVER['REQUEST_URI'], $skipPaths)) { 
+        if (!in_array($context->path, $skipPaths)) { 
           $jwt = $context->cookie('token') ?? null;
 
           handleAuth($jwt);
@@ -51,6 +51,7 @@ router(function ( $context ) {
 
           $context->bind('title',  fn($a) => 'Login');
           $context->bind('site',   fn()   => 'login');
+          $context->query('failed') == '0' ? $context->bind('failed',   fn()   => true): null;
           
           
           render('page', $context);
@@ -102,10 +103,7 @@ router(function ( $context ) {
           $context->bind('title',   fn($a) => 'Upload');
           $context->bind('site',    fn()   => 'upload');
           $context->bind('hero',    fn()   => '/img/hero/upload.webp');
-          $context->bind('success', fn() => (
-            isset($_GET['success']) && $_GET['success'] == 1) ?
-             "<script>alert('Frage erfolgreich gespeichert!');</script>" : ''
-          );
+          $context->query('success') == '1' ? $context->bind('success',   fn()   => true) : null;
 
           render('page', $context);
         }
