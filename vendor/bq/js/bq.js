@@ -147,7 +147,7 @@ hook('form', (e) => {
 
   e.addEventListener('submit', async (ev) => {
     if (e.hasAttribute('data-native')) return;
-    const submitter   = ev.submitter,
+    const submitter   = ev.submitter;
           url         = new URL(e.dataset.url ?? submitter.getAttribute('formaction') ?? e.action ?? location.pathname, location.href),
           method      = (submitter.getAttribute('formmethod') ?? e.getAttribute('method') ?? 'GET').toUpperCase(),
           contentType = submitter.getAttribute('formenctype') ?? e.getAttribute('enctype') ?? 'application/x-www-form-urlencoded';
@@ -199,11 +199,14 @@ hook('form', (e) => {
     for (const input of e.querySelectorAll('input,select,textarea,[name]')) {
       const v = valueOf(input);
 
-      if (method == 'GET' || method == 'POST' && contentType == 'application/x-www-form-urlencoded') {
+     if (method === 'GET') {
         v != false ? url.searchParams.set(input.name, v) : null;
-      } else if (method == 'POST' && contentType == 'application/json') {
+      } else if (method === 'POST' && contentType === 'application/x-www-form-urlencoded') {
+        data ??= new URLSearchParams();
+        v != false ? data.append(input.name, v) : null;
+      } else if (method === 'POST' && contentType === 'application/json') {
         setProperty(input.name, v);
-      } 
+      }
 
     }
 
@@ -241,7 +244,7 @@ hook('form', (e) => {
       delete pending[url.pathname];
 
       if (url.pathname == location.pathname) {
-        window.history.replaceState(null, null, url);
+        window.history.replaceState(null, null, url.pathname);
       }
 
       document.startViewTransition(() => {
