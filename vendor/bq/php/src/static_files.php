@@ -66,12 +66,6 @@ if (is_file($file)) {
     'json' => 'application/json',
     'xml' => 'application/xml',
 
-    // Fonts
-    'ttf' => 'font/ttf',
-    'otf' => 'font/otf',
-    'woff' => 'font/woff',
-    'woff2' => 'font/woff2',
-
     // Miscellaneous
     'csv' => 'text/csv',
     'ics' => 'text/calendar',
