@@ -2,21 +2,41 @@
 
 <section id="review">
 
-  <!-- <bq:for each="review" as="q"> -->
-    <div class="{{ q.correct }}">
-      <span>{{ q.modul_name }}</span>
-      <span>{{ q.lektion }}</span>
-      <span>{{ q.question }}</span>
-      <div>
-        <a href="/upvote:{{ q.id }}">
-          <i class="icon thumbs-up-solid" ></i>
-        </a>
-        <a href="/downvote:{{ q.id }}">
-          <i class="icon thumbs-down-solid" ></i>
-        </a>
-      </div>
+  <bq:for each="review" as="module">
+    <h2>
+      <span>{{ module.name }}</span>
+      <i>{{ module | length }}</i>
+    </h2>
+    <bq:for each="module" as="q"> 
 
-    </div>
-  <!-- </bq:for> -->
+      <details class="{{ q.correct }}">
+        <summary>
+          <i class="icon chevron-down-solid"> </i>
+          <h3>
+            <span>{{ q.answers }}</span>
+          </h3>
+        </summary>
+        <div>
+          <ul>
+            <bq:for each="q.answers" as="answer">
+              <li>{{ answer }}</li>
+            </bq:for>
+          </ul>
+
+          <form class="icon-radio" method="POST" action="/rating:{{ q.id }}">
+            <label>
+              <input type="radio" name="vote" value="1" onchange="this.form.submit()" />
+                <i class="icon thumbs-up-solid" ></i>
+            </label>
+
+            <label>
+              <input type="radio" name="vote" value="0" onchange="this.form.submit()"/>
+              <i class="icon thumbs-down-solid" ></i>
+            </label>
+          </form>
+        </div>  
+
+    </bq:for>
+  </bq:for>
 
 </section>

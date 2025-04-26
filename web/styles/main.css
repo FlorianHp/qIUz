@@ -48,6 +48,7 @@
 
   --color-primary: rgba(0, 0, 0, 1);
   --color-secondary: rgba(255, 255, 255, 1);
+  --color-highlight: rgb(239, 131, 84);
 
   --color-error: rgb(255, 0, 0);
   --color-warning: rgb(255, 140, 0);

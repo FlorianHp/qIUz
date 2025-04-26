@@ -97,7 +97,7 @@ function handleLogin($context) {
   }
 }
 
-function handleAuth($jwt) {
+function handleAuth($context, $jwt) {
 
   $user = query("SELECT * FROM users WHERE token = :token LIMIT 1", ['token' => $jwt])[0] ?? null;
 
@@ -105,6 +105,7 @@ function handleAuth($jwt) {
     header('Location: /login');
     exit;
   }
+  $context->bind('user', fn() => $user->id);
 }
 
 function handleLogout($context) {

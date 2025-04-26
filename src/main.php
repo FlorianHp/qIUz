@@ -25,7 +25,7 @@ router(function ( $context ) {
         if (!in_array($context->path, $skipPaths)) { 
           $jwt = $context->cookie('token') ?? null;
 
-          handleAuth($jwt);
+          handleAuth($context, $jwt);
         }
         
         $context->bind('menus', fn($p)  => [
@@ -103,7 +103,7 @@ router(function ( $context ) {
 
           $context->bind('title', fn($a) => 'Review');
           $context->bind('site',  fn()   => 'review');
-          $context->bind('hero',  fn()   => 'review');
+          $context->bind('hero',  fn()   => '/img/hero/review.webp');
 
           render('page', $context);
         }
@@ -154,7 +154,8 @@ router(function ( $context ) {
 
           render('page', $context);
         }
-      )
+      ),
+      
     ]
   ),
   route(
@@ -172,7 +173,14 @@ router(function ( $context ) {
           
           handleLogin($context);
         }
-      )
+      ),
+      route(
+        path: '/rating:id',
+        fetch: function ($context) {
+    
+          vote($context->param('id'), $context->param('vote'), $context->user);
+        }
+      ),
     ] 
   )  
 
