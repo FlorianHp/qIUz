@@ -17,15 +17,15 @@
 </bq:show>
 
 <section class="upload-section">
-  <h1>Upload Inhalte erstellen und verbessern</h1>
-  <p>Fragen erstellen, Inhalte verbessern</p>
+  <h1>Upload erstellen</h1>
+  <p>Erweitere den Pool an Fragen.</p>
 
   <form id="upload" action="/upload" method="POST">
     <table class="upload-table">
       <tbody>
         <tr>
           <td><label for="module">Modul-Name:</label></td>
-          <td>
+          <td colspan="3">
             <input
               type="text"
               id="module"
@@ -34,28 +34,6 @@
               required
             />
           </td>
-          <td><label for="description">Erklärung:</label></td>
-          <td rowspan="2">
-            <textarea
-              id="description"
-              name="description"
-              rows="3"
-              placeholder="Kurze Erklärung..."
-              required
-            ></textarea>
-          </td>
-          <td><label for="incorrect_1">Falsche Antwort 1:</label></td>
-          <td>
-            <input
-              type="text"
-              id="incorrect_1"
-              name="incorrect_1"
-              placeholder="Falsche Antwort 1..."
-              required
-            />
-          </td>
-        </tr>
-        <tr>
           <td><label for="lection">Lektion:</label></td>
           <td>
             <input
@@ -67,9 +45,40 @@
               placeholder="Lektion..."
               required
             />
+            <tr>
+              <td><label for="question">Fragestellung:</label></td>
+              <td colspan="3">
+                <input
+                  type="text"
+                  id="question"
+                  name="question"
+                  placeholder="Frage?"
+                  required
+                />
+              </td>
+              <td><label for="correct">Korrekte Antwort:</label></td>
+              <td>
+                <input
+                  type="text"
+                  id="correct"
+                  name="correct"
+                  placeholder="Korrekte Antwort..."
+                  required
+                />
+              </td>
+            </tr>
           </td>
-          <td>{{placeholder label}}</td>
-          <!--  <td>{{placeholder}}</td>  -->
+
+          <td><label for="incorrect_1">Falsche Antwort 1:</label></td>
+          <td>
+            <input
+              type="text"
+              id="incorrect_1"
+              name="incorrect_1"
+              placeholder="Falsche Antwort 1..."
+              required
+            />
+          </td>
           <td><label for="incorrect_2">Falsche Antwort 2:</label></td>
           <td>
             <input
@@ -77,28 +86,6 @@
               id="incorrect_2"
               name="incorrect_2"
               placeholder="Falsche Antwort 2..."
-              required
-            />
-          </td>
-        </tr>
-        <tr>
-          <td><label for="question">Fragestellung:</label></td>
-          <td>
-            <input
-              type="text"
-              id="question"
-              name="question"
-              placeholder="Frage?"
-              required
-            />
-          </td>
-          <td><label for="correct">Korrekte Antwort:</label></td>
-          <td>
-            <input
-              type="text"
-              id="correct"
-              name="correct"
-              placeholder="Korrekte Antwort..."
               required
             />
           </td>
@@ -114,9 +101,18 @@
           </td>
         </tr>
         <tr>
-          <td>{{placeholder}}</td>
-          <td>{{placeholder}}</td>
-          <td>{{placeholder}}</td>
+          <td><label for="description">Erklärung:</label></td>
+          <td rowspan="2" colspan="3">
+            <textarea
+              id="description"
+              name="description"
+              rows="3"
+              placeholder="Kurze Erklärung..."
+              required
+            ></textarea>
+          </td>
+        </tr>
+        <tr>
           <td>{{placeholder}}</td>
           <td>{{placeholder}}</td>
           <td><button type="submit" class="btn btn-primary">Senden</button></td>

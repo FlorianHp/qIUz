@@ -19,6 +19,8 @@
 @import url('fragments/search-filter.css');
 @import url('fragments/search.css');
 @import url('fragments/tooltip.css');
+@import url('fragments/upload.css');
+@import url('fragments/home.css');
 
 :where(:root) {
   scroll-behavior: smooth;

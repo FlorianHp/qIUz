@@ -1,2 +1,50 @@
-
+.upload-form {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  .upload-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--block-background);
+    border-radius: var(--border-radius);
+    box-shadow: var(--block-shadow);
+    padding: 1rem;
+  }
+  
+  .upload-table td {
+    padding: 0.75rem;
+    vertical-align: top;
+  }
+  
+  .upload-table label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+    color: var(--font-color);
+  }
+  
+  .upload-table input,
+  .upload-table textarea,
+  .upload-table button {
+    width: 100%;
+    padding: 0.5rem 1rem;
+    border-radius: var(--border-radius);
+    background: var(--block-area-color);
+    color: var(--font-color-alternate);
+    border: none;
+  }
+  
+  .upload-table textarea {
+    height: 6rem;
+  }
+  
+  .upload-table button {
+    height: 3rem;
+    background: var(--color-primary);
+    color: var(--color-secondary);
+  }
+  
+  
   
