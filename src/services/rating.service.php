@@ -1,25 +1,43 @@
 <?php
 
 function review($user) {
-
   $rows = query("
     SELECT
-      session
+      review.id AS session_id,
+      review.session,
+      content.id AS content_id,
+      content.question,
+      content.answers,
+      content.voted
     FROM
       review
+    LEFT JOIN
+      content c ON JSON_CONTAINS(review.session, JSON_QUOTE(content.id), '$')
     WHERE
-      user_id = :user
-  ", [
-    'user' => $user
-  ]);
+      review.user_id = :user
+  ",
+  ['user' => $user]);
 
-  foreach ($rows as &$row) {
-    $session = json_decode($row['session'], true);
+  $sessions = [];
 
-    json_last_error() === JSON_ERROR_NONE ? $row['session'] = $session : $row['session'] = [];
+  foreach ($rows as $row) {
+    $sessionId = $row['session_id'];
+
+    $voted = null;
+    if (!empty($row['voted'])) {
+      $votes = json_decode($row['voted'], true);
+      $voted = $votes[$user] ?? null;
+    }
+
+    $sessions[$sessionId][] = [
+      'voted'    => $voted,
+      'id'       => (int) $row['content_id'],
+      'question' => $row['question'],
+      'answers'  => json_decode($row['answers'], true) ?: []
+    ];
   }
 
-  return $rows;
+  return $sessions;
 }
 
 function vote($id, $vote, $user) {

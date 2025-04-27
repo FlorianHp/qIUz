@@ -25,12 +25,16 @@
 
           <form class="icon-radio" method="POST" action="/rating:{{ q.id }}">
             <label>
-              <input type="radio" name="vote" value="1" onchange="this.form.submit()" />
+              <bq:show when="{{ q.voted }}">
+                <input type="radio" name="vote" value="1" onchange="this.form.submit()" />
+              </bq:show>
                 <i class="icon thumbs-up-solid" ></i>
             </label>
 
             <label>
-              <input type="radio" name="vote" value="0" onchange="this.form.submit()"/>
+              <bq:show when="{{ !q.voted }}">
+                <input type="radio" name="vote" value="0" onchange="this.form.submit()"/>
+              </bq:show>
               <i class="icon thumbs-down-solid" ></i>
             </label>
           </form>
