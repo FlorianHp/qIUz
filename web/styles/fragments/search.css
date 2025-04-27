@@ -43,7 +43,7 @@ div.search>form input {
   backdrop-filter: blur(5px);
   padding: 2rem 4rem;
   width: 100%;
-  color: currentColor;
+  color: #fff;
 }
 
 div.search > form button[type="reset"] {
@@ -73,7 +73,8 @@ div.search>form i.icon.magnifying-glass-solid {
   aspect-ratio: 1;
   display: flex;
   place-content: center;
-  place-items: center
+  place-items: center;
+  color: #fff;
 }
 
 div.search>form>span {

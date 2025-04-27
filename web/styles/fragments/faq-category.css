@@ -22,7 +22,7 @@ div.faq--category > h2 {
   background: var(--page-background);
   color: var(--color-primary);
   line-height: 1;
-  color: #fff
+  color: var(--color-primary)
 }
 
 @media (max-width: 600px) and (orientation: portrait) {

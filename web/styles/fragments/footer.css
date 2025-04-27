@@ -13,7 +13,7 @@ footer.page-footer {
 }
 
 footer.page-footer>div:first-child a {
-  margin: 0
+  margin: 0;
 }
 
 footer.page-footer>div:first-child a img {
@@ -22,7 +22,7 @@ footer.page-footer>div:first-child a img {
 
 @media (max-width: 600px) and (orientation: portrait) {
   footer.page-footer>div.page-footer--languages {
-    display: none
+    display: none;
   }
 }
 
@@ -32,7 +32,7 @@ footer.page-footer>div.page-footer--social {
   padding-left: 2rem;
   border-left: solid var(--_color) 1px;
   justify-content: center;
-  gap: 2rem
+  gap: 2rem;
 }
 
 footer.page-footer>div.page-footer--social i {
@@ -45,7 +45,7 @@ footer.page-footer>div.page-footer--social i {
   display: block;
   display: flex;
   place-content: center;
-  place-items: center
+  place-items: center;
 }
 
 footer.page-footer>div h4 {
@@ -54,7 +54,7 @@ footer.page-footer>div h4 {
   text-transform: uppercase;
   isolation: isolate;
   position: relative;
-  color: var(--color-secondary) /* Color for footer-list*/
+  color: var(--color-secondary);
 }
 
 footer.page-footer>div h4:first-child {
@@ -66,7 +66,7 @@ footer.page-footer>div a {
   display: block;
   transition: opacity var(--duration-transition);
   line-height: var(--p-line-height);
-  color: var(--color-secondary) /* Color for footer-list*/
+  color: var(--color-secondary);
 }
 
 footer.page-footer+footer {

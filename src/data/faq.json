@@ -1,0 +1,106 @@
+[
+  {"Allgemeines": [
+
+      {
+        "head": "Was ist das Ziel der Plattform?",
+        "content": "Die Plattform unterstützt Studierende bei der Vorbereitung auf Prüfungen durch interaktive Quizfragen."
+      },
+      {
+        "head": "Wie kann ich ein neues Spiel starten?",
+        "content": "Klicke auf der Startseite auf 'Spielen!', oder wechsle in der Navigationsleiste zu 'Game'."
+      },
+      {
+        "head": "Welche Browser werden unterstützt?",
+        "content": "Wir empfehlen aktuelle Versionen von Chrome, Firefox, Edge oder Safari für die beste Nutzererfahrung."
+      }
+    ]
+  },
+  {"Benutzung": [
+      {
+        "head": "Wie wähle ich die richtige Antwort aus?",
+        "content": "Klicke auf eine Antwortoption und bestätige deine Auswahl mit dem Button 'Antworten'."
+      },
+      {
+        "head": "Was passiert, wenn ich keine Antwort auswähle?",
+        "content": "Ohne Antwort kann die Frage nicht ausgewertet werden. Du musst eine Antwort wählen, um fortzufahren."
+      },
+      {
+        "head": "Kann ich meine Antwort nachträglich ändern?",
+        "content": "Nein, nach dem Klick auf 'Antworten' ist deine Auswahl gespeichert und bewertet."
+      },
+      {
+        "head": "Wie viele Fragen enthält ein Quiz?",
+        "content": "Die Anzahl der Fragen kannnst du vor jedem Spiel frei wählen."
+      }
+    ]
+  },
+  {"Multiplayer": [
+      {
+        "head": "Wie starte ich ein Spiel?",
+        "content": "Wähle im Menü den Spiel-Modus und starte durch! 🔥"
+      },
+      {
+        "head": "Wie wird das Leaderboard bestimmt?",
+        "content": "Der Spieler mit den meisten richtigen Antworten, hat die Boardführung."
+      },
+      {
+        "head": "Kann ich Single-Spiele abbrechen?",
+        "content": "Ja, allerdings wird ein abgebrochenes Spiel nicht gewertet."
+      }
+    ]
+  },
+  {"Technik & Fehlerbehebung": [
+      {
+        "head": "Warum sehe ich keine Fragen?",
+        "content": "Prüfe deine Internetverbindung oder lade die Seite neu."
+      },
+      {
+        "head": "Was tun bei Ladeproblemen?",
+        "content": "Lösche deinen Browser-Cache und versuche es erneut. Kontaktiere ansonsten den Support. ⚙️"
+      },
+      {
+        "head": "Wie oft werden neue Fragen hinzugefügt?",
+        "content": "Fragen werden regelmäßig durch Studierende ergänzt und über die Spielhistorie aktualisiert bzw. bewertet."
+      }
+    ]
+  },
+  {"Fragen & Inhalte": [
+      {
+        "head": "Kann ich selbst Fragen vorschlagen?",
+        "content": "Ja, über 'Upload' kannst du neue Quizfragen einreichen. Bitte achte auf richtigkeit. So lebt das Tool durch alle Nutzenden! 🥳"
+      },
+      {
+        "head": "Wie wird die Qualität der Fragen sichergestellt?",
+        "content": "Alle Fragen findest du nach jedem Spiel in deiner Spielhistorie. Hier kannst du die einzelnen Fragen bewerten. Gefällt eine Frage zu vielen deiner Komilitonen nicht, wird sie entfernt."
+      },
+      {
+        "head": "Gibt es Erklärungen zu den richtigen Antworten?",
+        "content": "Ja, nach der Auswahl deiner Antwort erhältst du eine kurze Erklärung zur richtigen Antwort."
+      }
+    ]
+  },
+  {"Benutzerkonto": [
+      {
+        "head": "Muss ich mich registrieren?",
+        "content": "Für die Nutzung ist ein Account notwendig. Diesen kannst du einfach beantragen."
+      },
+      {
+        "head": "Kann ich meinen Punktestand speichern?",
+        "content": "Du finest deinen Punktestand in deiner Spielhistorie und bestenfalls im Leaderboard 😉."
+      },
+      {
+        "head": "Wie werden meine Daten geschützt?",
+        "content": "Es werden keine personenbezogenen Daten gespeichert. Deine Privatsphäre hat oberste Priorität."
+      }
+    ]
+  },
+  {"Stay Tuned!": [
+      {
+        "head": "Welche neuen Funktionen sind geplant?",
+        "content": "Zukünftig sollen Badges, weitere Multiplayer-Optionen und ein individuelles Fragenmanagement integriert werden."
+      }
+  
+    ]
+  }
+]
+

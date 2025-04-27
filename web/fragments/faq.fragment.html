@@ -1,13 +1,7 @@
 <div class="faq">
   <bq:fragment :name="search" data-replace="'.faq'" categories="faq | search:'faq' | group:'category'"></bq:fragment>
 
-  <bq:show when="!faq">
-    <div class="faq--no-result">
-      {{ 'text_faq_no_search_result' | t }}
-    </div>
-  </bq:show>
-
-  <bq:for each="faq | search:'faq' | filter | group:'category'" as="category">
+  <bq:for each="faq | search:'faq'" as="category">
     <bq:fragment :name="faq-category"></bq:fragment>
   </bq:for>
 
