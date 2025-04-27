@@ -1,8 +1,4 @@
-<section>
-  <bq:show when="success">
-    <pre>{{ success }}</pre>
-  </bq:show>
-
+<!-- <section>
   <form id="upload" action="/upload" method="POST">
     <input type="text"   name="module"      placeholder="Modul ..."         required>
     <input type="number" name="lection"     placeholder="Lektion ..."       required>
@@ -13,5 +9,119 @@
     <input type="text"   name="incorrect_3" placeholder="Falsche Antwort 3" required autocomplete="off">
     <input type="text"   name="description" placeholder="Erklärung ..."     required autocomplete="off">
     <button type="submit">Senden</button>
+  </form>
+</section>
+-->
+<bq:show when="success">
+  <pre>{{ success }}</pre>
+</bq:show>
+
+<section class="upload-section">
+  <h1>Upload Inhalte erstellen und verbessern</h1>
+  <p>Fragen erstellen, Inhalte verbessern</p>
+
+  <form id="upload" action="/upload" method="POST">
+    <table class="upload-table">
+      <tbody>
+        <tr>
+          <td><label for="module">Modul-Name:</label></td>
+          <td>
+            <input
+              type="text"
+              id="module"
+              name="module"
+              placeholder="z.B. Informatik 1"
+              required
+            />
+          </td>
+          <td><label for="description">Erklärung:</label></td>
+          <td rowspan="2">
+            <textarea
+              id="description"
+              name="description"
+              rows="3"
+              placeholder="Kurze Erklärung..."
+              required
+            ></textarea>
+          </td>
+          <td><label for="incorrect_1">Falsche Antwort 1:</label></td>
+          <td>
+            <input
+              type="text"
+              id="incorrect_1"
+              name="incorrect_1"
+              placeholder="Falsche Antwort 1..."
+              required
+            />
+          </td>
+        </tr>
+        <tr>
+          <td><label for="lection">Lektion:</label></td>
+          <td>
+            <input
+              type="number"
+              id="lection"
+              name="lection"
+              min="1"
+              step="1"
+              placeholder="Lektion..."
+              required
+            />
+          </td>
+          <td>{{placeholder label}}</td>
+          <!--  <td>{{placeholder}}</td>  -->
+          <td><label for="incorrect_2">Falsche Antwort 2:</label></td>
+          <td>
+            <input
+              type="text"
+              id="incorrect_2"
+              name="incorrect_2"
+              placeholder="Falsche Antwort 2..."
+              required
+            />
+          </td>
+        </tr>
+        <tr>
+          <td><label for="question">Fragestellung:</label></td>
+          <td>
+            <input
+              type="text"
+              id="question"
+              name="question"
+              placeholder="Frage?"
+              required
+            />
+          </td>
+          <td><label for="correct">Korrekte Antwort:</label></td>
+          <td>
+            <input
+              type="text"
+              id="correct"
+              name="correct"
+              placeholder="Korrekte Antwort..."
+              required
+            />
+          </td>
+          <td><label for="incorrect_3">Falsche Antwort 3:</label></td>
+          <td>
+            <input
+              type="text"
+              id="incorrect_3"
+              name="incorrect_3"
+              placeholder="Falsche Antwort 3..."
+              required
+            />
+          </td>
+        </tr>
+        <tr>
+          <td>{{placeholder}}</td>
+          <td>{{placeholder}}</td>
+          <td>{{placeholder}}</td>
+          <td>{{placeholder}}</td>
+          <td>{{placeholder}}</td>
+          <td><button type="submit" class="btn btn-primary">Senden</button></td>
+        </tr>
+      </tbody>
+    </table>
   </form>
 </section>
