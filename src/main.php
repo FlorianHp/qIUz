@@ -9,6 +9,8 @@ include_once 'src/services/quiz.service.php';
 include_once 'src/services/leaderboard.service.php';
 include_once 'src/services/upload.service.php';
 include_once 'src/services/auth.service.php';
+include_once 'src/services/faq.service.php';
+include_once 'src/services/search.service.php';
 
 router(function ( $context ) {
   
@@ -27,6 +29,30 @@ router(function ( $context ) {
 
           handleAuth($jwt);
         }
+
+        $context->bind('search', function (array $e, string $p) use (&$context) {
+          $q = $context->query('q');
+
+          return empty($q) ? $e : search($e, $q, fn($e) => $e['id'], $p,);
+        });
+
+        $context->bind('group', function (array $e, string $p) {
+          $groups = [];
+
+          foreach ($e as &$v) {
+            foreach ($groups as &$g) {
+              if ($g[0][$p] == $v[$p]) {
+                $g[] = $v;
+
+                continue 2;
+              }
+            }
+
+            $groups[] = [$v];
+          }
+
+          return $groups;
+        });
         
         $context->bind('menus', fn($p)  => [
           ['href' => '/game',        'text' => 'Game'],
@@ -128,6 +154,7 @@ router(function ( $context ) {
           $context->bind('title', fn($a) => 'Hilfe');
           $context->bind('site',  fn($a) => 'help');
           $context->bind('hero',  fn()   => '/img/hero/help.webp');
+          $context->bind('faq',   fn() => faq());
 
           render('page', $context);
         }
