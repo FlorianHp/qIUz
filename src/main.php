@@ -142,7 +142,29 @@ router(function ( $context ) {
 
           render('page', $context);
         }
-      )
+      ),
+      route(
+        path: '/legal', 
+        fetch: function ($context) {
+
+          $context->bind('title', fn($a) => 'Haftungsausschluss');
+          $context->bind('site',  fn()   => 'legal');
+          $context->bind('hero',  fn()   => '');
+
+          render('page', $context);
+        }
+      ),
+      route(
+        path: '/privacy-policy', 
+        fetch: function ($context) {
+
+          $context->bind('title', fn($a) => 'Datenschutzerklärung');
+          $context->bind('site',  fn()   => 'privacy-policy');
+          $context->bind('hero',  fn()   => '');
+
+          render('page', $context);
+        }
+      ),
     ]
   ),
   route(
