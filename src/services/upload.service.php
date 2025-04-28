@@ -1,5 +1,22 @@
 <?php 
 
+function modules() {
+
+  $rows = query('
+    SELECT DISTINCT
+      modul_name AS module
+    FROM
+      content
+  ');
+
+  foreach ($rows as $row) {
+    if (isset($row['module']) && is_string($row['module'])) {
+      $modules[] = trim($row['module']);
+    }
+  }
+
+  return $modules;
+}
 function upload($data) {
 
   query('

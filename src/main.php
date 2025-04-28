@@ -129,6 +129,8 @@ router(function ( $context ) {
           $context->bind('title',   fn($a) => 'Upload');
           $context->bind('site',    fn()   => 'upload');
           $context->bind('hero',    fn()   => '/img/hero/upload.webp');
+          $context->bind('modules', fn()   => modules());
+          
           switch( $context->query('success')) {
             case '1':
               $context->bind('success',  fn()   => 'Upload erfolgreich ✅');

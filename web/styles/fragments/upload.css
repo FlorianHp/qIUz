@@ -20,7 +20,7 @@
 #upload form > div:first-of-type {
   display: grid;
   grid-auto-flow: column;
-  grid-template-columns: 90% 1fr;
+  grid-template-columns: 85% 1fr;
   justify-items: start;
 
   div {
