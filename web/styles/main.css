@@ -20,6 +20,7 @@
 @import url('fragments/tooltip.css');
 @import url('fragments/upload.css');
 @import url('fragments/home.css');
+@import url('fragments/setup.css');
 
 :where(:root) {
   scroll-behavior: smooth;

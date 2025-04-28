@@ -55,7 +55,7 @@ router(function ( $context ) {
         });
         
         $context->bind('menus', fn($p)  => [
-          ['href' => '/game',        'text' => 'Game'],
+          ['href' => '/setup',       'text' => 'Game'],
           ['href' => '/upload',      'text' => 'Upload'],
           ['href' => '/leaderboard', 'text' => 'Leaderboard'],
           ['href' => '/help',        'text' => 'Hilfe'],
@@ -88,24 +88,22 @@ router(function ( $context ) {
         fetch: 'handleLogout'
       ),
       route(
-        path: '/example', 
-        fetch: function ($context) {
-
-          $context->bind('pipe', fn($a) => $a * 2);
-          $context->bind('list', fn()   => [ 'Mann', 'Frau' ]);
-          $context->bind('prop', fn()   => [ 'text' => 'Bin ein String!' ]);
-          $context->bind('bool', fn()   => (bool) random_int(0, 1));
-          $context->bind('obj',  fn()   => [ 'list' => [1,2], 'bool' => false ]);
-
-          render('example', $context);
-        }
-      ),
-      route(
         path: '/', 
         fetch: function ($context) {
 
           $context->bind('title', fn($a) => 'Home');
           $context->bind('site',  fn()   => 'home');
+
+          render('page', $context);
+        }
+      ),
+      route(
+        path: '/setup', 
+        fetch: function ($context) {
+
+          $context->bind('title', fn($a) => 'Setup');
+          $context->bind('site',  fn()   => 'setup');
+          $context->bind('hero',  fn()   => '/img/hero/setup.webp');
 
           render('page', $context);
         }
