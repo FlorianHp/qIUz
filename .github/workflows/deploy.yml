@@ -23,5 +23,5 @@ jobs:
       - name: Install dependencies
         run: sudo apt update && sudo apt-get install git-ftp -y
 
-      - name: Deploy via Git-FTP
-        run: git ftp push -v --auto-init --insecure -u "$FTP_USER" -p "$FTP_PASSWORD" "$URL"
+      - name: Force Upload ALL files
+        run: git ftp init --insecure -u "$FTP_USER" -p "$FTP_PASSWORD" "$URL"
