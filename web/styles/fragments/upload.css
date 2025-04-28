@@ -1,50 +1,80 @@
-.upload-form {
-    width: 100%;
-    max-width: 1200px;
-    margin: 0 auto;
+#upload form {
+  width: 100%;
+  display: grid;
+  grid-auto-flow: row;
+  grid-gap: 1rem;
+  background-color: var(--block-background);
+  border-radius: var(--border-radius);
+  padding: 1rem;
+  box-shadow: var(--block-shadow);
+}
+
+#upload div {
+  width: 100%;
+  padding: 1rem;
+  display: grid;
+  grid-auto-flow: rows;
+  grid-gap: 1rem;
+}
+
+#upload form > div:first-of-type {
+  display: grid;
+  grid-auto-flow: column;
+  grid-template-columns: 90% 1fr;
+  justify-items: start;
+
+  div {
+    padding-left: 0;
+    margin-left: 0;
   }
-  
-  .upload-table {
-    width: 100%;
-    border-collapse: collapse;
-    background: var(--block-background);
-    border-radius: var(--border-radius);
-    box-shadow: var(--block-shadow);
-    padding: 1rem;
+}
+
+#upload label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+  color: #fff;
+}
+
+#upload input,
+#upload textarea{
+  width: 100%;
+  padding: 0.5rem 1rem;
+  border-radius: var(--border-radius);
+  background: var(--block-area-color);
+  color: #fff;
+  border: none;
+}
+
+#upload button {
+  min-width: 160;
+  max-width: 250px;
+}
+
+#upload div:has(button) {
+  display: flex;
+  justify-content: center;
+}
+
+#upload textarea {
+  height: 6rem;
+}
+
+#upload input:invalid {
+  border: 2px solid var(--color-warning);
+}
+
+#upload textarea:invalid {
+  border: 2px solid var(--color-warning);;
+}
+
+@media (max-width: 600px) and (orientation: portrait) {
+  #upload form > div:first-of-type {
+    grid-auto-flow: row;
+    grid-template-columns: unset;
+    div:nth-of-type(2) {
+      width: 6rem;
+    }
   }
-  
-  .upload-table td {
-    padding: 0.75rem;
-    vertical-align: top;
-  }
-  
-  .upload-table label {
-    display: block;
-    font-weight: bold;
-    margin-bottom: 0.5rem;
-    color: var(--font-color);
-  }
-  
-  .upload-table input,
-  .upload-table textarea,
-  .upload-table button {
-    width: 100%;
-    padding: 0.5rem 1rem;
-    border-radius: var(--border-radius);
-    background: var(--block-area-color);
-    color: var(--font-color-alternate);
-    border: none;
-  }
-  
-  .upload-table textarea {
-    height: 6rem;
-  }
-  
-  .upload-table button {
-    height: 3rem;
-    background: var(--color-primary);
-    color: var(--color-secondary);
-  }
-  
-  
-  
+
+}
