@@ -47,6 +47,7 @@
 
   --color-primary: rgba(0, 0, 0, 1);
   --color-secondary: rgba(255, 255, 255, 1);
+  --color-highlight: rgb(239, 131, 84);
 
   --color-error: rgb(255, 0, 0);
   --color-warning: rgb(255, 140, 0);
@@ -304,7 +305,7 @@ body {
   --header-size: 6rem;
   --footer-size: 20rem;
   --primary-gradient: linear-gradient(135deg, var(--color-primary) 0%, rgb(calc(var(--color-primary-r) * .5), calc(var(--color-primary-g) * .5), calc(var(--color-primary-b) * .5)) 100%);
-  --_max-width: 1000px
+  --_max-width: 1000px;
 }
 
 body button {
@@ -324,7 +325,8 @@ body .--alternate {
 }
 
 body>main {
-  min-height: calc(100dvh - var(--header-size) - var(--footer-size) - .1rem);
+  /* min-height: calc(100dvh - var(--header-size) - var(--footer-size) - .1rem); */
+  min-height: calc(100vh - var(--header-size) - var(--footer-size));
 }
 
 body input {
