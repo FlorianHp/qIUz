@@ -1,19 +1,56 @@
-<bq:fragment :name="head-section" h1="Upload" p="Inhalte verbessern" image="hero"></bq:fragment>
+<bq:fragment :name="head-section" h1="Upload erstellen" p="Erweitere den Pool an Fragen." image="hero"></bq:fragment>
 
-<section>
+<section id="upload">
   <bq:show when="success">
-    <span>Erfolgreich hochgeladen ✅</span>
+    <span>{{ success }}</span>
   </bq:show>
 
-  <form id="upload" action="/upload" method="POST">
-    <input type="text"   name="module"      placeholder="Modul ..."         required>
-    <input type="number" name="lection"     placeholder="Lektion ..."       required>
-    <input type="text"   name="question"    placeholder="Frage ..."         required autocomplete="off">
-    <input type="text"   name="correct"     placeholder="Korrekte Antwort"  required autocomplete="off">
-    <input type="text"   name="incorrect_1" placeholder="Falsche Antwort 1" required autocomplete="off">
-    <input type="text"   name="incorrect_2" placeholder="Falsche Antwort 2" required autocomplete="off">
-    <input type="text"   name="incorrect_3" placeholder="Falsche Antwort 3" required autocomplete="off">
-    <input type="text"   name="description" placeholder="Erklärung ..."     required autocomplete="off">
-    <button type="submit">Senden</button>
+  <form action="/upload" method="POST">
+
+    <div>
+      <div>
+        <label for="module">Modul-Name:</label>
+        <input type="text" name="module" placeholder="z.B. Informatik 1" required list="modules-list" autocomplete="off"/>
+
+        <datalist id="modules-list">
+          <bq:for each="modules" as="name">
+            <option value="{{ name }}">
+          </bq:for>
+        </datalist>
+      </div>
+      <div>
+        <label for="lection">Lektion:</label>
+        <input type="number" name="lection" min="1" step="1" placeholder="Alle" autocomplete="off"/>
+      </div>
+    </div>
+
+    <div>
+      <label for="question">Fragestellung:</label>
+      <input type="text" name="question" placeholder="Frage?" required autocomplete="off"/>
+    </div>
+
+    <div>
+      <label for="correct">Korrekte Antwort:</label>
+      <input type="text" name="correct" placeholder="Korrekte Antwort..." required autocomplete="off"/>
+  
+      <label for="incorrect_1">Falsche Antwort 1:</label>
+      <input type="text" name="incorrect_1" placeholder="Falsche Antwort 1..." required autocomplete="off"/>
+  
+      <label for="incorrect_2">Falsche Antwort 2:</label>
+      <input type="text" name="incorrect_2" placeholder="Falsche Antwort 2..." required autocomplete="off"/>
+
+      <label for="incorrect_3">Falsche Antwort 3:</label>
+      <input type="text" name="incorrect_3" placeholder="Falsche Antwort 3..." required autocomplete="off"/>
+    </div>
+
+    <div>
+      <label for="description">Erklärung:</label>
+      <textarea id="description" name="description" rows="3" placeholder="Kurze Erklärung..." required></textarea>
+    </div>
+
+    <div>
+      <button type="submit">Senden</button>
+    </div>
+
   </form>
 </section>

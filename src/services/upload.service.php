@@ -1,8 +1,25 @@
 <?php 
 
+function modules() {
+
+  $rows = query('
+    SELECT DISTINCT
+      modul_name AS module
+    FROM
+      content
+  ');
+
+  foreach ($rows as $row) {
+    if (isset($row['module']) && is_string($row['module'])) {
+      $modules[] = trim($row['module']);
+    }
+  }
+
+  return $modules;
+}
 function upload($data) {
 
-  $sql = query('
+  query('
     INSERT INTO 
       content (
         id, 
@@ -24,7 +41,7 @@ function upload($data) {
   ', $data);
 }
 
-function handleUpload() {
+function handleUpload($user) {
   function clean($v) {
     return htmlspecialchars(trim($v), ENT_QUOTES | ENT_HTML5, 'UTF-8');
   }
@@ -54,10 +71,17 @@ function handleUpload() {
     'question'    => $question,
     'answers'     => $answers,
     'description' => $descr,
-    'rating'      => 0
+    'rating'      => 0,
+    'creator'     => $user
   ];
 
-  upload($data);
+  try {
+    upload($data);
+  } catch (\Throwable $th) {
+    file_put_contents('upload.log', "Error: " . $th, FILE_APPEND);
+    header("Location: /upload?success=0");
+    exit;
+  }
 
   header("Location: /upload?success=1");
   exit;
