@@ -1,30 +1,41 @@
 <bq:fragment :name="head-section" h1="Leaderboard" p="Sei der aller Beste!" image="hero"></bq:fragment>
 
-<section>
+<section id="podium-wrapper">
+  <!-- Platz 2 -->
+  <div class="podium-block second-place">
+    <div class="podium-icon">🏆</div>
+  </div>
 
-  <table>
-    <thead>
-      <tr>
-        <th>- Platz -</th>
-        <th>- Spieler -</th>
-        <th>- Gewonnen -</th>
-        <th>- Score -</th>
-      </tr>
-    </thead>
-    <tbody>
+  <!-- Platz 1 + Leaderboard Tabelle -->
+  <div class="podium-block first-place">
+    <div class="podium-icon">👑</div>
+    <section id="leaderboard">
+      <table>
+        <thead>
+          <tr>
+            <th>- Platz -</th>
+            <th>- Spieler -</th>
+            <th>- Gewonnen -</th>
+            <th>- Score -</th>
+          </tr>
+        </thead>
+        <tbody>
+          <bq:for each="leaderboard" as="player">
+            <tr>
+              <th>{{ @i | add }}</th>
+              <th>{{ player.user_name }}</th>
+              <th>{{ player.wins }}</th>
+              <th>{{ player.score }}</th>
+            </tr>
+          </bq:for>
+        </tbody>
+      </table>
+    </section>
+  </div>
 
-      <bq:for each="leaderboard" as="player">
-        <tr>
-          <th>{{ @i | add }}</th>
-          <th>{{ player.user_name }}</th>
-          <th>{{ player.wins}}</th>
-          <th>{{ player.score }}</th>
-        </tr>
-      </bq:for>
-      
-    </tbody>
-  </table>
-
-  
-  
+  <!-- Platz 3 -->
+  <div class="podium-block third-place">
+    <div class="podium-icon">🚀</div>
+    <div class="second-place">{{ player.user_name }}</div>
+  </div>
 </section>
