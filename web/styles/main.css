@@ -30,10 +30,10 @@
   --border-radius: 1rem;
   --border-width: 0;
   --border-color: transparent;
-  --block-background: rgba(255, 255, 255, 1);
-  --block-area-color: rgba(0, 0, 0, .05);
+  --block-background: rgba(45, 49, 66, 1);
+  --block-area-color: rgba(79, 93, 116, 1);
   --block-shadow: 0px 0px 1rem 0px rgba(0, 0, 0, .075);
-  --page-background: rgb(250, 250, 250);
+  --page-background: rgba(191, 192, 192, 1);
 
   --page-max-width: 2200px;
   --page-space: 4rem;
@@ -45,8 +45,8 @@
 
   --font-color-alternate: rgb(255, 255, 255);
 
-  --color-primary: rgb(157, 86, 11);
-  --color-secondary: rgb(155, 157, 11);
+  --color-primary: rgba(0, 0, 0, 1);
+  --color-secondary: rgba(255, 255, 255, 1);
 
   --color-error: rgb(255, 0, 0);
   --color-warning: rgb(255, 140, 0);
@@ -130,7 +130,7 @@ section video {
   animation-duration: var(--duration-animation);
   transition-duration: var(--duration-transition);
   transition-property: none;
-  background: linear-gradient(90deg, var(--page-background) 40%, rgba(0, 0, 0, 0.25) 70%, var(--page-background) 100%) no-repeat center/cover, var(--page-background) url('/img/background-wood.webp') no-repeat center/cover;
+  background: linear-gradient(90deg, var(--page-background) 40%, rgba(0, 0, 0, 0.25) 70%, var(--page-background) 100%) no-repeat center/cover, var(--page-background) url('/img/hero/background.webp') no-repeat center/cover;
   background-attachment: fixed, fixed;
   background: var(--page-background);
 }
@@ -261,18 +261,18 @@ section video {
 }
 
 :where(:root) {
-  --block-background-r: 25;
-  --block-background-g: 25;
-  --block-background-b: 25;
-  --block-area-color-a: .28;
-  --page-background-r: 35;
-  --page-background-g: 35;
-  --page-background-b: 35
+  --block-background-r: 79;   /*color5: blue*/
+  --block-background-g: 93;   /*color5: blue*/
+  --block-background-b: 117;  /*color5: blue*/
+  --block-area-color-a: 1;    /*color5: blue*/
+  --page-background-r: 191;   /*color2: grey*/
+  --page-background-g: 192;   /*color2: grey*/
+  --page-background-b: 192;   /*color2: grey*/
 }
 
 :where(:root) :where(body),
 :where(:root) a {
-  color: #fff
+  color: var(--color-primary) /*boy headline*/
 }
 
 @media screen and (max-width: 1200px) {
@@ -329,7 +329,8 @@ body>main {
 
 body input {
   border-radius: var(--border-min-radius);
-  background: var(--block-area-color)
+  background: var(--block-area-color);
+  color: var(--color-secondary)
 }
 
 body section {
@@ -359,7 +360,6 @@ body section h1,
 body section h2 {
   color: var(--color-primary);
   line-height: 1.25;
-  color: #fff
 }
 
 body section p {

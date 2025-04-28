@@ -1,86 +1,11 @@
-<div class="help">
 
-  <bq:fragment :name="head-section" h1="help_support" p="help_support_text" image="hero">
+<bq:fragment :name="head-section" h1="FAQ" p="" image="hero"></bq:fragment>
 
-    <div class="help--sections">
-      <a href="" class="help--section">
-        <i class="icon chevron-right-solid"></i>
-        <h2>Repair</h2>
-        <i class="icon wrench-solid"></i>
-      </a>
-      <a href="https://www.lakewood.de/forum/" class="help--section">
-        <i class="icon chevron-right-solid"></i>
-        <h2>Forum</h2>
-        <i class="icon comments-solid"></i>
-      </a>
-      <a href="" class="help--section">
-        <i class="icon chevron-right-solid"></i>
-        <h2>Contact</h2>
-        <i class="icon envelope-solid"></i>
-      </a>
+<section <!-- class="help--section-faq">
+  <h1>{{ 'faq_head' | t }}</h1>
+  <p>{{ 'faq_subhead' | t }}</p>
 
-    </div>
-    <p>{{ 'warranty_hint' | t }}</p>
+  <bq:fragment :name="faq"></bq:fragment> -->
+</section>
 
-  </bq:fragment>
 
-  <section class="help--section-faq">
-    <h1>{{ 'faq_head' | t }}</h1>
-    <p>{{ 'faq_subhead' | t }}</p>
-
-    <bq:fragment :name="faq"></bq:fragment>
-  </section>
-
-  <section id="warranty">
-    <div>
-      <h1>Garantie</h1>
-      <div>
-        <p>Jede Lakewood Gitarre ist ein Unikat, das wir mit Herzblut in unserer Werkstatt für Sie gebaut haben. Wir
-          legen großen Wert auf bestimmte Qualitätsmerkmale, die Ihnen beim näheren Betrachten eines unserer Instrumente
-          sicherlich schon einmal aufgefallen sind. Alle Hölzer und sonstigen Materialien haben wir mit Bedacht
-          ausgewählt und sorgfältig weiterverarbeitet. Wir sind uns unserer Sache so sicher, dass wir jede Gitarre mit
-          einer Garantie von 10 Jahren Laufzeit an den Handel liefern. Vielleicht haben Sie schon lange von einer
-          Lakewood geträumt oder lange auf die Erfüllung eines Wunsches hin gespart - Sie haben es verdient, eine
-          hochkarätige Gitarre in Händen zu halten, die Ihnen mit Sicherheit lange über die Garantiezeit hinaus viel
-          Freude bereiten wird.</p>
-        <p>Alle Lakewood-Gitarren sind für die Dauer von zehn Jahren mit einer Garantie gegen Material- und
-          Produktionsfehler ausgestattet. Die Garantie beginnt mit dem Herstellungsdatum. Die Garantie ist nicht
-          gleichbedeutend mit der gesetzlichen Gewährleistung, die je nach Land, in dem die Gitarre von einem
-          autorisierten Händler verkauft wird, unterschiedlich sein kann (meist deutlich kürzer). Eine Garantie ist
-          jedoch auch keine "Wild-Card", deshalb möchten wir Sie freundlich auf Ihre Sorgfaltspflicht hinweisen. Kümmern
-          Sie sich gut um Ihr teures Instrument, dann haben Sie sehr lange Freude daran.</p>
-        <p>Die Herstellergarantie schließt folgendes aus:</p>
-        <ul>
-          <li>Abnutzung, auch von Saiten, Bundstäbchen, Sätteln und Stegeinlagen</li>
-          <li>Verlust </li>
-          <li>Beschädigung durch äußere Einflüsse</li>
-          <li>Beschädigung durch zu hohe / niedrige Luftfeuchtigkeit oder Temperatur &nbsp;</li>
-          <li>Alterungsprozess oder Rissbildung des Lackes </li>
-        </ul>
-        <p>Einige Bestandteile der Gitarre, wie Mechaniken, Koffer, Tasche und Tonabnehmersystem unterliegen lediglich
-          einer Garantie von zwei Jahren.</p>
-        <p>Nicht von Lakewood ausdrücklich autorisierte Reparaturen und Umbauten führen zum Verfall der Garantie.</p>
-        <p>Die Garantie ist übertragbar.</p>
-        <p>Lakewood Guitars ist nicht in Anspruch für Folgekosten zu nehmen, die aus dem Defekt eines Instruments
-          herrühren.</p>
-        <p>Um klären zu können, ob ein Garantiefall vorliegt, nehmen Sie bitte Kontakt mit Lakewood unter <a
-            href="mailto:service@lakewood.de">service@lakewood.de</a> auf. Für den möglicherweise notwendigen Versand
-          Ihrer Gitarre an Lakewood verwenden Sie bitte eine ausreichend sichere Verpackung. Die Kosten des Transports
-          und der Versicherung tragen Sie als Eigentümer des Instruments. Bitte fügen Sie der Lieferung Ihre Adresse und
-          Telefonnummer bei, sowie eine Beschreibung des festgestellten Defekts.</p>
-        <p>Lakewood wird gemäß den Garantiebestimmungen die Reparatur ausführen und Ihnen das Instrument wieder
-          zusenden. Die Kosten des Rücktransports sind vom Eigentümer des Instruments zu tragen. Sollte kein
-          Garantiefall vorliegen, können Sie wählen, ob Sie Ihr Instrument kostenpflichtig reparieren lassen wollen oder
-          es unrepariert zurückerhalten möchten.</p>
-        <p>Werden Sie Mitglied der Lakewood-Familie und registrieren Sie Ihre Gitarre online.</p>
-      </div>
-    </div>
-
-    <picture>
-      <source type="image/webp"
-        srcset="/images/workshop/06.jpg?type=webp&width=256 256w, /images/workshop/06.jpg?type=webp&width=512 512w, /images/workshop/06.jpg?type=webp&width=1024 1024w, /images/workshop/06.jpg?type=webp&width=2048 2048w"
-        sizes="100vw">
-      <img decoding="async" loading="lazy" src="/images/workshop/06.jpg">
-    </picture>
-  </section>
-</div>
