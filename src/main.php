@@ -116,7 +116,7 @@ router(function ( $context ) {
 
           $context->bind('title', fn($a) => 'Game');
           $context->bind('site',  fn()   => 'game');
-          $context->bind('hero',  fn()   => 'score');
+          $context->bind('hero',  fn()   => '/img/hero/game.webp');
           $context->bind('quiz',  fn($amount, $settings) => getQuiz($amount ?? 3, $settings));
 
           render('page', $context);
@@ -150,7 +150,7 @@ router(function ( $context ) {
 
           $context->bind('title',       fn($a) => 'Leaderboard');
           $context->bind('site',        fn($a) => 'leaderboard');
-          $context->bind('hero',        fn()   => '/img/hero/score.webp');
+          $context->bind('hero',        fn()   => '/img/hero/leaderboard.webp');
           $context->bind('leaderboard', fn($a) => getLeaderboard($a = 5));
           $context->bind('add',         fn($a) => $a + 1);
           
