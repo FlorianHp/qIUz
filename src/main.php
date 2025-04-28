@@ -129,7 +129,17 @@ router(function ( $context ) {
           $context->bind('title',   fn($a) => 'Upload');
           $context->bind('site',    fn()   => 'upload');
           $context->bind('hero',    fn()   => '/img/hero/upload.webp');
-          $context->query('success') == '1' ? $context->bind('success',   fn()   => true) : null;
+          $context->bind('modules', fn()   => modules());
+          
+          switch( $context->query('success')) {
+            case '1':
+              $context->bind('success',  fn()   => 'Upload erfolgreich ✅');
+              break;
+            case '0':
+              $context->bind('success',  fn()   => 'Upload fehlgeschlagen ❌');
+              break;
+            default:
+          }
 
           render('page', $context);
         }
@@ -174,12 +184,24 @@ router(function ( $context ) {
   ),
   route(
     method: 'POST', 
+    middlewares : [
+      function ($context) {
+
+        $skipPaths = ['/login'];
+
+        if (!in_array($context->path, $skipPaths)) { 
+          $jwt = $context->cookie('token') ?? null;
+
+          handleAuth($jwt);
+        }
+      }
+    ],
 
     routes: [
 
       route(
         path: '/upload',
-        fetch: 'handleUpload'
+        fetch: fn($context) => handleUpload($context->user)
       ),
       route(
         path: '/login',
