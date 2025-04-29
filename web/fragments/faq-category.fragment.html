@@ -1,9 +1,10 @@
 <div class="faq--category">
   <h2>
     <span>{{ category.major }}</span>
-    <i>{{ category | length }}</i>
+    <i>{{ category.items | length }}</i>
   </h2>
-  <bq:for each="category.items" as="question">
+
+  <bq:for each="category.items | search:'faq'" as="question">
     <bq:fragment :name="faq-question" head="question.head" content="question.content"></bq:fragment>
   </bq:for>
 </div>
