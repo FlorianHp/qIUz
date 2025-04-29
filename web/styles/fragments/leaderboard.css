@@ -15,26 +15,28 @@
   background: var(--block-area-color);
   border-radius: var(--border-radius);
   position: relative;
-  overflow: visible; /* wichtig! */
-}
-
-.first-place {
-  width: 60%;
+  overflow: visible;
 }
 
 .second-place {
-  height: 350px;
+  height: 200px;
   width: 15%;
 }
 
+.first-place {
+  min-height: 300px;
+  width: 60%;
+  padding-top: 1rem;
+}
+
 .third-place {
-  height: 200px;
+  height: 250px;
   width: 15%;
 }
 
 .podium-icon {
   position: absolute;
-  top: -2rem;
+  top: -2.5rem;
   font-size: 3rem;
   background: var(--block-background);
   border-radius: 50%;
@@ -42,8 +44,17 @@
   border: 2px solid var(--block-area-color);
 }
 
+.podium-name {
+  margin-top: 1rem;
+  font-weight: bold;
+  color: var(--font-color-alternate);
+  text-align: center;
+  font-size: 1.2rem;
+}
+
 #leaderboard table {
-  width: 150%;
+  width: 80%;
+  margin: 2rem auto 0 auto;
   border-collapse: separate;
   border-spacing: 0 0.5rem;
   background: none;
@@ -74,6 +85,24 @@
   background: var(--color-highlight, gold);
   color: var(--color-primary);
 }
+
+@keyframes pulse {
+  0%   { transform: scale(1); }
+  50%  { transform: scale(1.1); }
+  100% { transform: scale(1); }
+}
+
+.podium-icon {
+  animation: pulse 2s ease-in-out infinite;
+}
+
+.podium-icon:hover {
+  background: var(--color-highlight, gold);
+  color: var(--color-primary);
+  transition: background 0.3s ease;
+}
+
+
 
 
 
