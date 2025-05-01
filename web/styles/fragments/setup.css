@@ -1,3 +1,8 @@
+#setup {
+  margin-top: 0;
+  padding-top: 1rem;
+}
+
 #setup > div {
   display: flex;
   flex-direction: column;

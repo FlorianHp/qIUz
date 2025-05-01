@@ -1,0 +1,23 @@
+<section id="session">
+  
+  <div>
+    <h2>{{ question.question }}</h2>
+
+    <div class="progress-container">
+      <div class="stamina-ring" data-progress="{{ progress }}"></div>
+      <span>{{ progress }}/{{ total }}</span>
+    </div>
+  </div>
+  
+
+  <form action="/session" method="post">
+    <bq:for each="question.answers" as="answer">
+      <label>
+        <input type="radio" name="answer" value="{{ answer.text }}">
+        <span>{{ answer.text }}</span>
+      </label>
+    </bq:for>
+
+    <button type="submit">Senden</button>
+  </form>
+</section>
