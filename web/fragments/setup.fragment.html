@@ -1,38 +1,46 @@
 <bq:fragment :name="head-section" h1="Konfiguration" p="Stelle dein Spiel nach deinen Bedürfnissen ein!" image="hero"></bq:fragment>
 
 <section id="setup">
-  <form action="/setup" method="POST">
 
-    <div>
-      <label for="module" required>Modul:</label>
-      <select name="module" required>
-        <bq:for each="modules" as="name">
-          <option value="{{ name }}">{{ name }}</option>
+  <div>
+    <form method="GET">
+      <label for="module-select">Modul</label>
+      <select id="module-select" name="module" required onchange="this.form.submit()" data-replace="select[name='lection']" >
+        <option disabled selected>Modul wählen</option>
+        <bq:for each="setup" as="entry">
+          <option value="{{ entry.module }}" selected="{{ entry.is_selected }}" >{{ entry.module }}</option>
         </bq:for>
       </select>
-    </div>
+    </form>
   
-    <div>
-      <label for="lection" required>Lektion:</label>
-      <select name="lection">
-        <option value="0">Alle</option>
-        <bq:for each="lections" as="number">
-          <option value="{{ number }}">{{ number }}</option>
-        </bq:for>
-      </select>
-    </div>
   
-    <div>
-      <label for="amount">Anzahl:</label>
-      <input type="number" name="amount" min="3" max="5" step="1"  autocomplete="off" required/>
-    </div>
-  
-    <div>
-      <label for="mode" required>Modus:</label>
-      <select name="mode" required>
-        <option value="Mehrspieler" disabled>Mehrspieler</option>
-        <option value="Einzelspieler">Einzelspieler</option>
-      </select>
-    </div>
-  </form>
+    <form method="POST" action="/create">
+      <input type="hidden" name="module" value="{{ selected }}">
+
+      <div id="create"> 
+        <label for="lection-select" >Lektion</label>
+        <select id="lection-select" name="lection" required > 
+          <option value="0">Alle</option>
+          <bq:for each="lections" as="number">
+            <option value="{{ number }}">{{ number }}</option>
+          </bq:for>
+        </select>
+    
+        <label for="mode-select">Modus</label>
+        <select id="mode-select" name="mode" required>
+          <option value="solo">Einzelspieler</option>
+          <option value="multi" disabled>Mehrspieler</option>
+        </select>
+    
+        <label for="amount-input">Anzahl</label>
+        <input id="amount-input" type="number" name="amount" required min="3" max="5" autocomplete="off">
+
+      </div>
+
+      <div>
+        <button type="submit">Start</button>
+      </div>
+    </form>
+  </div>
+
 </section>

@@ -49,7 +49,6 @@ function handleLogin($context) {
 
   $user = $rows[0] ?? null;
 
-
   if ($user && password_verify($password, $user['password_hash'])) {
 
     $expire = time() + 2 * 60 * 60;
@@ -60,8 +59,6 @@ function handleLogin($context) {
     ];
 
     $jwt = createJWT($payload);
-
-    date_default_timezone_set('Europe/Berlin');
 
     file_put_contents('login.log', "Login: " . $username . " - success - " . date('Y-m-d H:i:s') . "\n", FILE_APPEND);
 
@@ -97,14 +94,16 @@ function handleLogin($context) {
   }
 }
 
-function handleAuth($jwt) {
+function handleAuth($context) {
 
-  $user = query("SELECT * FROM users WHERE token = :token LIMIT 1", ['token' => $jwt])[0] ?? null;
+  $user = query("SELECT * FROM users WHERE token = :token LIMIT 1", ['token' => $context->cookie('token')])[0] ?? null;
 
   if (!$user || $user['token_expires'] < time()) {
     header('Location: /login');
     exit;
   }
+
+  $context->bind('user', fn() => $user['id']);
 }
 
 function handleLogout($context) {

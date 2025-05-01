@@ -13,7 +13,14 @@ include_once 'src/services/faq.service.php';
 include_once 'src/services/search.service.php';
 
 router(function ( $context ) {
-  
+  $context->method = $_SERVER['REQUEST_METHOD'];
+  $context->path   = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+
+  $context->with(
+    headers: getallheaders(),
+    query: $_GET,
+    params: $_SERVER['REQUEST_METHOD'] === 'POST' ? $_POST : []
+  );
 }, [
 
   route(
@@ -25,9 +32,7 @@ router(function ( $context ) {
         $skipPaths = ['/login', '/bq.js'];
 
         if (!in_array($context->path, $skipPaths)) { 
-          $jwt = $context->cookie('token') ?? null;
-
-          handleAuth($jwt);
+          handleAuth($context);
         }
 
         $context->bind('search', function (array $e, string $p) use (&$context) {
@@ -64,7 +69,7 @@ router(function ( $context ) {
       }
     ],
     routes: [
-
+      
       route(path: '/bq.js', fetch: function() {
         header('content-type: application/javascript');
         
@@ -101,21 +106,45 @@ router(function ( $context ) {
         path: '/setup', 
         fetch: function ($context) {
 
-          $context->bind('title', fn($a) => 'Setup');
-          $context->bind('site',  fn()   => 'setup');
-          $context->bind('hero',  fn()   => '/img/hero/setup.webp');
+          if (!empty($context->cookie('session'))) {
+            $id = $context->cookie('session');
+            header("Location: /session?=$id");
+            exit;
+          }
+
+          $context->bind('title',    fn($a) => 'Setup');
+          $context->bind('site',     fn()   => 'setup');
+          $context->bind('hero',     fn()   => '/img/hero/setup.webp');
+          $context->bind('setup',    fn()   => getSetup($context));
+          $context->bind('s',        fn($a) => $a == $context->use('selected') ? true : false);
+          
+          render('page', $context);
+        }
+      ),
+      route(
+        path: '/session:id', 
+        fetch: function ($context) {
+
+          /**
+           * @todo session besteht? dann zu session umleiten
+           * iwas geht noch nicht....
+           */
+          $context->bind('title',    fn($a) => 'Game');
+          $context->bind('site',     fn()   => 'game');
+          $context->bind('hero',     fn()   => '/img/hero/game.webp');
+          $context->bind('question', fn()   => getQuestion($context->param('id')), $context->use('user'));
 
           render('page', $context);
         }
       ),
       route(
-        path: '/game', 
+        path: '/result:bool', 
         fetch: function ($context) {
 
-          $context->bind('title', fn($a) => 'Game');
-          $context->bind('site',  fn()   => 'game');
-          $context->bind('hero',  fn()   => '/img/hero/game.webp');
-          $context->bind('quiz',  fn($amount, $settings) => getQuiz($amount ?? 3, $settings));
+          $context->bind('title',  fn($a) => 'Ergebnis');
+          $context->bind('site',   fn()   => 'result');
+          $context->bind('hero',   fn()   => $context->param('bool') ? '/img/hero/win.webp' : '/img/hero/lose.webp');
+          $context->bind('result', fn()   => result($context));
 
           render('page', $context);
         }
@@ -180,6 +209,41 @@ router(function ( $context ) {
       )
     ]
   ),
+
+  route(
+    method: 'GET',
+    path: '/bq.js', 
+    fetch: function() {
+      header('content-type: application/javascript');
+      
+      readfile('vendor/bq/js/bq.js');
+      exit;
+    }
+  ),
+
+  route(
+    method: 'GET',
+    path: '/login', 
+    fetch: function ($context) {
+
+      $context->bind('title',  fn($a) => 'Login');
+      $context->bind('site',   fn()   => 'login');
+      $context->query('failed') == '0' ? $context->bind('failed',   fn()   => true): null;
+      
+      
+      render('page', $context);
+    }
+  ),
+
+  route(
+    method: 'POST',
+    path: '/login',
+    fetch: function ($context) {
+      
+      handleLogin($context);
+    }
+  ),
+
   route(
     method: 'POST', 
     middlewares : [
@@ -188,9 +252,8 @@ router(function ( $context ) {
         $skipPaths = ['/login'];
 
         if (!in_array($context->path, $skipPaths)) { 
-          $jwt = $context->cookie('token') ?? null;
 
-          handleAuth($jwt);
+          handleAuth($context);
         }
       }
     ],
@@ -198,16 +261,19 @@ router(function ( $context ) {
     routes: [
 
       route(
-        path: '/upload',
-        fetch: fn($context) => handleUpload($context->user)
+        path: '/create',
+        fetch: fn($context) => createSession($context)
       ),
+
       route(
-        path: '/login',
-        fetch: function ($context) {
-          
-          handleLogin($context);
-        }
-      )
+        path: '/session',
+        fetch: fn($context) => evaluate($context)
+      ),
+
+      route(
+        path: '/upload',
+        fetch: fn($context) => handleUpload($context)
+      ),
     ] 
   )  
 
