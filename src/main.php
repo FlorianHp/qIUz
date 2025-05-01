@@ -172,12 +172,44 @@ router(function ( $context ) {
         path: '/contact', 
         fetch: function ($context) {
 
-          $context->bind('title', fn($a) => 'Kontakt');
+          $context->bind('title', fn($a) => 'Impressum');
           $context->bind('site',  fn($a) => 'contact');
 
           render('page', $context);
         }
-      )
+      ),
+      route(
+        path: '/legal', 
+        fetch: function ($context) {
+
+          $context->bind('title', fn($a) => 'Haftungsausschluss');
+          $context->bind('site',  fn()   => 'legal');
+
+          render('page', $context);
+        }
+      ),
+      route(
+        path: '/privacy-policy', 
+        fetch: function ($context) {
+
+          $context->bind('title', fn($a) => 'Datenschutz');
+          $context->bind('site',  fn()   => 'privacy-policy');
+          $context->bind('hero',  fn()   => '/img/hero/policy.webp');
+
+          render('page', $context);
+        }
+      ),
+      route(
+        path: '/sitemap', 
+        fetch: function ($context) {
+
+          $context->bind('title', fn($a) => 'Sitemap');
+          $context->bind('site',  fn()   => 'sitemap');
+          $context->bind('hero',  fn()   => '/img/hero/sitemap.webp');
+
+          render('page', $context);
+        }
+      ),
     ]
   ),
   route(
