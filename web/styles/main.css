@@ -34,7 +34,7 @@
   --border-color: transparent;
   --block-background: rgba(45, 49, 66, 1);
   --block-area-color: rgba(79, 93, 116, 1);
-  --block-shadow: 0px 0px 1rem 0px rgba(0, 0, 0, .075);
+  --block-shadow: 0px 0px 1rem 0px rgba(0, 0, 0, .75);
   --page-background: rgba(191, 192, 192, 1);
 
   --page-max-width: 2200px;
