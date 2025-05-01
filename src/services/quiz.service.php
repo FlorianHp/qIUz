@@ -65,7 +65,9 @@ function createSession($context) {
     ]
   );
 
-  $id = substr(md5("$module $user"), 0, 8);
+  $time = time();
+
+  $id = substr(md5("$user $time"), 0, 8);
 
   query('
     INSERT INTO 
@@ -95,7 +97,10 @@ function createSession($context) {
   exit;
 }
 
-function getQuestion($id, $user) {
+function getQuestion($context) {
+
+  $id   = $context->cookie('session');
+  $user = $context->use('user') ?: null;
 
   try {
     $row = query('
@@ -114,15 +119,32 @@ function getQuestion($id, $user) {
       ]
     )[0];
   } catch (\Throwable $th) {
+
     http_response_code(500);
     exit;
   }
 
+  if (empty($row)) {
+    $context->setCookie('session', '', time() -3600);
+
+    header("Location: /setup");
+    exit;
+  }
+
+  
   $progress = $row['progress'] ?? 0;
   $session  = json_decode($row['session'], true);
+  $total    = count($session);
+
+  if ($progress >= count($session)) {
+    $context->setCookie('session', '', time() - 3600);
+
+    header("Location: /setup");
+    exit;
+  }
 
   try {
-    $question = query('
+    $data = query('
       SELECT
         *
       FROM
@@ -132,7 +154,7 @@ function getQuestion($id, $user) {
       LIMIT 
         1
       ', [
-        'id' => $session[$progress]
+        'id' => $session[$progress]['id']
       ]
     )[0] ?? null;
   } catch (\Throwable $th) {
@@ -140,19 +162,37 @@ function getQuestion($id, $user) {
     exit;
   }
 
-  shuffle($question['answers']);
+  if (empty($data)) {
+    http_response_code(500);
+    exit;
+  }
 
-  return $question;
+  $answers = json_decode($data['answers'], true);
+
+  shuffle($answers);
+
+  $data['answers'] = $answers;
+
+  $context->bind('progress', fn() => round($progress / $total) * 100);
+  $context->bind('total', fn()    => $total);
+
+  return $data;
 }
 
 function evaluate($context) {
 
-  $id = $context->cookie('session');
+  $id         = $context->cookie('session');
+  $userAnswer = $_POST['answer'] ?? null;
+
+  if (!$userAnswer) {
+    http_response_code(400);
+    exit('Keine Antwort vom Client übermittelt');
+  }
 
   $row = query('
     SELECT 
       session,
-      done
+      progress
     FROM 
       sessions
     WHERE 
@@ -163,56 +203,115 @@ function evaluate($context) {
   
   if (!$row) {
     http_response_code(404);
-    exit;
+    exit('Session nicht gefunden');
   }
   
-  $session = json_decode($row['session'], true);
-  $done    = (int) $row['done'];
-  
-  if (isset($session[$done])) {
+  $session  = json_decode($row['session'], true);
 
-    $existing = query('
-      SELECT 
-        result 
-      FROM 
-        sessions 
-      WHERE 
-        id = :id', [
-        'id' => $id
-      ]
-    )[0]['result'] ?? [];
+  $progress = (int) $row['progress'];
 
-    $decoded = json_decode($existing, true) ?? [];
+  $answers = query('
+    SELECT 
+      answers
+    FROM 
+      content
+    WHERE 
+      id = :id
+  ', [
+    'id' => $session[$progress]['id']
+  ])[0] ?? null;
 
-    $decoded[] = $session[$done];
-
-    query('
-      UPDATE
-        sessions
-      SET
-        done = done + 1,
-        result = :result
-      WHERE
-        id = :id
-      ', [
-        'id' => $id,
-        'result' => json_encode($decoded)
-      ]
-    );
+  if (!$answers || !isset($answers['answers'])) {
+    http_response_code(500);
+    exit("Antworten nicht gefunden");
   }
-  
-  if (!isset($session[$done + 1])) {
 
-    $score = (count($decoded) / count($session) * 100);
+  $answers = json_decode($answers['answers'], true);
+
+  if (!is_array($answers)) {
+    http_response_code(500);
+    exit("Antwortdaten fehlerhaft");
+  }
+
+  $match = array_filter($answers, fn($a) => $a['text'] === $userAnswer);
+
+  if (!$match) {
+    http_response_code(404);
+    exit("Antwort passt nicht zu Datensatz");
+  } else {
+
+    $correct = array_values($match)[0]['correct'];
+
+    if ($correct) {
+      $existingRow = query('
+        SELECT 
+          result 
+        FROM 
+          sessions 
+        WHERE 
+          id = :id', [
+          'id' => $id
+        ]
+      )[0] ?? [];
+
+      $decoded = json_decode($existingRow['result']) ?? [];
+
+      $decoded[] = $session[$progress];
     
-    header("Location: /result:$score");
+      query('
+        UPDATE
+          sessions
+        SET
+          progress = progress + 1,
+          result = :result
+        WHERE
+          id = :id
+        ', [
+          'id' => $id,
+          'result' => json_encode($decoded)
+        ]
+      );
+    } else {
+      query('
+        UPDATE
+          sessions
+        SET
+          progress = progress + 1
+        WHERE
+          id = :id
+        ', [
+          'id' => $id
+        ]
+      );
+    }
+  }
+  
+  if (!isset($session[$progress + 1])) {
+
+    if (!$decoded) {
+      $existingRow = query('
+        SELECT 
+          result 
+        FROM 
+          sessions 
+        WHERE 
+          id = :id', [
+          'id' => $id
+        ]
+      )[0] ?? [];
+
+      $decoded = json_decode($existingRow['result']) ?? [];
+    }
+
+    $total = max(count($session ?? []), 1);
+    $score = round(count($decoded ?? []) / $total * 100);
+
+    $context->setCookie('session', '', time() -3600);
+    
+    header("Location: /result$score");
     exit;
   }
   
-  header("Location: /session:$id");
+  header("Location: /session");
   exit;
-}
-
-function result() {
-
 }

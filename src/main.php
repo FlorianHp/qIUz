@@ -11,6 +11,7 @@ include_once 'src/services/upload.service.php';
 include_once 'src/services/auth.service.php';
 include_once 'src/services/faq.service.php';
 include_once 'src/services/search.service.php';
+include_once 'src/services/result.service.php';
 
 router(function ( $context ) {
   $context->method = $_SERVER['REQUEST_METHOD'];
@@ -80,8 +81,10 @@ router(function ( $context ) {
         path: '/login', 
         fetch: function ($context) {
 
-          $context->bind('title',  fn($a) => 'Login');
-          $context->bind('site',   fn()   => 'login');
+          $context->bind('title', fn($a) => 'Login');
+          $context->bind('site',  fn()   => 'login');
+          $context->bind('hero',  fn()   => '/img/hero/login.webp');
+
           $context->query('failed') == '0' ? $context->bind('failed',   fn()   => true): null;
           
           
@@ -108,7 +111,7 @@ router(function ( $context ) {
 
           if (!empty($context->cookie('session'))) {
             $id = $context->cookie('session');
-            header("Location: /session?=$id");
+            header("Location: /session?id=$id");
             exit;
           }
 
@@ -122,29 +125,29 @@ router(function ( $context ) {
         }
       ),
       route(
-        path: '/session:id', 
+        path: '/session', 
         fetch: function ($context) {
 
-          /**
-           * @todo session besteht? dann zu session umleiten
-           * iwas geht noch nicht....
-           */
+          if (empty($context->cookie('session'))) {
+            header("Location: /setup");
+            exit;
+          }
+
           $context->bind('title',    fn($a) => 'Game');
-          $context->bind('site',     fn()   => 'game');
+          $context->bind('site',     fn()   => 'session');
           $context->bind('hero',     fn()   => '/img/hero/game.webp');
-          $context->bind('question', fn()   => getQuestion($context->param('id')), $context->use('user'));
+          $context->bind('question', fn()   => getQuestion($context));
 
           render('page', $context);
         }
       ),
       route(
-        path: '/result:bool', 
+        path: '/result:score', 
         fetch: function ($context) {
 
           $context->bind('title',  fn($a) => 'Ergebnis');
           $context->bind('site',   fn()   => 'result');
-          $context->bind('hero',   fn()   => $context->param('bool') ? '/img/hero/win.webp' : '/img/hero/lose.webp');
-          $context->bind('result', fn()   => result($context));
+          result($context);
 
           render('page', $context);
         }
