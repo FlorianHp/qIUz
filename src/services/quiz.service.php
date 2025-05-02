@@ -124,7 +124,7 @@ function getQuestion($context) {
     exit;
   }
 
-  if (empty($row)) {
+  if (empty($row['session']) || !is_string($row['session'])) {
     $context->setCookie('session', '', time() -3600);
 
     header("Location: /setup");
