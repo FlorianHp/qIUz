@@ -256,7 +256,7 @@ function evaluate($context) {
         ]
       )[0] ?? [];
 
-      $decoded = json_decode($existingRow['result']) ?? [];
+      $decoded = !empty($existingRow['result']) ? json_decode($existingRow['result'], true) : [];
 
       $decoded[] = $session[$progress];
     
