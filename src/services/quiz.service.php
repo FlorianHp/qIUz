@@ -184,6 +184,7 @@ function evaluate($context) {
 
   $id         = $context->cookie('session');
   $userAnswer = $_POST['answer'] ?? null;
+  $decoded    = [];
 
   if (!$userAnswer) {
     http_response_code(400);
@@ -289,6 +290,7 @@ function evaluate($context) {
   
   if (!isset($session[$progress + 1])) {
 
+
     if (!$decoded) {
       $existingRow = query('
         SELECT 
@@ -301,7 +303,7 @@ function evaluate($context) {
         ]
       )[0] ?? [];
 
-      $decoded = json_decode($existingRow['result']) ?? [];
+      $decoded = !empty($existingRow['result']) ? json_decode($existingRow['result'], true) : [];
     }
 
     $total = max(count($session ?? []), 1);
