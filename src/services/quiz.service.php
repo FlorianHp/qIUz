@@ -173,8 +173,9 @@ function getQuestion($context) {
 
   $data['answers'] = $answers;
 
-  $context->bind('progress', fn() => round($progress / $total) * 100);
-  $context->bind('total', fn()    => $total);
+  $context->bind('offset',   fn() => offset($progress, $total));
+  $context->bind('progress', fn() => $progress);
+  $context->bind('total',    fn() => $total);
 
   return $data;
 }
@@ -314,4 +315,12 @@ function evaluate($context) {
   
   header("Location: /session");
   exit;
+}
+
+function offset($progress, $total) {
+
+  $circumference = 2 * pi() * 45;
+  $percentage    = $progress / $total;
+
+  return $circumference * (1 - $percentage);
 }

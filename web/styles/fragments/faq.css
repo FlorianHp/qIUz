@@ -5,8 +5,6 @@ div.faq {
   .search {
     max-width : var(--_max-width); 
   }
-
-  
 }
 
 div.faq.--loading .faq--category {

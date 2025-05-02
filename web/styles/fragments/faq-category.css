@@ -9,7 +9,7 @@ div.faq--category {
 
 div.faq--category > h2 {
   font-size: 1.5rem;
-  margin: -1rem -4rem;
+  margin: 0 -4rem;
   font-weight: 500;
   text-transform: uppercase;
   display: flex;
@@ -19,7 +19,7 @@ div.faq--category > h2 {
   position: -webkit-sticky;
   top: calc(var(--header-size) - 1px);
   z-index: 1;
-  background: var(--page-background);
+  background: linear-gradient(to right, var(--page-background) 0%, rgba(255, 255, 255, 0) 100%);
   color: var(--color-primary);
   line-height: 1;
   color: var(--color-primary)

@@ -1,5 +1,13 @@
-<bq:fragment :name="head-section" h1="h1" p="p" image="hero"></bq:fragment>
+<bq:fragment :name="head-section" h1="result.h1" p="result.p" image="hero"></bq:fragment>
 
-<section>
-  <h2>{{ score }}</h2>
+<section id="result">
+  <h2>Score: {{ result.score }}</h2>
+
+  <p>{{ result.message }}</p>
+
+  <span>
+    <p>{{ result.cite }}</p>
+  </span>
 </section>
+
+<img src="/img/gif/{{ result.gif }}.gif" alt="dancing snoop" width="200" height="200">

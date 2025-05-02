@@ -23,6 +23,8 @@
 @import url('fragments/setup.css');
 @import url('fragments/login.css');
 @import url('fragments/session.css');
+@import url('fragments/result.css');
+
 
 
 :where(:root) {
