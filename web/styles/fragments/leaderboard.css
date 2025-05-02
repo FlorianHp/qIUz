@@ -3,20 +3,20 @@
   gap: 2rem;
   max-width: var(--_max-width);
   margin: 4rem auto;
-  padding: 0 var(--page-padding);
+  padding: 1rem;
+  background: var(--page-background);
+  border-radius: var(--border-radius);
+  box-shadow: var(--block-shadow);
 }
 
 #leaderboard h2 {
   font-size: 1.5rem;
-  margin: -1rem -4rem;
   font-weight: 500;
   text-transform: uppercase;
   display: flex;
   gap: 1rem;
-  padding: 1.5rem 5.5rem 1.5rem 4rem;
-  background: var(--page-background);
   color: var(--color-primary);
-  border-radius: var(--border-radius);
+  padding: 0 0 1rem 0;
 }
 
 #leaderboard .leaderboard--category {
