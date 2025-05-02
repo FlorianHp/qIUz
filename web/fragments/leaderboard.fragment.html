@@ -1,30 +1,28 @@
-<bq:fragment :name="head-section" h1="Leaderboard" p="Sei der aller Beste!" image="hero"></bq:fragment>
+<bq:fragment
+  :name="head-section"
+  h1="Leaderboard"
+  p="Sei der aller Beste!"
+  image="hero"
+></bq:fragment>
 
-<section>
+<section id="leaderboard">
+  <div class="leaderboard">
+    <h2 class="leaderboard--heading">🏆 Top Spieler</h2>
 
-  <table>
-    <thead>
-      <tr>
-        <th>- Platz -</th>
-        <th>- Spieler -</th>
-        <th>- Gewonnen -</th>
-        <th>- Score -</th>
-      </tr>
-    </thead>
-    <tbody>
-
+    <div class="leaderboard--category">
       <bq:for each="leaderboard" as="player">
-        <tr>
-          <th>{{ @i | add }}</th>
-          <th>{{ player.user_name }}</th>
-          <th>{{ player.wins}}</th>
-          <th>{{ player.score }}</th>
-        </tr>
+        <div class="leaderboard--entry">
+          <div class="leaderboard--place">
+            <bq:show when="@i == 0">🥇</bq:show>
+            <bq:show when="@i == 1">🥈</bq:show>
+            <bq:show when="@i == 2">🥉</bq:show>
+            <bq:show when="@i > 2">{{ @i | add }}</bq:show>
+          </div>
+          <div class="leaderboard--name">{{ player.user_name }}</div>
+          <div class="leaderboard--wins">{{ player.wins }} Siege</div>
+          <div class="leaderboard--score">{{ player.score }} Punkte</div>
+        </div>
       </bq:for>
-      
-    </tbody>
-  </table>
-
-  
-  
+    </div>
+  </div>
 </section>
