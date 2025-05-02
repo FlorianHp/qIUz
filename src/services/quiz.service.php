@@ -188,7 +188,7 @@ function evaluate($context) {
 
   if (!$userAnswer) {
     http_response_code(400);
-    exit('Keine Antwort vom Client übermittelt');
+    exit;
   }
 
   $row = query('
@@ -205,7 +205,7 @@ function evaluate($context) {
   
   if (!$row) {
     http_response_code(404);
-    exit('Session nicht gefunden');
+    exit;
   }
   
   $session  = json_decode($row['session'], true);
@@ -225,21 +225,21 @@ function evaluate($context) {
 
   if (!$answers || !isset($answers['answers'])) {
     http_response_code(500);
-    exit("Antworten nicht gefunden");
+    exit;
   }
 
   $answers = json_decode($answers['answers'], true);
 
   if (!is_array($answers)) {
     http_response_code(500);
-    exit("Antwortdaten fehlerhaft");
+    exit;
   }
 
   $match = array_filter($answers, fn($a) => $a['text'] === $userAnswer);
 
   if (!$match) {
     http_response_code(404);
-    exit("Antwort passt nicht zu Datensatz");
+    exit;
   } else {
 
     $correct = array_values($match)[0]['correct'];
