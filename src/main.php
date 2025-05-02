@@ -11,9 +11,17 @@ include_once 'src/services/upload.service.php';
 include_once 'src/services/auth.service.php';
 include_once 'src/services/faq.service.php';
 include_once 'src/services/search.service.php';
+include_once 'src/services/result.service.php';
 
 router(function ( $context ) {
-  
+  $context->method = $_SERVER['REQUEST_METHOD'];
+  $context->path   = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+
+  $context->with(
+    headers: getallheaders(),
+    query: $_GET,
+    params: $_SERVER['REQUEST_METHOD'] === 'POST' ? $_POST : []
+  );
 }, [
 
   route(
@@ -25,9 +33,7 @@ router(function ( $context ) {
         $skipPaths = ['/login', '/bq.js'];
 
         if (!in_array($context->path, $skipPaths)) { 
-          $jwt = $context->cookie('token') ?? null;
-
-          handleAuth($jwt);
+          handleAuth($context);
         }
 
         $context->bind('search', function (array $e, string $p) use (&$context) {
@@ -55,7 +61,7 @@ router(function ( $context ) {
         });
         
         $context->bind('menus', fn($p)  => [
-          ['href' => '/game',        'text' => 'Game'],
+          ['href' => '/setup',       'text' => 'Game'],
           ['href' => '/upload',      'text' => 'Upload'],
           ['href' => '/leaderboard', 'text' => 'Leaderboard'],
           ['href' => '/help',        'text' => 'Hilfe'],
@@ -64,7 +70,7 @@ router(function ( $context ) {
       }
     ],
     routes: [
-
+      
       route(path: '/bq.js', fetch: function() {
         header('content-type: application/javascript');
         
@@ -75,8 +81,10 @@ router(function ( $context ) {
         path: '/login', 
         fetch: function ($context) {
 
-          $context->bind('title',  fn($a) => 'Login');
-          $context->bind('site',   fn()   => 'login');
+          $context->bind('title', fn($a) => 'Login');
+          $context->bind('site',  fn()   => 'login');
+          $context->bind('hero',  fn()   => '/img/hero/login.webp');
+
           $context->query('failed') == '0' ? $context->bind('failed',   fn()   => true): null;
           
           
@@ -86,19 +94,6 @@ router(function ( $context ) {
       route(
         path: '/logout', 
         fetch: 'handleLogout'
-      ),
-      route(
-        path: '/example', 
-        fetch: function ($context) {
-
-          $context->bind('pipe', fn($a) => $a * 2);
-          $context->bind('list', fn()   => [ 'Mann', 'Frau' ]);
-          $context->bind('prop', fn()   => [ 'text' => 'Bin ein String!' ]);
-          $context->bind('bool', fn()   => (bool) random_int(0, 1));
-          $context->bind('obj',  fn()   => [ 'list' => [1,2], 'bool' => false ]);
-
-          render('example', $context);
-        }
       ),
       route(
         path: '/', 
@@ -111,13 +106,48 @@ router(function ( $context ) {
         }
       ),
       route(
-        path: '/game', 
+        path: '/setup', 
         fetch: function ($context) {
 
-          $context->bind('title', fn($a) => 'Game');
-          $context->bind('site',  fn()   => 'game');
-          $context->bind('hero',  fn()   => '/img/hero/game.webp');
-          $context->bind('quiz',  fn($amount, $settings) => getQuiz($amount ?? 3, $settings));
+          if (!empty($context->cookie('session'))) {
+            $id = $context->cookie('session');
+            header("Location: /session?id=$id");
+            exit;
+          }
+
+          $context->bind('title',    fn($a) => 'Setup');
+          $context->bind('site',     fn()   => 'setup');
+          $context->bind('hero',     fn()   => '/img/hero/setup.webp');
+          $context->bind('setup',    fn()   => getSetup($context));
+          $context->bind('s',        fn($a) => $a == $context->use('selected') ? true : false);
+          
+          render('page', $context);
+        }
+      ),
+      route(
+        path: '/session', 
+        fetch: function ($context) {
+
+          if (empty($context->cookie('session'))) {
+            header("Location: /setup");
+            exit;
+          }
+
+          $context->bind('title',    fn($a) => 'Game');
+          $context->bind('site',     fn()   => 'session');
+          $context->bind('hero',     fn()   => '/img/hero/game.webp');
+          $context->bind('question', fn()   => getQuestion($context));
+
+          render('page', $context);
+        }
+      ),
+      route(
+        path: '/result:score', 
+        fetch: function ($context) {
+
+          $context->bind('title',  fn($a) => 'Ergebnis');
+          $context->bind('site',   fn()   => 'result');
+          result($context);
 
           render('page', $context);
         }
@@ -162,7 +192,7 @@ router(function ( $context ) {
         fetch: function ($context) {
 
           $context->bind('title', fn($a) => 'Hilfe');
-          $context->bind('site',  fn($a) => 'help');
+          $context->bind('site',  fn($a) => '/img/hero/help.webp');
           $context->bind('faq',   fn() => faq());
 
           render('page', $context);
@@ -212,6 +242,41 @@ router(function ( $context ) {
       ),
     ]
   ),
+
+  route(
+    method: 'GET',
+    path: '/bq.js', 
+    fetch: function() {
+      header('content-type: application/javascript');
+      
+      readfile('vendor/bq/js/bq.js');
+      exit;
+    }
+  ),
+
+  route(
+    method: 'GET',
+    path: '/login', 
+    fetch: function ($context) {
+
+      $context->bind('title',  fn($a) => 'Login');
+      $context->bind('site',   fn()   => 'login');
+      $context->query('failed') == '0' ? $context->bind('failed',   fn()   => true): null;
+      
+      
+      render('page', $context);
+    }
+  ),
+
+  route(
+    method: 'POST',
+    path: '/login',
+    fetch: function ($context) {
+      
+      handleLogin($context);
+    }
+  ),
+
   route(
     method: 'POST', 
     middlewares : [
@@ -220,9 +285,8 @@ router(function ( $context ) {
         $skipPaths = ['/login'];
 
         if (!in_array($context->path, $skipPaths)) { 
-          $jwt = $context->cookie('token') ?? null;
 
-          handleAuth($jwt);
+          handleAuth($context);
         }
       }
     ],
@@ -230,16 +294,19 @@ router(function ( $context ) {
     routes: [
 
       route(
-        path: '/upload',
-        fetch: fn($context) => handleUpload($context->user)
+        path: '/create',
+        fetch: fn($context) => createSession($context)
       ),
+
       route(
-        path: '/login',
-        fetch: function ($context) {
-          
-          handleLogin($context);
-        }
-      )
+        path: '/session',
+        fetch: fn($context) => evaluate($context)
+      ),
+
+      route(
+        path: '/upload',
+        fetch: fn($context) => handleUpload($context)
+      ),
     ] 
   )  
 

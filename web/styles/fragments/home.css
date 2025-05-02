@@ -1,3 +1,15 @@
-ul.no-bullets {
-    list-style-type: none;
+#home ul {
+  list-style-type: none;
+  padding-left: 0;
+
+  li {
+    padding: .5rem;
+  }  
+}
+
+#home p {
+    border-radius: var(--border-radius);
+    box-shadow: var(--block-shadow);
+    padding: 1rem;
+    width: fit-content;
 }

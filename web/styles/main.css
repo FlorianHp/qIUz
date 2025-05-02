@@ -20,8 +20,12 @@
 @import url('fragments/tooltip.css');
 @import url('fragments/upload.css');
 @import url('fragments/home.css');
-@import url('fragments/message.css');
+@import url('fragments/setup.css');
+@import url('fragments/login.css');
+@import url('fragments/session.css');
+@import url('fragments/result.css');
 @import url('fragments/leaderboard.css');
+
 
 
 :where(:root) {
@@ -306,8 +310,24 @@ section video {
 body {
   --header-size: 6rem;
   --footer-size: 20rem;
-  --primary-gradient: linear-gradient(135deg, var(--color-primary) 0%, rgb(calc(var(--color-primary-r) * .5), calc(var(--color-primary-g) * .5), calc(var(--color-primary-b) * .5)) 100%);
   --_max-width: 1000px;
+
+  --primary-gradient: linear-gradient(
+    135deg,
+    var(--color-secondary) 0%,
+    rgba(0, 0, 0, 0.3) 100%
+  );
+}
+
+body {
+  background: linear-gradient(
+    135deg,
+    #fff 0%,
+    var(--page-background)  100%
+  );
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 body button {
@@ -343,7 +363,7 @@ body section {
   gap: 1rem;
   position: relative;
   isolation: isolate;
-  margin: 4rem 0;
+  margin: 2rem 0;
 
   &:first-child {
     margin-top: 0;
