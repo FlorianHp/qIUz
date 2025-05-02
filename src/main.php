@@ -125,18 +125,30 @@ router(function ( $context ) {
         }
       ),
       route(
-        path: '/session', 
+        path: '/session',
         fetch: function ($context) {
-
           if (empty($context->cookie('session'))) {
-            header("Location: /setup");
+            if (!headers_sent()) {
+              header("Location: /setup");
+              exit;
+            }
+            exit;
+          }
+
+          $question = getQuestion($context);
+          
+          if (empty($question) || !isset($question['question'])) {
+            if (!headers_sent()) {
+              header("Location: /setup");
+              exit;
+            }
             exit;
           }
 
           $context->bind('title',    fn($a) => 'Game');
           $context->bind('site',     fn()   => 'session');
           $context->bind('hero',     fn()   => '/img/hero/game.webp');
-          $context->bind('question', fn()   => getQuestion($context));
+          $context->bind('question', fn()   => $question);
 
           render('page', $context);
         }
