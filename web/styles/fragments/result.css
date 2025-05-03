@@ -1,0 +1,14 @@
+#result span {
+  padding: 1rem;
+  border-radius: var(--border-radius);
+  box-shadow: var(--block-shadow);
+  width: fit-content;
+}
+
+#result p {
+  padding: 1rem;
+}
+
+#result img {
+  margin-left: auto;
+}

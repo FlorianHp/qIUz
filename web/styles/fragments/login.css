@@ -1,0 +1,24 @@
+#login {
+  margin-top: 0;
+}
+
+#login form {
+  display: grid;
+  grid-template-columns: 1fr;
+  background-color: var(--block-background);
+  border-radius: var(--border-radius);
+  padding: 2rem 1rem;
+  gap: 1rem;
+  max-width: 500px;
+}
+
+#login label {
+  color: #fff;
+}
+
+#login div {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 1rem;
+  padding-top: 2rem;
+}

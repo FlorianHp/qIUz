@@ -1,14 +1,21 @@
-<section>
+<bq:fragment :name="head-section" h1="Login" p="" image="hero"></bq:fragment>
 
-  <!-- <bq:fragment :name="message"></bq:fragment> -->
+<section id="login">
    <bq:show when="failed"> 
     <span>Login fehlgeschlagen ❌</span>
    </bq:show>
 
-  <form id="login" action="/login" method="POST" data-native>
-    <input type="text" name="user"      placeholder="Name ..."     required autocomplete="off">
-    <input type="password" name="password"  placeholder="Password ..." required autocomplete="off">
-    <button type="submit">Login</button>
+  <form action="/login" method="POST" data-native>
+    <label for="user">Benutzer</label>
+    <input id="user" type="text" name="user"      placeholder="Name ..."     required autocomplete="off">
+
+    <label for="password">Passwort</label>
+    <input id="password" type="password" name="password"  placeholder="Password ..." required autocomplete="off">
+    
+    <div>
+      <button type="submit">Login</button>
+      <button type="submit" disabled>Registrieren</button>
+    </div>
   </form>
 
 </section>

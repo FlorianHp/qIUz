@@ -1,0 +1,46 @@
+<bq:fragment :name="head-section" h1="Konfiguration" p="Stelle dein Spiel nach deinen Bedürfnissen ein!" image="hero"></bq:fragment>
+
+<section id="setup">
+
+  <div>
+    <form method="GET">
+      <label for="module-select">Modul</label>
+      <select id="module-select" name="module" required onchange="this.form.submit()" data-replace="select[name='lection']" >
+        <option disabled selected>Modul wählen</option>
+        <bq:for each="setup" as="entry">
+          <option value="{{ entry.module }}" selected="{{ entry.is_selected }}" >{{ entry.module }}</option>
+        </bq:for>
+      </select>
+    </form>
+  
+  
+    <form method="POST" action="/create">
+      <input type="hidden" name="module" value="{{ selected }}">
+
+      <div id="create"> 
+        <label for="lection-select" >Lektion</label>
+        <select id="lection-select" name="lection" required > 
+          <option value="0">Alle</option>
+          <bq:for each="lections" as="number">
+            <option value="{{ number }}">{{ number }}</option>
+          </bq:for>
+        </select>
+    
+        <label for="mode-select">Modus</label>
+        <select id="mode-select" name="mode" required>
+          <option value="solo">Einzelspieler</option>
+          <option value="multi" disabled>Mehrspieler</option>
+        </select>
+    
+        <label for="amount-input">Anzahl</label>
+        <input id="amount-input" type="number" name="amount" required min="3" max="5" autocomplete="off">
+
+      </div>
+
+      <div>
+        <button type="submit">Start</button>
+      </div>
+    </form>
+  </div>
+
+</section>
