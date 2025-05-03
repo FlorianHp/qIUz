@@ -19,13 +19,12 @@ function getReview($context) {
 
   foreach ($sessions as $session) {
 
-    $sessionDataRaw = json_decode($session['session'], true) ?: [];
+    $sessionDataRaw = is_string($session['session']) ? json_decode($session['session'], true) : [];
     $contentIds     = is_array($sessionDataRaw[0]) 
       ? array_column($sessionDataRaw, 'id') 
       : $sessionDataRaw;
 
-
-    $correctRaw = json_decode($session['result'], true) ?: [];
+    $correctRaw = is_string($session['result']) ? json_decode($session['result'], true) : [];
     $correctIds = is_array($correctRaw[0]) 
       ? array_column($correctRaw, 'id') 
       : $correctRaw;
@@ -42,12 +41,14 @@ function getReview($context) {
 
     foreach ($contentRows as $row) {
 
-      $votes = json_decode($row['voted'], true) ?: [];
+      $voted = null;
 
+      if (is_string($row['voted'])) {
+        $votes = json_decode($row['voted'], true) ?: [];
+        $voted = $votes[$user] ?? null;
+      }
 
-      $voted = $votes[$user] ?? null;
-
-      $answers = json_decode($row['answers'], true) ?: [];
+      $answers = is_string($row['answers']) ? json_decode($row['answers'], true) : [];
 
       $sessionData['questions'][] = [
         'id'       => (string) $row['id'],
@@ -87,7 +88,7 @@ function vote($context) {
 
   $voted = [];
 
-  if (!empty($row['voted'])) {
+  if (is_String($row['voted'])) {
 
     $voted = json_decode($row['voted'], true) ?: [];
   }
