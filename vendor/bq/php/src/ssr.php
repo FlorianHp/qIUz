@@ -2,7 +2,7 @@
 
 
 function value(&$context, $value) {
-  $value = trim($value);
+  $value = is_string($value) ? trim($value) : $value;
 
   if ($value == '') {
     return null;
