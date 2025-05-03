@@ -1,46 +1,72 @@
 <?php
 
-function review($user) {
-  $rows = query("
-    SELECT
-      review.id AS session_id,
-      review.session,
-      content.id AS content_id,
-      content.question,
-      content.answers,
-      content.voted
-    FROM
-      review
-    LEFT JOIN
-      content c ON JSON_CONTAINS(review.session, JSON_QUOTE(content.id), '$')
-    WHERE
-      review.user_id = :user
-  ",
-  ['user' => $user]);
+function getReview($context) {
+  $user   = $context->use('user');
+  $amount = $context->query('amount') ?? 3;
 
-  $sessions = [];
+  $sessions = query("
+    SELECT id AS session_id, session, result, created_at
+    FROM sessions
+    WHERE user_id = :user
+    ORDER BY created_at DESC
+    LIMIT :amount
+  ", [
+    'user' => $user,
+    'amount' => (int)$amount
+  ]);
 
-  foreach ($rows as $row) {
-    $sessionId = $row['session_id'];
+  $result = [];
 
-    $voted = null;
-    if (!empty($row['voted'])) {
+  foreach ($sessions as $session) {
+
+    $sessionDataRaw = json_decode($session['session'], true) ?: [];
+    $contentIds     = is_array($sessionDataRaw[0]) 
+      ? array_column($sessionDataRaw, 'id') 
+      : $sessionDataRaw;
+
+
+    $correctRaw = json_decode($session['result'], true) ?: [];
+    $correctIds = is_array($correctRaw[0]) 
+      ? array_column($correctRaw, 'id') 
+      : $correctRaw;
+
+    if (empty($contentIds)) continue;
+
+    $placeholders = implode(', ', array_fill(0, count($contentIds), '?'));
+    $contentRows  = query("SELECT * FROM content WHERE id IN ($placeholders)", $contentIds);
+
+    $sessionData = [
+      'created_at' => date('d.m.Y H:i', strtotime($session['created_at'])),
+      'questions'  => []
+    ];
+
+    foreach ($contentRows as $row) {
+
       $votes = json_decode($row['voted'], true);
       $voted = $votes[$user] ?? null;
+
+      $answers = json_decode($row['answers'], true) ?: [];
+
+      $sessionData['questions'][] = [
+        'id'       => (string) $row['id'],
+        'question' => $row['question'],
+        'correct'  => in_array((string)$row['id'], array_map('strval', $correctIds), true) ? 'correct' : 'incorrect',
+        'voted'    => $voted,
+        'answers'  => $answers
+      ];
     }
 
-    $sessions[$sessionId][] = [
-      'voted'    => $voted,
-      'id'       => (int) $row['content_id'],
-      'question' => $row['question'],
-      'answers'  => json_decode($row['answers'], true) ?: []
-    ];
+    $result[] = $sessionData;
   }
 
-  return $sessions;
+  return $result;
 }
 
-function vote($id, $vote, $user) {
+function vote($context) {
+
+  $user = $context->use('user');
+  $id   = $_POST['id'];
+  $vote = $_POST['vote'];
 
   $row = query("
     SELECT 
@@ -50,7 +76,7 @@ function vote($id, $vote, $user) {
     WHERE 
       id = :id", 
     ['id' => $id]
-  );
+  )[0];
 
   if (!$row) {
     http_response_code(404);
@@ -59,20 +85,18 @@ function vote($id, $vote, $user) {
 
   $voted = [];
 
-  if (!empty($row[0]['voted'])) {
-    $voted = json_decode($row[0]['voted'], true);
-    if (json_last_error() !== JSON_ERROR_NONE) {
-        $voted = [];
-    }
+  if (!empty($row['voted'])) {
+
+    $voted = json_decode($row['voted'], true) ?? [];
   }
 
   if (isset($voted[$user]) && $voted[$user] === (bool) $vote) {
+
     http_response_code(204);
     exit;
   }
 
   $voted[$user] = (bool) $vote;
-
 
   try {
     query("
@@ -89,10 +113,11 @@ function vote($id, $vote, $user) {
     ]
   );
   } catch (err) {
+
     http_response_code(500);
     exit;
   }
   
-  http_response_code(201);
+  header("Location: /review");
   exit;
 }

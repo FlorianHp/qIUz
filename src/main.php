@@ -12,6 +12,7 @@ include_once 'src/services/auth.service.php';
 include_once 'src/services/faq.service.php';
 include_once 'src/services/search.service.php';
 include_once 'src/services/result.service.php';
+include_once 'src/services/rating.service.php';
 
 router(function ( $context ) {
   $context->method = $_SERVER['REQUEST_METHOD'];
@@ -62,7 +63,7 @@ router(function ( $context ) {
         
         $context->bind('menus', fn($p)  => [
           ['href' => '/setup',       'text' => 'Game'],
-          ['href' => '/upload',      'text' => 'Upload'],
+          ['href' => '/review',      'text' => 'Review'],
           ['href' => '/leaderboard', 'text' => 'Leaderboard'],
           ['href' => '/upload',      'text' => 'Upload'],
           ['href' => '/help',        'text' => 'Hilfe'],
@@ -162,6 +163,19 @@ router(function ( $context ) {
           $context->bind('site',   fn()   => 'result');
           result($context);
 
+          render('page', $context);
+        }
+      ),
+      route(
+        path: '/review', 
+        fetch: function ($context) {
+
+          $context->bind('title',  fn($a) => 'Review');
+          $context->bind('site',   fn($a) => 'review');
+          $context->bind('hero',   fn()   => '/img/hero/review.webp');
+          $context->bind('review', fn($a) => getReview($context));
+          $context->bind('length', fn($a) => count($a));
+          
           render('page', $context);
         }
       ),
@@ -305,6 +319,11 @@ router(function ( $context ) {
     ],
 
     routes: [
+
+      route(
+        path: '/rating',
+        fetch: fn($context) => vote($context)
+      ),
 
       route(
         path: '/create',

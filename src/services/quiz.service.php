@@ -75,17 +75,22 @@ function createSession($context) {
         id, 
         session,
         user_id, 
-        progress)
+        progress,
+        created_at
+      )
     VALUES (
-      :id, 
-      :session,
-      :user, 
-      :progress)
-  ', [
-    'id'       => $id,
-    'session'  => json_encode($rows),
-    'user'     => $context->use('user'),
-    'progress' => 0
+        :id, 
+        :session,
+        :user, 
+        :progress,
+        :created_at
+    )',
+    [
+      'id'         => $id,
+      'session'    => json_encode($rows),
+      'user'       => $user,
+      'progress'   => 0,
+      'created_at' => date('Y-m-d H:i:s')
     ]
   );
 
@@ -289,7 +294,6 @@ function evaluate($context) {
   }
   
   if (!isset($session[$progress + 1])) {
-
 
     if (!$decoded) {
       $existingRow = query('

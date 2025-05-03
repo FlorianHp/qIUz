@@ -2,44 +2,54 @@
 
 <section id="review">
 
-  <bq:for each="review" as="module">
+  <bq:for each="review" as="session">
     <h2>
-      <span>{{ module.name }}</span>
-      <i>{{ module | length }}</i>
+      <span>Session: {{ session.created_at }}</span>
+      <i>{{ session.questions | length }}</i>
     </h2>
-    <bq:for each="module" as="q"> 
+    <bq:for each="session.questions" as="q"> 
 
       <details class="{{ q.correct }}">
         <summary>
           <i class="icon chevron-down-solid"> </i>
           <h3>
-            <span>{{ q.answers }}</span>
+            <span>{{ q.question }}</span>
           </h3>
         </summary>
         <div>
           <ul>
             <bq:for each="q.answers" as="answer">
-              <li>{{ answer }}</li>
+              <li>
+                <bq:show when="answer.correct">
+                  <i class="icon chevron-right-solid"></i>
+                </bq:show>
+                {{ answer.text }} 
+              </li>
             </bq:for>
           </ul>
 
-          <form class="icon-radio" method="POST" action="/rating:{{ q.id }}">
-            <label>
-              <bq:show when="{{ q.voted }}">
+          <bq:show when="!q.voted">
+            <form class="icon-radio" method="POST" action="/rating">
+              <input type="hidden" name="id" value="{{ q.id }}" />
+            
+
+              
+              <label>
                 <input type="radio" name="vote" value="1" onchange="this.form.submit()" />
-              </bq:show>
-                <i class="icon thumbs-up-solid" ></i>
-            </label>
-
-            <label>
-              <bq:show when="{{ !q.voted }}">
-                <input type="radio" name="vote" value="0" onchange="this.form.submit()"/>
-              </bq:show>
-              <i class="icon thumbs-down-solid" ></i>
-            </label>
-          </form>
+                <i class="icon thumbs-up-solid"></i>
+              </label>
+            
+              <label>
+                <input type="radio" name="vote" value="0" onchange="this.form.submit()" />
+                <i class="icon thumbs-down-solid"></i>
+              </label>
+            </form>
+          </bq:show>
+          <bq:show when="q.voted">
+            <span>Frage wurde bewertet.</span>
+          </bq:show>
         </div>  
-
+      </details>
     </bq:for>
   </bq:for>
 
