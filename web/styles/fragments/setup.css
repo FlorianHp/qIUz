@@ -39,8 +39,6 @@
   min-width: fit-content;
 }
 
-
-
 #setup label {
   display: block;
   font-weight: bold;
@@ -56,13 +54,19 @@
   border: 2px solid var(--color-warning);;
 }
 
+#setup div:has(button) {
+  display: flex;
+  justify-content: center;
+}
+
 #setup button {
-  width: max-content;
+  min-width: 250px;
+  margin: 0 auto;
 }
 
 @media (max-width: 600px) and (orientation: portrait) {
-  #setup div {
-    grid-template-rows: unset;
+  #setup form{
+    padding: 0;
    
   }
 
