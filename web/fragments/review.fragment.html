@@ -1,0 +1,56 @@
+<bq:fragment :name="head-section" h1="Review" p="Wiederholen und Bewerten" image="hero"></bq:fragment>
+
+<section id="review">
+
+  <bq:for each="review" as="session">
+    <h2>
+      <span>Session: {{ session.created_at }}</span>
+      <i>{{ session.questions | length }}</i>
+    </h2>
+    <bq:for each="session.questions" as="q"> 
+
+      <details class="{{ q.correct }}">
+        <summary>
+          <i class="icon chevron-down-solid"> </i>
+          <h3>
+            <span>{{ q.question }}</span>
+          </h3>
+        </summary>
+        <div>
+          <ul>
+            <bq:for each="q.answers" as="answer">
+              <li>
+                <bq:show when="answer.correct">
+                  <i class="icon chevron-right-solid"></i>
+                </bq:show>
+                {{ answer.text }} 
+              </li>
+            </bq:for>
+          </ul>
+
+          <bq:show when="!q.voted">
+            <form class="icon-radio" method="POST" action="/rating">
+              <input type="hidden" name="id" value="{{ q.id }}" />
+            
+
+              
+              <label>
+                <input type="radio" name="vote" value="1" onchange="this.form.submit()" />
+                <i class="icon thumbs-up-solid"></i>
+              </label>
+            
+              <label>
+                <input type="radio" name="vote" value="0" onchange="this.form.submit()" />
+                <i class="icon thumbs-down-solid"></i>
+              </label>
+            </form>
+          </bq:show>
+          <bq:show when="q.voted">
+            <span>Frage wurde bewertet.</span>
+          </bq:show>
+        </div>  
+      </details>
+    </bq:for>
+  </bq:for>
+
+</section>
