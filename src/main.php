@@ -219,8 +219,9 @@ router(function ( $context ) {
         fetch: function ($context) {
 
           $context->bind('title', fn($a) => 'Hilfe');
-          $context->bind('site',  fn($a) => '/img/hero/help.webp');
-          $context->bind('faq',   fn() => faq());
+          $context->bind('site',  fn()   => 'help');
+          $context->bind('hero',  fn($a) => '/img/hero/help.webp');
+          $context->bind('faq',   fn()   => faq());
 
           render('page', $context);
         }
