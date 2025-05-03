@@ -42,7 +42,9 @@ function getReview($context) {
 
     foreach ($contentRows as $row) {
 
-      $votes = json_decode($row['voted'], true);
+      $votes = json_decode($row['voted'], true) ?: [];
+
+
       $voted = $votes[$user] ?? null;
 
       $answers = json_decode($row['answers'], true) ?: [];
@@ -87,7 +89,7 @@ function vote($context) {
 
   if (!empty($row['voted'])) {
 
-    $voted = json_decode($row['voted'], true) ?? [];
+    $voted = json_decode($row['voted'], true) ?: [];
   }
 
   if (isset($voted[$user]) && $voted[$user] === (bool) $vote) {
