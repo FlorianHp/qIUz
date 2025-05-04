@@ -278,11 +278,6 @@ section video {
   --page-background-b: 192;   /*color2: grey*/
 }
 
-:where(:root) :where(body),
-:where(:root) a {
-  color: var(--color-secondary);
-}
-
 @media screen and (max-width: 1200px) {
   :where(:root) {
     --page-space: 3rem

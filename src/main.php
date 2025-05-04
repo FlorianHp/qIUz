@@ -232,6 +232,7 @@ router(function ( $context ) {
 
           $context->bind('title', fn($a) => 'Impressum');
           $context->bind('site',  fn($a) => 'contact');
+          $context->bind('hero',  fn()   => 'img/hero/contact.jpg');
 
           render('page', $context);
         }
