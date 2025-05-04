@@ -19,10 +19,13 @@ function getReview($context) {
 
   foreach ($sessions as $session) {
 
-    $sessionDataRaw = is_string($session['session']) ? json_decode($session['session'], true) : [];
-    $contentIds     = is_array($sessionDataRaw[0]) 
+    $contentIds = (is_array($sessionDataRaw) && isset($sessionDataRaw[0]) && is_array($sessionDataRaw[0]))
       ? array_column($sessionDataRaw, 'id') 
-      : $sessionDataRaw;
+      : (is_array($sessionDataRaw) ? $sessionDataRaw : []);
+    
+    $correctIds = (is_array($correctRaw) && isset($correctRaw[0]) && is_array($correctRaw[0]))
+      ? array_column($correctRaw, 'id') 
+      : (is_array($correctRaw) ? $correctRaw : []);
 
     $correctRaw = is_string($session['result']) ? json_decode($session['result'], true) : [];
     $correctIds = is_array($correctRaw[0]) 

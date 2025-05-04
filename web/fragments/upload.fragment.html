@@ -10,7 +10,7 @@
     <div>
       <div>
         <label for="module">Modul-Name:</label>
-        <input type="text" name="module" placeholder="z.B. Informatik 1" required list="modules-list" autocomplete="off"/>
+        <input id="module" type="text" name="module" placeholder="z.B. Informatik 1" required list="modules-list" autocomplete="off"/>
 
         <datalist id="modules-list">
           <bq:for each="modules" as="name">
@@ -20,27 +20,27 @@
       </div>
       <div>
         <label for="lection">Lektion:</label>
-        <input type="number" name="lection" min="1" step="1" placeholder="Alle" autocomplete="off"/>
+        <input id="lection" type="number" name="lection" min="1" step="1" placeholder="Alle" autocomplete="off"/>
       </div>
     </div>
 
     <div>
       <label for="question">Fragestellung:</label>
-      <input type="text" name="question" placeholder="Frage?" required autocomplete="off"/>
+      <input id="question" type="text" name="question" placeholder="Frage?" required autocomplete="off"/>
     </div>
 
     <div>
       <label for="correct">Korrekte Antwort:</label>
-      <input type="text" name="correct" placeholder="Korrekte Antwort..." required autocomplete="off"/>
+      <input id="correct" type="text" name="correct" placeholder="Korrekte Antwort..." required autocomplete="off"/>
   
       <label for="incorrect_1">Falsche Antwort 1:</label>
-      <input type="text" name="incorrect_1" placeholder="Falsche Antwort 1..." required autocomplete="off"/>
+      <input id="incorrect_1" type="text" name="incorrect_1" placeholder="Falsche Antwort 1..." required autocomplete="off"/>
   
       <label for="incorrect_2">Falsche Antwort 2:</label>
-      <input type="text" name="incorrect_2" placeholder="Falsche Antwort 2..." required autocomplete="off"/>
+      <input id="incorrect_2" type="text" name="incorrect_2" placeholder="Falsche Antwort 2..." required autocomplete="off"/>
 
       <label for="incorrect_3">Falsche Antwort 3:</label>
-      <input type="text" name="incorrect_3" placeholder="Falsche Antwort 3..." required autocomplete="off"/>
+      <input id="incorrect_3" type="text" name="incorrect_3" placeholder="Falsche Antwort 3..." required autocomplete="off"/>
     </div>
 
     <div>

@@ -41,7 +41,11 @@ function handleLogin($context) {
       ['username' => $username]
     );
   } catch (err) {
-    file_put_contents('login.log', "Login: " . $username . " - failed - " . date('Y-m-d H:i:s') . "[unknown user]\n", FILE_APPEND);
+    file_put_contents(
+      __DIR__ . '/logs/login.log',
+      "Login: $username - failed - " . date('Y-m-d H:i:s') . " [unknown user]\n",
+      FILE_APPEND
+    );
 
     header("Location: /login?failed=0");
     exit;
@@ -60,7 +64,11 @@ function handleLogin($context) {
 
     $jwt = createJWT($payload);
 
-    file_put_contents('login.log', "Login: " . $username . " - success - " . date('Y-m-d H:i:s') . "\n", FILE_APPEND);
+    file_put_contents(
+      __DIR__ . '/logs/login.log', 
+      "Login: " . $username . " - success - " . date('Y-m-d H:i:s') . "\n", 
+      FILE_APPEND
+    );
 
     try {
       query("
@@ -87,7 +95,11 @@ function handleLogin($context) {
     exit;
 
   } else {
-    file_put_contents('login.log', "Login: " . $username . " - failed - " . date('Y-m-d H:i:s') . "\n", FILE_APPEND);
+    file_put_contents(
+      __DIR__ . '/logs/login.log', 
+      "Login: " . $username . " - failed - " . date('Y-m-d H:i:s') . "\n", 
+      FILE_APPEND
+    );
 
     header("Location: /login?failed=0");
     exit;
