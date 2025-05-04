@@ -78,7 +78,7 @@ function handleUpload($context) {
   try {
     upload($data);
   } catch (\Throwable $th) {
-      file_put_contents(__DIR__ . '/logs/upload.log', 
+      file_put_contents(__DIR__ . '/data/upload.log', 
       "Error: " . $th, 
       FILE_APPEND
     );

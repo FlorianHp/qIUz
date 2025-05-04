@@ -42,7 +42,7 @@ function handleLogin($context) {
     );
   } catch (err) {
     file_put_contents(
-      __DIR__ . '/logs/login.log',
+      __DIR__ . '/data/login.log',
       "Login: $username - failed - " . date('Y-m-d H:i:s') . " [unknown user]\n",
       FILE_APPEND
     );
@@ -65,7 +65,7 @@ function handleLogin($context) {
     $jwt = createJWT($payload);
 
     file_put_contents(
-      __DIR__ . '/logs/login.log', 
+      __DIR__ . '/data/login.log', 
       "Login: " . $username . " - success - " . date('Y-m-d H:i:s') . "\n", 
       FILE_APPEND
     );
@@ -96,7 +96,7 @@ function handleLogin($context) {
 
   } else {
     file_put_contents(
-      __DIR__ . '/logs/login.log', 
+      __DIR__ . '/data/login.log', 
       "Login: " . $username . " - failed - " . date('Y-m-d H:i:s') . "\n", 
       FILE_APPEND
     );
