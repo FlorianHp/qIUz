@@ -280,7 +280,7 @@ section video {
 
 :where(:root) :where(body),
 :where(:root) a {
-  color: var(--color-primary) /*boy headline*/
+  color: var(--color-secondary);
 }
 
 @media screen and (max-width: 1200px) {
