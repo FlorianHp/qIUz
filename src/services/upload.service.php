@@ -78,10 +78,6 @@ function handleUpload($context) {
   try {
     upload($data);
   } catch (\Throwable $th) {
-      file_put_contents(__DIR__ . '/data/upload.log', 
-      "Error: " . $th, 
-      FILE_APPEND
-    );
     
     header("Location: /upload?success=0");
     exit;
