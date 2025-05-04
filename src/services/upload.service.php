@@ -28,7 +28,8 @@ function upload($data) {
         question, 
         answers, 
         description, 
-        rating)
+        rating,
+        creator)
     VALUES (
       :id, 
       :modul_name, 
@@ -36,7 +37,8 @@ function upload($data) {
       :question, 
       :answers, 
       :description, 
-      :rating
+      :rating,
+      :creator
     )
   ', $data);
 }

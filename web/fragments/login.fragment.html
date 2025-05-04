@@ -1,9 +1,9 @@
 <bq:fragment :name="head-section" h1="Login" p="" image="hero"></bq:fragment>
 
 <section id="login">
-   <bq:show when="failed"> 
+  <bq:show when="failed"> 
     <span>Login fehlgeschlagen ❌</span>
-   </bq:show>
+  </bq:show>
 
   <form action="/login" method="POST" data-native>
     <label for="user">Benutzer</label>
