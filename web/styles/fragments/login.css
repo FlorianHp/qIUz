@@ -2,6 +2,10 @@
   margin-top: 0;
 }
 
+#login span {
+  color: var(--color-primary);
+}
+
 #login form {
   display: grid;
   grid-template-columns: 1fr;

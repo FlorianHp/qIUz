@@ -68,6 +68,10 @@
   border: 2px solid var(--color-warning);;
 }
 
+#upload span {
+  color: var(--color-primary);
+}
+
 @media (max-width: 600px) and (orientation: portrait) {
   #upload form > div:first-of-type {
     grid-auto-flow: row;
