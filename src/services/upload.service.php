@@ -46,14 +46,14 @@ function handleUpload($context) {
     return htmlspecialchars(trim($v), ENT_QUOTES | ENT_HTML5, 'UTF-8');
   }
 
-  $module   = clean($context->param('module'));
-  $lection  = (int) $context->param('lection');
-  $question = clean($context->param('question'));
-  $correct  = clean($context->param('correct'));
-  $false1   = clean($context->param('incorrect_1'));
-  $false2   = clean($context->param('incorrect_2'));
-  $false3   = clean($context->param('incorrect_3'));
-  $descr    = clean($context->param('description'));
+  $module   = clean($_POST['module']);
+  $lection  = (int) $_POST['lection'];
+  $question = clean($_POST['question']);
+  $correct  = clean($_POST['correct']);
+  $false1   = clean($_POST['incorrect_1']);
+  $false2   = clean($_POST['incorrect_2']);
+  $false3   = clean($_POST['incorrect_3']);
+  $descr    = clean($_POST['description']);
 
   $id = substr(md5($question), 0, 8);
 
