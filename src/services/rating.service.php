@@ -1,8 +1,8 @@
 <?php
 
-function getReview($context) {
+function getReview($context): array {
   $user   = $context->use('user');
-  $amount = $context->query('amount') ?? 3;
+  $amount = (int)($context->query('amount') ?? 3);
 
   $sessions = query("
     SELECT id AS session_id, session, result, created_at
@@ -12,25 +12,20 @@ function getReview($context) {
     LIMIT :amount
   ", [
     'user' => $user,
-    'amount' => (int)$amount
+    'amount' => $amount
   ]);
 
   $result = [];
 
   foreach ($sessions as $session) {
 
-    $contentIds = (is_array($sessionDataRaw) && isset($sessionDataRaw[0]) && is_array($sessionDataRaw[0]))
-      ? array_column($sessionDataRaw, 'id') 
-      : (is_array($sessionDataRaw) ? $sessionDataRaw : []);
-    
-    $correctIds = (is_array($correctRaw) && isset($correctRaw[0]) && is_array($correctRaw[0]))
-      ? array_column($correctRaw, 'id') 
-      : (is_array($correctRaw) ? $correctRaw : []);
+    $sessionDataRaw = is_string($session['result']) ? json_decode($session['result'], true) : [];
 
-    $correctRaw = is_string($session['result']) ? json_decode($session['result'], true) : [];
-    $correctIds = is_array($correctRaw[0]) 
-      ? array_column($correctRaw, 'id') 
-      : $correctRaw;
+    $contentIds = array_column($sessionDataRaw, 'id');
+    $correctIds = array_column(
+      array_filter($sessionDataRaw, fn($q) => !empty($q['correct'])),
+      'id'
+    );
 
     if (empty($contentIds)) continue;
 
@@ -43,7 +38,6 @@ function getReview($context) {
     ];
 
     foreach ($contentRows as $row) {
-
       $voted = null;
 
       if (is_string($row['voted'])) {
