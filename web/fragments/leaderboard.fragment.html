@@ -18,8 +18,8 @@
             <bq:show when="@i == 2">🥉</bq:show>
             <bq:show when="@i > 2">{{ @i | add }}</bq:show>
           </div>
-          <div class="leaderboard--name">{{ player.user_name }}</div>
-          <div class="leaderboard--wins">{{ player.wins }} Siege</div>
+          <div class="leaderboard--name">{{ player.username }}</div>
+          <div class="leaderboard--wins">{{ player.questions }} Gespielt</div>
           <div class="leaderboard--score">{{ player.score }} Punkte</div>
         </div>
       </bq:for>
