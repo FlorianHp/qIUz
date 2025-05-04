@@ -73,34 +73,7 @@ if (is_file($file)) {
   ];
   
   if ($ext != 'php') {
-
-    switch ($ext) {
-      case 'css':
-        $cacheControl = $_ENV['WEB_CACHE_CSS'] ?? 'private, no-cache, no-store';
-        break;
-    
-      case 'woff':
-      case 'woff2':
-      case 'ttf':
-      case 'otf':
-      case 'eot':
-        $cacheControl = $_ENV['WEB_CACHE_FONT'] ?? 'private, no-cache, no-store';
-        break;
-    
-      case 'webp':
-      case 'svg':
-      case 'jpg':
-      case 'jpeg':
-      case 'png':
-      case 'gif':
-      case 'ico':
-        $cacheControl = $_ENV['WEB_CACHE_IMG'] ?? 'private, no-cache, no-store';
-        break;
-    
-      default:
-        $cacheControl = $_ENV['WEB_CACHE_DEFAULT'] ?? 'private, no-cache, no-store';
-        break;
-    };
+    $cacheControl  = isset($_ENV['WEB_CACHE']) ? $_ENV['WEB_CACHE'] : 'public, max-age=3600';
     $lastModified  = filemtime($file);
     $hash          = md5_file($file);
     $formattedTime = gmdate('D, d M Y H:i:s \G\M\T', $lastModified);
