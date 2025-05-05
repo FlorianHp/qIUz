@@ -3,18 +3,25 @@
 <section id="setup">
 
   <div>
-    <form method="GET">
+    <form method="GET" data-url="setup?fragment=setup" data-replace="#setup" data-select="#setup" data-selected="{{ selected }}">
+      <input type="hidden" name="fragment" value="setup">
+    
       <label for="module-select">Modul</label>
-      <select id="module-select" name="module" required onchange="this.form.submit()" data-replace="select[name='lection']" >
-        <option disabled selected>Modul wählen</option>
+      <select id="module-select" name="module" data-trigger="change">
         <bq:for each="setup" as="entry">
-          <option value="{{ entry.module }}" selected="{{ entry.is_selected }}" >{{ entry.module }}</option>
+          <bq:show when="entry.module == selected">
+            <option value="{{ entry.module }}" selected>{{ entry.module }}</option>
+          </bq:show>
+          <bq:show when="entry.module != selected">
+            <option value="{{ entry.module }}">{{ entry.module }}</option>
+          </bq:show>
         </bq:for>
+        
       </select>
     </form>
-  
-  
-    <form method="POST" action="/create">
+    
+    
+    <form method="POST" data-url="/create">
       <input type="hidden" name="module" value="{{ selected }}">
 
       <div id="create"> 

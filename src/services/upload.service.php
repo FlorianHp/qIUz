@@ -81,10 +81,10 @@ function handleUpload($context) {
     upload($data);
   } catch (\Throwable $th) {
     
-    header("Location: /upload?success=0");
+    header('X-Redirect: /upload?success=0');
     exit;
   }
 
-  header("Location: /upload?success=1");
+  header("X-Redirect: /upload?success=1");
   exit;
 }

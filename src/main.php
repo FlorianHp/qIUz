@@ -113,17 +113,17 @@ router(function ( $context ) {
 
           if (!empty($context->cookie('session'))) {
             $id = $context->cookie('session');
+
             header("Location: /session?id=$id");
             exit;
           }
 
-          $context->bind('title',    fn($a) => 'Setup');
-          $context->bind('site',     fn()   => 'setup');
-          $context->bind('hero',     fn()   => '/img/hero/setup.webp');
-          $context->bind('setup',    fn()   => getSetup($context));
-          $context->bind('s',        fn($a) => $a == $context->use('selected') ? true : false);
+          $context->bind('title', fn($a) => 'Setup');
+          $context->bind('site',  fn()   => 'setup');
+          $context->bind('hero',  fn()   => '/img/hero/setup.webp');
+          $context->bind('setup', fn()   => getSetup($context));
           
-          render('page', $context);
+          render($context->query('fragment') ?? 'page', $context);
         }
       ),
       route(
@@ -131,7 +131,8 @@ router(function ( $context ) {
         fetch: function ($context) {
           if (empty($context->cookie('session'))) {
             if (!headers_sent()) {
-              header("Location: /setup");
+
+              header('Location: /setup');
               exit;
             }
             exit;
@@ -141,7 +142,8 @@ router(function ( $context ) {
           
           if (empty($question) || !isset($question['question'])) {
             if (!headers_sent()) {
-              header("Location: /setup");
+
+              header('Location: /setup');
               exit;
             }
             exit;
@@ -152,7 +154,7 @@ router(function ( $context ) {
           $context->bind('hero',     fn()   => '/img/hero/game.webp');
           $context->bind('question', fn()   => $question);
 
-          render('page', $context);
+          render($context->query('fragment') ?? 'page', $context);
         }
       ),
       route(
@@ -232,7 +234,7 @@ router(function ( $context ) {
 
           $context->bind('title', fn($a) => 'Impressum');
           $context->bind('site',  fn($a) => 'contact');
-          $context->bind('hero',  fn()   => 'img/hero/contact.jpg');
+          $context->bind('hero',  fn()   => 'img/hero/contact.webp');
 
           render('page', $context);
         }

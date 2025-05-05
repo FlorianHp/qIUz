@@ -139,156 +139,177 @@ hook('[data-trigger]', (e) => {
 });
 
 hook('form', (e) => {
-  const select  = e.dataset.select,
-        append  = e.dataset.append,
-        remove  = e.dataset.remove,
-        prepend = e.dataset.prepend,
-        replace = e.dataset.replace;
+
+  const replace = e.dataset.replace;
+  const append  = e.dataset.append;
+  const prepend = e.dataset.prepend;
+  const remove  = e.dataset.remove;
+  const select  = e.dataset.select;
 
   e.addEventListener('submit', async (ev) => {
     if (e.hasAttribute('data-native')) return;
-    const submitter   = ev.submitter;
-          url         = new URL(e.dataset.url ?? submitter.getAttribute('formaction') ?? e.action ?? location.pathname, location.href),
-          method      = (submitter.getAttribute('formmethod') ?? e.getAttribute('method') ?? 'GET').toUpperCase(),
-          contentType = submitter.getAttribute('formenctype') ?? e.getAttribute('enctype') ?? 'application/x-www-form-urlencoded';
+
+    const submitter = ev.submitter;
+
+    const action = e.dataset.url
+                ?? (submitter ? submitter.getAttribute('formaction') : null)
+                ?? e.action
+                ?? location.pathname;
+
+    const url = new URL(action, location.href);
+
+    const method = ((submitter && submitter.getAttribute('formmethod')) ?? e.getAttribute('method') ?? 'GET').toUpperCase();
+
+    const contentType = (submitter && submitter.getAttribute('formenctype')) ?? e.getAttribute('enctype') ?? 'application/x-www-form-urlencoded';
 
     let data = null;
 
-    if (contentType == 'application/json') {
+    if (contentType === 'application/json') {
       data = {};
-    } 
+    }
 
     ev.stopPropagation();
     ev.preventDefault();
 
-    document.dispatchEvent(new CustomEvent(`bq:fetch`, { 
-      detail: e.action ?? location.pathname 
+    document.dispatchEvent(new CustomEvent(`bq:fetch`, {
+      detail: e.action ?? location.pathname
     }));
 
     const setProperty = (key, v) => {
       const parts = key.split('.');
-
       let d = data;
 
       for (let i = 0, k; i < parts.length; i++) {
         k = parts[i];
 
-        if (i == parts.length -1) {
-
-         if (Array.isArray(d[k])) {
+        if (i === parts.length - 1) {
+          if (Array.isArray(d[k])) {
             d[k].push(v);
           } else if (d[k]) {
             d[k] = [d[k]];
-
             d[k].push(v);
           } else {
             d[k] = v;
           }
-
           continue;
-        } 
+        }
 
-        d[k] = {};
+        d[k] ??= {};
+        d = d[k];
       }
-    }
+    };
 
     const valueOf = (input) => {
-      return input.type == 'checkbox' ? input.checked : input.type == 'number' ? input.valueAsNumber : input.value;
-    }
+      return input.type === 'checkbox' ? input.checked
+           : input.type === 'number'   ? input.valueAsNumber
+           : input.value;
+    };
 
-    for (const input of e.querySelectorAll('input,select,textarea,[name]')) {
+    for (const input of e.querySelectorAll('input, select, textarea, [name]')) {
       const v = valueOf(input);
 
-     if (method === 'GET') {
-        v != false ? url.searchParams.set(input.name, v) : null;
+      if (method === 'GET') {
+        if (v !== false) url.searchParams.set(input.name, v);
       } else if (method === 'POST' && contentType === 'application/x-www-form-urlencoded') {
         data ??= new URLSearchParams();
-        v != false ? data.append(input.name, v) : null;
+        if (v !== false) data.append(input.name, v);
       } else if (method === 'POST' && contentType === 'application/json') {
         setProperty(input.name, v);
       }
-
     }
 
     e.classList.add('--loading');
 
     if (append || replace) {
-      document.querySelector(append || replace).classList.add('--loading');
+      document.querySelector(append || replace)?.classList.add('--loading');
     }
-  
+
     if (remove) {
-      for (const e of document.querySelectorAll(remove)) {
-        e.classList.add('--remove');
+      for (const el of document.querySelectorAll(remove)) {
+        el.classList.add('--remove');
       }
     }
 
     if (pending[url.pathname]) {
       pending[url.pathname].abort('-');
-    } 
-  
+    }
+
     pending[url.pathname] = new AbortController();
-  
-    const response = await fetch(url, { 
+
+    const response = await fetch(url, {
       method: method,
       signal: pending[url.pathname].signal,
-      body: method == 'GET' ? null : method == 'POST' && contentType == 'application/json' ? JSON.stringify(data) : url.searchParams.toString(),
+      body: method === 'GET' ? null
+           : method === 'POST' && contentType === 'application/json' ? JSON.stringify(data)
+           : data,
       headers: {
         'content-type': contentType,
         'accept': 'text/html'
-      }
+      },
+      credentials: 'same-origin'
     }).catch(_ => ({ ok: false }));
 
+
     if (response.ok) {
+
+      const redirectTo = response.headers.get('X-Redirect');
+
+      if (redirectTo) {
+        location.href = redirectTo;
+        return;
+      }
+
       const html = dom(await response.text());
 
       delete pending[url.pathname];
 
-      if (url.pathname == location.pathname) {
+      if (url.pathname === location.pathname) {
         window.history.replaceState(null, null, url.pathname);
       }
 
       document.startViewTransition(() => {
-
         if (remove) {
-          for (const e of document.querySelectorAll(remove)) {
-            e.remove();
+          for (const el of document.querySelectorAll(remove)) {
+            el.remove();
           }
         }
-        
+
         if (append) {
-          const appendContainer = document.querySelector(append);
-  
-          for (const e of html.querySelectorAll(select)) {
-            appendContainer.append(e);
+          const container = document.querySelector(append);
+          for (const el of html.querySelectorAll(select)) {
+            container.append(el);
           }
         }
-  
+
         if (replace) {
-          document.querySelector(replace).replaceWith(html.querySelector(select || replace));
+          const oldEl = document.querySelector(replace);
+          const newEl = html.querySelector(select || replace);
+          if (oldEl && newEl) {
+            oldEl.replaceWith(newEl);
+          }
         }
-  
+
         if (prepend) {
           const p = document.querySelector(prepend);
-  
-          p.parentNode.insertBefore(html.querySelector(select), p);
+          const newEl = html.querySelector(select);
+          if (p && newEl) {
+            p.parentNode.insertBefore(newEl, p);
+          }
         }
-  
+
         reset(e);
       });
-      
     }
 
     if (append) {
       const appendContainer = document.querySelector(append);
-      
-      requestAnimationFrame(() => appendContainer.classList.remove('--loading'));
+      requestAnimationFrame(() => appendContainer?.classList.remove('--loading'));
     }
 
     e.classList.remove('--loading');
 
-    document.dispatchEvent(new CustomEvent(`bq:fetched`, { 
-      detail: e.dataset.url ?? location.pathname 
+    document.dispatchEvent(new CustomEvent(`bq:fetched`, {
+      detail: e.dataset.url ?? location.pathname
     }));
-
   });
 });
