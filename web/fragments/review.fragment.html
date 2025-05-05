@@ -31,9 +31,7 @@
           <bq:show when="!q.voted">
             <form class="icon-radio" method="POST" action="/rating">
               <input type="hidden" name="id" value="{{ q.id }}" />
-            
 
-              
               <label>
                 <input type="radio" name="vote" value="1" onchange="this.form.submit()" />
                 <i class="icon thumbs-up-solid"></i>

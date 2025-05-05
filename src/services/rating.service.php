@@ -123,6 +123,6 @@ function vote($context) {
     exit;
   }
   
-  header("X-Redirect: /review");
+  header("Location: /review");
   exit;
 }

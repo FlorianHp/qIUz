@@ -1,7 +1,7 @@
 <?php 
 
 function getSetup($context) {
-  
+
   try {
     $modules = query('
       SELECT DISTINCT
@@ -173,6 +173,10 @@ function getQuestion($context) {
 
   $answers = json_decode($data['answers'], true);
 
+  foreach ($answers as $i => &$a) {
+    $a['id'] = md5($a['text']); 
+  }
+
   shuffle($answers);
 
   $data['answers'] = $answers;
@@ -185,132 +189,81 @@ function getQuestion($context) {
 }
 
 function evaluate($context) {
-
   $id         = $context->cookie('session');
   $userAnswer = $_POST['answer'] ?? null;
-  $decoded    = [];
 
-  if (!$userAnswer) {
+  if (!$userAnswer || !$id) {
     http_response_code(400);
     exit;
   }
 
-  $row = query('
-    SELECT 
-      session,
-      progress
-    FROM 
-      sessions
-    WHERE 
-      id = :id
-  ', [
+  $row = query('SELECT session, progress FROM sessions WHERE id = :id', [
     'id' => $id
   ])[0] ?? null;
-  
+
   if (!$row) {
     http_response_code(404);
     exit;
   }
-  
-  $session  = json_decode($row['session'], true);
 
-  $progress = (int) $row['progress'];
-
-  $answers = query('
-    SELECT 
-      answers
-    FROM 
-      content
-    WHERE 
-      id = :id
-  ', [
-    'id' => $session[$progress]['id']
-  ])[0] ?? null;
-
-  if (!$answers || !isset($answers['answers'])) {
+  $session = json_decode($row['session'], true);
+  if (!is_array($session)) {
     http_response_code(500);
     exit;
   }
 
-  $answers = json_decode($answers['answers'], true);
+  $progress = (int) $row['progress'];
 
+  $currentItem = $session[$progress] ?? null;
+  if (!$currentItem || !isset($currentItem['id'])) {
+    http_response_code(500);
+    exit;
+  }
+
+  $answersRow = query('SELECT answers FROM content WHERE id = :id', [
+    'id' => $currentItem['id']
+  ])[0] ?? null;
+
+  $answers = is_string($answersRow['answers']) ? json_decode($answersRow['answers'], true ) : [];
   if (!is_array($answers)) {
     http_response_code(500);
     exit;
   }
 
-  $match = array_filter($answers, fn($a) => $a['text'] === $userAnswer);
+  $match = array_filter($answers, fn($a) => md5($a['text']) === $userAnswer);
+  $correct = !empty($match) && array_values($match)[0]['correct'];
 
-  if (!$match) {
-    http_response_code(404);
-    exit;
-  } else {
+  $existingRow = query('SELECT result FROM sessions WHERE id = :id', [
+    'id' => $id
+  ])[0] ?? [];
 
-    $correct = array_values($match)[0]['correct'];
-
-    if ($correct) {
-      $existingRow = query('
-        SELECT 
-          result 
-        FROM 
-          sessions 
-        WHERE 
-          id = :id', [
-          'id' => $id
-        ]
-      )[0] ?? [];
-
-      $decoded = !empty($existingRow['result']) ? json_decode($existingRow['result'], true) : [];
-
-      $decoded[] = $session[$progress];
-    
-      query('
-        UPDATE
-          sessions
-        SET
-          progress = progress + 1,
-          result = :result
-        WHERE
-          id = :id
-        ', [
-          'id' => $id,
-          'result' => json_encode($decoded)
-        ]
-      );
-    } else {
-      query('
-        UPDATE
-          sessions
-        SET
-          progress = progress + 1
-        WHERE
-          id = :id
-        ', [
-          'id' => $id
-        ]
-      );
-    }
+  $decoded = [];
+  if (!empty($existingRow['result'])) {
+    $decoded = is_String($existingRow['result']) ? json_decode($existingRow['result'], true) : [];
+    if (!is_array($decoded)) $decoded = [];
   }
-  
-  if (!isset($session[$progress + 1])) {
-    $existingRow = query('
-      SELECT 
-        result 
-      FROM 
-        sessions 
-      WHERE 
-        id = :id', [
-        'id' => $id
-      ]
-    )[0] ?? [];
-  
-    $decoded = !empty($existingRow['result']) ? json_decode($existingRow['result'], true) : [];
-  
-    $total = max(count($session ?? []), 1);
-    $score = round(count($decoded ?? []) / $total * 100);
-  
-    $context->setCookie('session', '', time() -3600);
-  
+
+  if ($correct) {
+    $decoded[] = $currentItem;
+
+    query('UPDATE sessions SET progress = progress + 1, result = :result WHERE id = :id', [
+      'id'     => $id,
+      'result' => json_encode($decoded)
+    ]);
+  } else {
+    query('UPDATE sessions SET progress = progress + 1 WHERE id = :id', [
+      'id' => $id
+    ]);
+  }
+
+  $nextIndex = $progress + 1;
+
+  if (!isset($session[$nextIndex])) {
+    $total = max(count($session), 1);
+    $score = round(count($decoded) / $total * 100);
+
+    $context->setCookie('session', '', time() - 3600);
+
     header("X-Redirect: /result$score");
     exit;
   }
