@@ -1,37 +1,37 @@
 <?php 
 
 function getSetup($context) {
+  
   try {
     $modules = query('
       SELECT DISTINCT
-        modul_name AS module,
-        lektion    AS lection
+        modul_name AS module
       FROM
         content
     ');
   } catch (\Throwable $th) {
-
     http_response_code(500);
     exit;
   }
 
   $selected = $context->query('module') ?: '';
 
-  
   $context->bind('selected', fn() => $selected);
 
-  $lections = [];
+  if ($selected) {
+    $lections = query('
+      SELECT DISTINCT
+        lektion
+      FROM
+        content
+      WHERE
+        modul_name = :modul
+      ORDER BY
+        lektion ASC
+    ', ['modul' => $selected]);
 
-  foreach ($modules as &$m) {
+    $lections = array_column($lections, 'lektion');
 
-    if ($m['module'] === $selected) {
-      $lections[] = $m['lection'];
-    }
-  }
-
-  if (!empty($lections)) {
-    $lections = array_values(array_unique($lections));
-    sort($lections);
     $context->bind('lections', fn() => $lections);
   }
 
