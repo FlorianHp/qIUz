@@ -205,7 +205,12 @@ hook('form', (e) => {
            : input.value;
     };
 
-    for (const input of e.querySelectorAll('input, select, textarea, [name]')) {
+    const inputs = e.querySelectorAll('input, select, textarea, [name]');
+
+    for (const input of inputs) {
+      
+      if (input.type === 'radio' && !input.checked) continue;
+
       const v = valueOf(input);
 
       if (method === 'GET') {
@@ -297,7 +302,9 @@ hook('form', (e) => {
           }
         }
 
-        reset(e);
+        if (method !== 'GET') {
+          reset(e);
+        }
       });
     }
 
