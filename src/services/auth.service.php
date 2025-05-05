@@ -80,9 +80,7 @@ function handleLogin($context) {
     $context->setCookie('token', $jwt, $expire);
 
     header('Location: /');
-    http_response_code(303);
     exit;
-
   } else {
 
     header("Location: /login?failed=0");
@@ -108,6 +106,6 @@ function handleLogout($context) {
 
   $context->setCookie('token', '', $expire);
 
-  header("Location: /login");
+  header('Location: /login');
   exit;
 }

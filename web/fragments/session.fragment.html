@@ -17,7 +17,8 @@
   </div>
   
 
-  <form action="/session" method="post">
+  <form method="post" data-url="/session" data-replace="#session" data-select="#session">
+    <input type="hidden" name="fragment" value="session">
     <bq:for each="question.answers" as="answer">
       <label>
         <input type="radio" name="answer" value="{{ answer.text }}">
@@ -25,6 +26,6 @@
       </label>
     </bq:for>
 
-    <button type="submit">Senden</button>
+    <button type="submit" data-trigger="submit">Senden</button>
   </form>
 </section>

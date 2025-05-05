@@ -11,3 +11,18 @@ document.querySelectorAll('.stamina-ring').forEach(el => {
     }
   }
 });
+
+document.addEventListener('bq:fetched', (event) => {
+    if (event.detail === 'setup') {
+
+      const select = document.querySelector('#module-select');
+      if (select) {
+        const selected = select.dataset.selected;
+        if (selected) {
+          select.value = selected;
+        }
+      }
+    }
+  }
+);
+

@@ -126,10 +126,7 @@
 }
 
 #review li:has(i) {
-  background: var(--color-success);
-  border-radius: var(--border-radius);
-  margin: 0;
-  padding: .4rem 1rem;
+  padding: 0 1rem;
   width: fit-content;
   position: relative;
   left: -2rem;

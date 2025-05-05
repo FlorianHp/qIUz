@@ -1,7 +1,6 @@
 <?php 
 
 function getSetup($context) {
-
   try {
     $modules = query('
       SELECT DISTINCT
@@ -9,30 +8,30 @@ function getSetup($context) {
         lektion    AS lection
       FROM
         content
-      '
-    );
+    ');
   } catch (\Throwable $th) {
+
     http_response_code(500);
     exit;
   }
- 
-  $selected = $context->query('module') ?: null;
+
+  $selected = $context->query('module') ?: '';
+
   
-  if ($selected) {
-    
-    foreach ($modules as &$m) {
-      $m['is_selected'] = $m['module'] === $selected ? true : false;
+  $context->bind('selected', fn() => $selected);
+
+  $lections = [];
+
+  foreach ($modules as &$m) {
+
+    if ($m['module'] === $selected) {
+      $lections[] = $m['lection'];
     }
+  }
 
-    $lections = array_unique(
-      array_column(
-        array_filter($modules, fn($s) => $s['module'] === $selected),
-        'lection'
-      )
-    ) ?? null;
-
+  if (!empty($lections)) {
+    $lections = array_values(array_unique($lections));
     sort($lections);
-    $context->bind('selected', fn() => $context->query('module'));
     $context->bind('lections', fn() => $lections);
   }
 
@@ -98,7 +97,7 @@ function createSession($context) {
 
   $context->setCookie('session', $id, $expire);
 
-  header("Location: /session?id=$id");
+  header("X-Redirect: /session?id=$id");
   exit;
 }
 
@@ -294,31 +293,28 @@ function evaluate($context) {
   }
   
   if (!isset($session[$progress + 1])) {
-
-    if (!$decoded) {
-      $existingRow = query('
-        SELECT 
-          result 
-        FROM 
-          sessions 
-        WHERE 
-          id = :id', [
-          'id' => $id
-        ]
-      )[0] ?? [];
-
-      $decoded = !empty($existingRow['result']) ? json_decode($existingRow['result'], true) : [];
-    }
-
+    $existingRow = query('
+      SELECT 
+        result 
+      FROM 
+        sessions 
+      WHERE 
+        id = :id', [
+        'id' => $id
+      ]
+    )[0] ?? [];
+  
+    $decoded = !empty($existingRow['result']) ? json_decode($existingRow['result'], true) : [];
+  
     $total = max(count($session ?? []), 1);
     $score = round(count($decoded ?? []) / $total * 100);
-
+  
     $context->setCookie('session', '', time() -3600);
-    
-    header("Location: /result$score");
+  
+    header("X-Redirect: /result$score");
     exit;
   }
-  
+
   header("Location: /session");
   exit;
 }

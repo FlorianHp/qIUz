@@ -10,27 +10,31 @@ function getReview($context): array {
     WHERE user_id = :user
     ORDER BY created_at DESC
     LIMIT :amount
-  ", [
-    'user' => $user,
-    'amount' => $amount
-  ]);
+    ", [
+      'user' => $user,
+      'amount' => $amount
+    ]
+  );
 
   $result = [];
 
   foreach ($sessions as $session) {
 
-    $sessionDataRaw = is_string($session['result']) ? json_decode($session['result'], true) : [];
+    $sessionRaw = is_string($session['session']) ? json_decode($session['session'], true) : [];
+    $correctRaw = is_string($session['result']) ? json_decode($session['result'], true) : [];
 
-    $contentIds = array_column($sessionDataRaw, 'id');
-    $correctIds = array_column(
-      array_filter($sessionDataRaw, fn($q) => !empty($q['correct'])),
-      'id'
-    );
+    $sessionIds = array_map(function ($item) {
+      return is_array($item) && isset($item['id']) ? (string)$item['id'] : (string)$item;
+    }, $sessionRaw);
 
-    if (empty($contentIds)) continue;
+    $correctIds = array_map(function ($item) {
+      return is_array($item) && isset($item['id']) ? (string)$item['id'] : (string)$item;
+    }, $correctRaw);
 
-    $placeholders = implode(', ', array_fill(0, count($contentIds), '?'));
-    $contentRows  = query("SELECT * FROM content WHERE id IN ($placeholders)", $contentIds);
+    if (empty($sessionIds)) continue;
+
+    $placeholders = implode(', ', array_fill(0, count($sessionIds), '?'));
+    $contentRows  = query("SELECT * FROM content WHERE id IN ($placeholders)", $sessionIds);
 
     $sessionData = [
       'created_at' => date('d.m.Y H:i', strtotime($session['created_at'])),
@@ -38,8 +42,9 @@ function getReview($context): array {
     ];
 
     foreach ($contentRows as $row) {
-      $voted = null;
+      $id = (string)$row['id'];
 
+      $voted = null;
       if (is_string($row['voted'])) {
         $votes = json_decode($row['voted'], true) ?: [];
         $voted = $votes[$user] ?? null;
@@ -48,9 +53,9 @@ function getReview($context): array {
       $answers = is_string($row['answers']) ? json_decode($row['answers'], true) : [];
 
       $sessionData['questions'][] = [
-        'id'       => (string) $row['id'],
+        'id'       => $id,
         'question' => $row['question'],
-        'correct'  => in_array((string)$row['id'], array_map('strval', $correctIds), true) ? 'correct' : 'incorrect',
+        'correct'  => in_array($id, $correctIds, true) ? 'correct' : 'incorrect',
         'voted'    => $voted,
         'answers'  => $answers
       ];
@@ -118,6 +123,6 @@ function vote($context) {
     exit;
   }
   
-  header("Location: /review");
+  header("X-Redirect: /review");
   exit;
 }
