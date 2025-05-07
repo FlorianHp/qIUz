@@ -122,8 +122,17 @@ router(function ( $context ) {
           $context->bind('site',  fn()   => 'setup');
           $context->bind('hero',  fn()   => '/img/hero/setup.webp');
           $context->bind('setup', fn()   => getSetup($context));
+
+          $userAgent = $_SERVER['HTTP_USER_AGENT'] ?? '';
+          $isFirefox = stripos($userAgent, 'firefox') !== false;
+
+          $fragment = $context->query('fragment');
+
+          if ($isFirefox && $fragment) {
+              $fragment = null;
+          }
           
-          render($context->query('fragment') ?? 'page', $context);
+          render($fragment ?? 'page', $context);
         }
       ),
       route(
