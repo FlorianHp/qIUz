@@ -9,7 +9,7 @@ function result($context) {
     $result = [
       'h1'      => 'Gewonnen',
       'p'       => 'Lernen zahlt sich aus!',
-      'message' => 'Herzlichen GLückwunsch zu deinem Ergebnis. Zur Feier ein Zitat.',
+      'message' => 'Herzlichen Glückwunsch zu deinem Ergebnis. Zur Feier ein Zitat.',
       'cite'    => ">>Veni, vidi, vici.<<<br> - Julius Caesar -",
       'score'   => $score,
       'gif'     => 'win'
