@@ -8,6 +8,7 @@
     
       <label for="module-select">Modul</label>
       <select id="module-select" name="module" data-trigger="change">
+        <option selected disabled>Modul wählen</option>
         <bq:for each="setup" as="entry">
           <bq:show when="entry.module == selected">
             <option value="{{ entry.module }}" selected>{{ entry.module }}</option>
